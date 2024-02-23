@@ -1,4 +1,4 @@
-package game.engine.base;
+package game.engine.exceptions;
 
 public class EMPTY {
 

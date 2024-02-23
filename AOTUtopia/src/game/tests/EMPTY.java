@@ -1,4 +1,4 @@
-package game.engine.base;
+package game.tests;
 
 public class EMPTY {
 
