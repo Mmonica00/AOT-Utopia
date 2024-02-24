@@ -29,4 +29,5 @@ public abstract class Titan {
 		int temp=this.distanceFromBase-o.distanceFromBase;
 		return (temp<0)?-1:(temp>0)?1:0;
 	}
+	
 }
