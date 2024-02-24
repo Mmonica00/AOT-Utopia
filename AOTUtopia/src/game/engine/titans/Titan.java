@@ -27,8 +27,6 @@ public abstract class Titan {
 	
 	public int compareTo(Titan o) {
 		int temp=this.distanceFromBase-o.distanceFromBase;
-		if(temp<0){return -1;}
-		else if(temp==0) {return 0;}
-		else {return 1;}
+		return (temp<0)?-1:(temp>0)?1:0;
 	}
 }
