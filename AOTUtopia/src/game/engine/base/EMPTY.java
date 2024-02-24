@@ -7,6 +7,8 @@ public class EMPTY {
 		//The only purpose of this class is to make the package visible on github
 		//Kindly delete this class whenever any other class is implemented in this package
 		//maria
+		//code
+		
 		
 	}
 }
