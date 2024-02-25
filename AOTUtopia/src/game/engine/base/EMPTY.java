@@ -8,7 +8,5 @@ public class EMPTY {
 		//Kindly delete this class whenever any other class is implemented in this package
 		//maria
 		//code
-		
-		
 	}
 }
