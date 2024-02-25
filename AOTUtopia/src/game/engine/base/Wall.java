@@ -1,7 +1,7 @@
 package game.engine.base;
 
 public class Wall {
-	private int baseHealth;
+	final private int baseHealth;
 	private int currentHealth;
 	
 	public Wall(int baseHealth) {
