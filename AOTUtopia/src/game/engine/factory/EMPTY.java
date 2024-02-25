@@ -1,4 +1,4 @@
-package game.engine.weapons.factory;
+package game.engine.factory;
 
 public class EMPTY {
 
