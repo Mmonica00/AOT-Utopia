@@ -9,8 +9,8 @@ import game.engine.weapons.Weapon;
 public class Lane {
 	final private Wall laneWall;
 	private int dangerLevel;
-	private PriorityQueue<Titan> titans;
-	private ArrayList<Weapon> weapons;
+	private PriorityQueue<Titan> titans; //FIXME: attribute needs to be final after initialization
+	private ArrayList<Weapon> weapons; //FIXME: attribute needs to be final after initialization
 	
 	public Lane(Wall laneWall) {
 		super();
