@@ -1,9 +1,9 @@
 package game.engine.weapons;
 
 public abstract class Weapon {
-	private int baseDamage;
+	private final int baseDamage;
 
-	public final int getBaseDamage() {
+	public int getBaseDamage() {
 		return baseDamage;
 	}
 

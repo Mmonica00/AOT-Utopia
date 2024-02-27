@@ -1,14 +1,16 @@
 package game.engine.weapons;
 
-public class Wall_Trap extends Weapon{
-	private final int WEAPON_CODE =4;
+public class SniperCannon extends Weapon {
+	private final int WEAPON_CODE =2;
 
-	public Wall_Trap(int baseDamage) {
+	public SniperCannon(int baseDamage) {
 		super(baseDamage);
 	}
 
 	public int getWEAPON_CODE() {
 		return WEAPON_CODE;
 	}
+
+	
 	
 }
