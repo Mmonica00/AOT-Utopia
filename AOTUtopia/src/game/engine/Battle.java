@@ -45,7 +45,7 @@ public class Battle {
 		this.lanes = new PriorityQueue<Lane>(); //Least dangerous lanes will have the highest priority
 		this.originalLanes = new ArrayList<Lane>();
 	}
-	
+
 	private void initializeLanes(int numOfLanes) { //TODO: review this method
 		
 		for(int i=0;i<numOfLanes;i++) {
@@ -59,7 +59,79 @@ public class Battle {
 		
 	}
 	
+	//Getters & setters
 	
+	public int getNumberOfTurns() {
+		return numberOfTurns;
+	}
+
+	public void setNumberOfTurns(int numberOfTurns) {
+		this.numberOfTurns = numberOfTurns;
+	}
+
+	public int getResourcesGathered() {
+		return resourcesGathered;
+	}
+
+	public void setResourcesGathered(int resourcesGathered) {
+		this.resourcesGathered = resourcesGathered;
+	}
+
+	public BattlePhase getBattlePhase() {
+		return battlePhase;
+	}
+
+	public void setBattlePhase(BattlePhase battlePhase) {
+		this.battlePhase = battlePhase;
+	}
+
+	public int getNumberOfTitansPerTurn() {
+		return numberOfTitansPerTurn;
+	}
+
+	public void setNumberOfTitansPerTurn(int numberOfTitansPerTurn) {
+		this.numberOfTitansPerTurn = numberOfTitansPerTurn;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public int[][] getPHASES_APPROACHING_TITANS() {
+		return PHASES_APPROACHING_TITANS;
+	}
+
+	public int getWALL_BASE_HEALTH() {
+		return WALL_BASE_HEALTH;
+	}
+
+	public int getTitanSpawnDistance() {
+		return titanSpawnDistance;
+	}
+
+	public WeaponFactory getWeaponFactory() {
+		return weaponFactory;
+	}
+
+	public HashMap<Integer, TitanRegistry> getTitansArchives() {
+		return titansArchives;
+	}
+
+	public ArrayList<Titan> getApproachingTitans() {
+		return approachingTitans;
+	}
+
+	public PriorityQueue<Lane> getLanes() {
+		return lanes;
+	}
+
+	public ArrayList<Lane> getOriginalLanes() {
+		return originalLanes;
+	}
 	
 	
 }
