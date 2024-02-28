@@ -1,8 +1,8 @@
 package game.engine.base;
 
 public class Wall {
-	final private int baseHealth;
-	private int currentHealth;
+	final private int baseHealth; //the original value of the wall’s health
+	private int currentHealth;  
 	
 	public Wall(int baseHealth) {
 		super();

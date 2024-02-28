@@ -7,8 +7,8 @@ import game.engine.titans.Titan;
 import game.engine.weapons.Weapon;
 
 public class Lane {
-	final private Wall laneWall;
-	private int dangerLevel;
+	final private Wall laneWall; //A wall object found in the lane.
+	private int dangerLevel; //danger level of a lane based on the number and danger level of the titans on it.
 	private PriorityQueue<Titan> titans; //FIXME: attribute needs to be final after initialization
 	private ArrayList<Weapon> weapons; //FIXME: attribute needs to be final after initialization
 	
