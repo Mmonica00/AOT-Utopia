@@ -1,4 +1,4 @@
-Attack on Titan: Utopia is a one-player, endless 2 , tower defense game 1
+Attack on Titan: Utopia is a one-player, endless tower defense game 
 inspired by the hit anime Attack on Titan. The story of the anime
 revolves around how titans, gigantic humanoid creatures, emerged one day
 and wiped out most of humanity. The few surviving humans fled and hid
