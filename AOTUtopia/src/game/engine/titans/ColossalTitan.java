@@ -2,7 +2,7 @@ package game.engine.titans;
 
 public class ColossalTitan extends Titan {
 	
-	final private int TITAN_CODE = 4;
+	private final static int TITAN_CODE = 4;
 
 	public ColossalTitan(int baseHealth, int baseDamage, int heightInMeters, int distanceFromBase, int speed,
 			int resourcesValue, int dangerLevel) {

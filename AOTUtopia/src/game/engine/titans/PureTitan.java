@@ -2,7 +2,7 @@ package game.engine.titans;
 
 public class PureTitan extends Titan {
 	
-	final private int TITAN_CODE = 1;
+	public final static int TITAN_CODE = 1; //attribute made public
 	
 	public PureTitan(int baseHealth, int baseDamage, int heightInMeters, int distanceFromBase, int speed,
 			int resourcesValue, int dangerLevel) {
