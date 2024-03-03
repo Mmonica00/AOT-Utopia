@@ -11,4 +11,8 @@ public class WeaponFactory {
 		weaponShop = DataLoader.readWeaponRegistry();
 	}
 	
+	public static void main(String[] args) throws IOException {
+		WeaponFactory w = new WeaponFactory();
+		System.out.println(w);
+	}
 }
