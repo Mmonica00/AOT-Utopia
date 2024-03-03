@@ -14,7 +14,11 @@ import game.engine.weapons.factory.WeaponFactory;
 
 public class Battle {
 	
-	private final int[][] PHASES_APPROACHING_TITANS; //FIXME: should be static 
+	private static final int[][] PHASES_APPROACHING_TITANS={
+			{ 1, 1, 1, 2, 1, 3, 4 },
+			{ 2, 2, 2, 1, 3, 3, 4 },
+			{ 4, 4, 4, 4, 4, 4, 4 } 
+	};
 	private final int WALL_BASE_HEALTH;
 	private int numberOfTurns; //RW
 	private int resourcesGathered; //RW - I
@@ -31,7 +35,6 @@ public class Battle {
 	public Battle(int numberOfTurns, int score, int titanSpawnDistance, int initialNumOfLanes,
 			int initialResourcesPerLane) throws IOException {
 		super();
-		this.PHASES_APPROACHING_TITANS= new int[10][10]; //FIXME: need to specify array size
 		this.WALL_BASE_HEALTH = 10000;
 		this.numberOfTurns = numberOfTurns;
 		this.resourcesGathered = initialResourcesPerLane*initialNumOfLanes;
