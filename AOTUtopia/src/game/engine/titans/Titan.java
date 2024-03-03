@@ -10,7 +10,7 @@ public abstract class Titan implements Attacker,Attackee,Mobil{
 	
 	private final int baseHealth; //original health when spawned -F
 	private int currentHealth; //current health -RW
-	private int baseDamage; //damage caused by titan -R
+	private final int baseDamage; //damage caused by titan -R
 	private final int heightInMeters; //titan's height 
 	private int distanceFromBase; //distance of titan from wall -RW
 	private int speed; //distance of titan moved each turn -RW

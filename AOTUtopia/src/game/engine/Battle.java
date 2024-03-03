@@ -14,8 +14,8 @@ import game.engine.weapons.factory.WeaponFactory;
 
 public class Battle {
 	
-	private int[][] PHASES_APPROACHING_TITANS;
-	private int WALL_BASE_HEALTH;
+	private final int[][] PHASES_APPROACHING_TITANS;
+	private final int WALL_BASE_HEALTH;
 	private int numberOfTurns; //RW
 	private int resourcesGathered; //RW - I
 	private BattlePhase battlePhase; //RW - I
@@ -111,6 +111,10 @@ public class Battle {
 
 	public int getTitanSpawnDistance() {
 		return titanSpawnDistance;
+	}
+	
+	public void setTitanSpawnDistance(int titanSpawnDistance) {
+		this.titanSpawnDistance = titanSpawnDistance;
 	}
 
 	public WeaponFactory getWeaponFactory() {
