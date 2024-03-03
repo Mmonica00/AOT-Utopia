@@ -6,7 +6,8 @@ import game.engine.dataloader.DataLoader;
 public class WeaponFactory {
 	
 	private final HashMap<Integer, WeaponRegistry> weaponShop; 
-	
+
+
 	public WeaponFactory() throws IOException{
 		weaponShop = DataLoader.readWeaponRegistry();
 	}

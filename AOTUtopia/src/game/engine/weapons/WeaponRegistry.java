@@ -11,6 +11,7 @@ public class WeaponRegistry {
 		super();
 		this.code = code;
 		this.price = price;
+		
 	}
 	public WeaponRegistry(int code, int price, int damage, String name) {
 		super();
