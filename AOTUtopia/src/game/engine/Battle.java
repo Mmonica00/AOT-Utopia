@@ -14,7 +14,7 @@ import game.engine.weapons.factory.WeaponFactory;
 
 public class Battle {
 	
-	private final int[][] PHASES_APPROACHING_TITANS;
+	private final int[][] PHASES_APPROACHING_TITANS; //FIXME: should be static 
 	private final int WALL_BASE_HEALTH;
 	private int numberOfTurns; //RW
 	private int resourcesGathered; //RW - I

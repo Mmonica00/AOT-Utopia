@@ -1,6 +1,8 @@
 package game.engine.base;
 
-public class Wall {
+import game.engine.interfaces.Attackee;
+
+public class Wall implements Attackee {
 	
 	final private int baseHealth; //the original value of the wall’s health
 	private int currentHealth;  
@@ -21,6 +23,11 @@ public class Wall {
 
 	public int getBaseHealth() {
 		return baseHealth;
+	}
+
+	@Override
+	public int getResourcesValue() {
+		return -1;
 	}
 	
 	
