@@ -60,8 +60,15 @@ public abstract class Titan implements Attacker,Attackee,Mobil{
 		return distanceFromBase;
 	}
 
+	public int getDistance() {
+		return this.getDistanceFromBase();
+	}
 	public void setDistanceFromBase(int distanceFromBase) {
 		this.distanceFromBase = distanceFromBase;
+	}
+	
+	public void setDistance(int distance) {
+		this.setDistanceFromBase(distance);
 	}
 
 	public int getSpeed() {
@@ -74,6 +81,10 @@ public abstract class Titan implements Attacker,Attackee,Mobil{
 
 	public int getBaseDamage() {
 		return baseDamage;
+	}
+	
+	public int getDamage() {
+		return this.getBaseDamage();
 	}
 
 	public int getResourcesValue() {
