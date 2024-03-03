@@ -6,15 +6,6 @@ import game.engine.dataloader.DataLoader;
 public class WeaponFactory {
 	
 	private final HashMap<Integer, WeaponRegistry> weaponShop; 
-<<<<<<< HEAD
-
-=======
-	
-	public HashMap<Integer, WeaponRegistry> getWeaponShop() {
-		return weaponShop;
-	}
->>>>>>> branch 'master' of https://github.com/rogereliass/AOT-Utopia.git
-
 	public WeaponFactory() throws IOException{
 		weaponShop = DataLoader.readWeaponRegistry();
 	}
