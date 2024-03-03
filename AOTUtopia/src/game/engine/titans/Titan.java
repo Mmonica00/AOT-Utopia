@@ -1,6 +1,10 @@
 package game.engine.titans;
 
-public abstract class Titan {
+import game.engine.interfaces.Attackee;
+import game.engine.interfaces.Attacker;
+import game.engine.interfaces.Mobil;
+
+public abstract class Titan implements Attacker,Attackee,Mobil{
 
 	// R for READ ONLY , W for WRITE ONLY , F for FINAL WHEN INITIALIZED	
 	

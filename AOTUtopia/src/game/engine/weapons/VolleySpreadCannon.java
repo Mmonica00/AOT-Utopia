@@ -23,5 +23,9 @@ public class VolleySpreadCannon extends Weapon{
 		return maxRange;
 	}
 	
+	@Override
+	public int getDamage() {
+		return super.getBaseDamage();
+	}
 	
 }

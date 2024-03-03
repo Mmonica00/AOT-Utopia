@@ -11,6 +11,9 @@ public class SniperCannon extends Weapon {
 		return WEAPON_CODE;
 	}
 
-	
+	@Override
+	public int getDamage() {
+		return super.getBaseDamage();
+	}
 	
 }

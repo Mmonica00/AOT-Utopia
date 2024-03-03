@@ -10,5 +10,10 @@ public class WallTrap extends Weapon{
 	public int getWEAPON_CODE() {
 		return WEAPON_CODE;
 	}
+
+	@Override
+	public int getDamage() {
+		return super.getBaseDamage();
+	}
 	
 }
