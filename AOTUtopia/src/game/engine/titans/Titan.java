@@ -53,7 +53,10 @@ public abstract class Titan implements Attacker,Attackee,Mobil{
 	}
 
 	public void setCurrentHealth(int currentHealth) {
-		this.currentHealth = currentHealth;
+		if(currentHealth<0)
+			this.currentHealth=0;
+		else
+			this.currentHealth = currentHealth;
 	}
 
 	public int getDistanceFromBase() {
