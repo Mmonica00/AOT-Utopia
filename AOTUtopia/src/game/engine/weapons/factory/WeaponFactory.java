@@ -7,12 +7,12 @@ public class WeaponFactory {
 	
 	private final HashMap<Integer, WeaponRegistry> weaponShop; 
 	
+	public HashMap<Integer, WeaponRegistry> getWeaponShop() {
+		return weaponShop;
+	}
+
 	public WeaponFactory() throws IOException{
 		weaponShop = DataLoader.readWeaponRegistry();
 	}
 	
-	public static void main(String[] args) throws IOException {
-		WeaponFactory w = new WeaponFactory();
-		System.out.println(w);
-	}
 }
