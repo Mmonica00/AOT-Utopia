@@ -34,28 +34,30 @@ public class DataLoader {
 		return titanRegistryMap;
 	}
 	
-	public static HashMap<Integer, WeaponRegistry> readWeaponRegistry() throws IOException{
-		HashMap<Integer, WeaponRegistry> WeaponRegistryMap = new HashMap<>();
-		try(BufferedReader reader = new BufferedReader(new FileReader(WEAPONS_FILE_NAME))){
-			String line;
-			while((line = reader.readLine()) != null) {
-				String[] data = line.split(",");
-				int code = Integer.parseInt(data[0]);
-				int price = Integer.parseInt(data[1]);
-				int damage = Integer.parseInt(data[2]);
-				String name = data[3];
-				WeaponRegistry weaponRegistry;
-				if(code==3) {
-					int minRange = Integer.parseInt(data[4]);
-					int maxRange = Integer.parseInt(data[5]);
-					weaponRegistry = new WeaponRegistry(code, price, damage, name, minRange, maxRange);
-				}else {
-					weaponRegistry = new WeaponRegistry(code, price, damage, name);
-				}
-				WeaponRegistryMap.put(code, weaponRegistry);
-			}
-		}
-		return WeaponRegistryMap;
+	public static HashMap<Integer, WeaponRegistry> readWeaponRegistry() throws IOException {
+	    HashMap<Integer, WeaponRegistry> weaponRegistryMap = new HashMap<>();
+	    try (BufferedReader reader = new BufferedReader(new FileReader(WEAPONS_FILE_NAME))) {
+	        String line;
+	        while ((line = reader.readLine()) != null) {
+	            String[] data = line.split(",");
+	            int code = Integer.parseInt(data[0]);
+	            int price = Integer.parseInt(data[1]);
+	            int damage = Integer.parseInt(data[2]);
+	            String name = data[3];
+	            WeaponRegistry weaponRegistry;
+
+	            if (code == 3) {
+	                int minRange = Integer.parseInt(data[4]);
+	                int maxRange = Integer.parseInt(data[5]);
+	                weaponRegistry = new WeaponRegistry(code, price, damage, name, minRange, maxRange);
+	            } else {
+	                weaponRegistry = new WeaponRegistry(code, price, damage, name);
+	            }
+	            
+	            weaponRegistryMap.put(code, weaponRegistry);
+	        }
+	    }
+	    return weaponRegistryMap;
 	}
 	
 	
