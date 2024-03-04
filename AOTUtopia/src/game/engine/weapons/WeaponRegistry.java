@@ -58,16 +58,10 @@ public class WeaponRegistry {
 		return maxRange;
 	}
 
-<<<<<<< HEAD
-
-=======
 	@Override
 	public String toString() {
 		return "WeaponRegistry [code=" + code + ", price=" + price + ", damage=" + damage + ", name=" + name
 				+ ", minRange=" + minRange + ", maxRange=" + maxRange + "]";
 	}
 	
-	
-	
->>>>>>> branch 'master' of https://github.com/rogereliass/AOT-Utopia.git
 }
