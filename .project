@@ -22,15 +22,5 @@
 	<natures>
 	</natures>
 </projectDescription>
-<buildSpec>
-    <buildCommand>
-        <name>org.eclipse.jdt.core.javabuilder</name>
-        <arguments>
-        </arguments>
-    </buildCommand>
-</buildSpec>
-<natures>
-    <nature>org.eclipse.jdt.core.javanature</nature>
-</natures>
 
 >>>>>>> branch 'master' of https://github.com/rogereliass/AOT-Utopia.git
