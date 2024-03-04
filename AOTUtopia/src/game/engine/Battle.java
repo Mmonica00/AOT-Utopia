@@ -47,10 +47,10 @@ public class Battle {
 		this.approachingTitans = new ArrayList<>(); //used as FIFO DS
 		this.lanes = new PriorityQueue<>(); //Least dangerous lanes will have the highest priority
 		this.originalLanes = new ArrayList<>();
+		initializeLanes(initialNumOfLanes);
 	}
 
-	private void initializeLanes(int numOfLanes) { //TODO: review this method
-
+	private void initializeLanes(int numOfLanes) { 
 		for(int i=0;i<numOfLanes;i++) {
 
 			Wall wall = new Wall(WALL_BASE_HEALTH);
