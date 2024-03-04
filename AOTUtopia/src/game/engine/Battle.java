@@ -13,25 +13,25 @@ import game.engine.titans.TitanRegistry;
 import game.engine.weapons.factory.WeaponFactory;
 
 public class Battle {
-	
+
 	private static final int[][] PHASES_APPROACHING_TITANS={
 			{ 1, 1, 1, 2, 1, 3, 4 },
 			{ 2, 2, 2, 1, 3, 3, 4 },
-			{ 4, 4, 4, 4, 4, 4, 4 } 
+			{ 4, 4, 4, 4, 4, 4, 4 }
 	};
 	private final int WALL_BASE_HEALTH;
 	private int numberOfTurns; //RW
 	private int resourcesGathered; //RW - I
 	private BattlePhase battlePhase; //RW - I
 	private int numberOfTitansPerTurn; //RW - I
-	private int score; //RW 
+	private int score; //RW
 	private int titanSpawnDistance;
 	private final  WeaponFactory weaponFactory;
 	private final HashMap<Integer, TitanRegistry> titansArchives; //read from Dataloader
 	private final ArrayList<Titan> approachingTitans;
 	private final PriorityQueue<Lane> lanes;
 	private final ArrayList<Lane> originalLanes;
-	
+
 	public Battle(int numberOfTurns, int score, int titanSpawnDistance, int initialNumOfLanes,
 			int initialResourcesPerLane) throws IOException {
 		super();
@@ -44,26 +44,26 @@ public class Battle {
 		this.titanSpawnDistance = titanSpawnDistance;
 		this.weaponFactory = new WeaponFactory();
 		this.titansArchives = DataLoader.readTitanRegistry();
-		this.approachingTitans = new ArrayList<Titan>(); //used as FIFO DS
-		this.lanes = new PriorityQueue<Lane>(); //Least dangerous lanes will have the highest priority
-		this.originalLanes = new ArrayList<Lane>();
+		this.approachingTitans = new ArrayList<>(); //used as FIFO DS
+		this.lanes = new PriorityQueue<>(); //Least dangerous lanes will have the highest priority
+		this.originalLanes = new ArrayList<>();
 	}
 
 	private void initializeLanes(int numOfLanes) { //TODO: review this method
-		
+
 		for(int i=0;i<numOfLanes;i++) {
-			
+
 			Wall wall = new Wall(WALL_BASE_HEALTH);
 			Lane lane = new Lane(wall);
-			
+
 			lanes.add(lane);
 			originalLanes.add(lane);
 		}
-		
+
 	}
-	
+
 	//Getters & setters
-	
+
 	public int getNumberOfTurns() {
 		return numberOfTurns;
 	}
@@ -115,7 +115,7 @@ public class Battle {
 	public int getTitanSpawnDistance() {
 		return titanSpawnDistance;
 	}
-	
+
 	public void setTitanSpawnDistance(int titanSpawnDistance) {
 		this.titanSpawnDistance = titanSpawnDistance;
 	}
@@ -139,6 +139,6 @@ public class Battle {
 	public ArrayList<Lane> getOriginalLanes() {
 		return originalLanes;
 	}
-	
-	
+
+
 }

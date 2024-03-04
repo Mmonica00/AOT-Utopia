@@ -60,5 +60,13 @@ public class DataLoader {
 	    return weaponRegistryMap;
 	}
 	
+	public static void main(String[] args) throws IOException {
+		HashMap<Integer, WeaponRegistry> w = readWeaponRegistry();
+		System.out.println(w.get(1).toString());
+		System.out.println(w.get(2).toString());
+		System.out.println(w.get(3).toString());
+		System.out.println(w.get(4).toString());
+		System.out.println(w.get(5).toString());
+	}
 	
 }

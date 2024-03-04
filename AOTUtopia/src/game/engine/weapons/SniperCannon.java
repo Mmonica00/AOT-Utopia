@@ -15,5 +15,5 @@ public class SniperCannon extends Weapon {
 	public int getDamage() {
 		return super.getBaseDamage();
 	}
-	
+
 }

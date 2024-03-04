@@ -3,7 +3,7 @@ package game.engine.weapons;
 import game.engine.interfaces.Attacker;
 
 public abstract class Weapon implements Attacker {
-	
+
 	private final int baseDamage;
 
 	public int getBaseDamage() {
@@ -14,5 +14,5 @@ public abstract class Weapon implements Attacker {
 		super();
 		this.baseDamage = baseDamage;
 	}
-	
+
 }

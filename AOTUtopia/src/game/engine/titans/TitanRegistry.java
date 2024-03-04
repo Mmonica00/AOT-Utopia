@@ -8,7 +8,7 @@ public class TitanRegistry {
 	private int speed;
 	private int resourcesValue;
 	private int dangerLevel;
-	
+
 	public TitanRegistry(int code, int baseHealth, int baseDamage, int heightInMeters, int speed, int resourcesValue,
 			int dangerLevel) {
 		super();
@@ -20,7 +20,7 @@ public class TitanRegistry {
 		this.resourcesValue = resourcesValue;
 		this.dangerLevel = dangerLevel;
 	}
-	
+
 	public int getCode() {
 		return code;
 	}
@@ -42,6 +42,6 @@ public class TitanRegistry {
 	public int getDangerLevel() {
 		return dangerLevel;
 	}
-	
-	
+
+
 }

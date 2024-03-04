@@ -9,20 +9,20 @@ import game.engine.weapons.Weapon;
 public class Lane implements Comparable{
 	final private Wall laneWall; //A wall object found in the lane.
 	private int dangerLevel; //danger level of a lane based on the number and danger level of the titans on it.
-	private final PriorityQueue<Titan> titans; 
+	private final PriorityQueue<Titan> titans;
 	private final ArrayList<Weapon> weapons;
-	
+
 	public Lane(Wall laneWall) {
 		super();
 		this.laneWall = laneWall;
-		this.titans= new PriorityQueue<Titan>();
-		this.weapons= new ArrayList<Weapon>();
+		this.titans= new PriorityQueue<>();
+		this.weapons= new ArrayList<>();
 	}
 
 	public PriorityQueue<Titan> getTitans() {
 		return titans;
 	}
-	
+
 	public int getDangerLevel() {
 		return dangerLevel;
 	}
@@ -39,9 +39,9 @@ public class Lane implements Comparable{
 	public Wall getLaneWall() {
 		return laneWall;
 	}
-	
+
 	public int compareTo(Lane o) {
-		int temp= this.dangerLevel - ((Lane)o).dangerLevel;
+		int temp= this.dangerLevel - o.dangerLevel;
 		return (temp<0)?-1:(temp>0)?1:0;
 	}
 
@@ -50,7 +50,7 @@ public class Lane implements Comparable{
 		int temp= this.dangerLevel - ((Lane)o).dangerLevel;
 		return (temp<0)?-1:(temp>0)?1:0;
 	}
-	
-	
-	
+
+
+
 }

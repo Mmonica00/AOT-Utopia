@@ -15,5 +15,5 @@ public class WallTrap extends Weapon{
 	public int getDamage() {
 		return super.getBaseDamage();
 	}
-	
+
 }
