@@ -6,7 +6,7 @@ import game.engine.base.Wall;
 import game.engine.titans.Titan;
 import game.engine.weapons.Weapon;
 
-public class Lane implements Comparable{
+public class Lane implements Comparable<Object>{
 	final private Wall laneWall; //A wall object found in the lane.
 	private int dangerLevel; //danger level of a lane based on the number and danger level of the titans on it.
 	private final PriorityQueue<Titan> titans;
@@ -15,8 +15,8 @@ public class Lane implements Comparable{
 	public Lane(Wall laneWall) {
 		super();
 		this.laneWall = laneWall;
-		this.titans= new PriorityQueue<>();
-		this.weapons= new ArrayList<>();
+		this.titans= new PriorityQueue<Titan>();
+		this.weapons= new ArrayList<Weapon>();
 	}
 
 	public PriorityQueue<Titan> getTitans() {
