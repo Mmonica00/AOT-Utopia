@@ -88,13 +88,11 @@ public abstract class Titan implements Attacker,Attackee,Mobil{
 		this.speed = speed;
 	}
 
-	public int getBaseDamage() {
-		return baseDamage;
-	}
+	
 
 	@Override
 	public int getDamage() {
-		return this.getBaseDamage();
+		return baseDamage;
 	}
 
 	@Override

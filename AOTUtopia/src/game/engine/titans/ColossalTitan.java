@@ -13,10 +13,7 @@ public class ColossalTitan extends Titan {
 		return TITAN_CODE;
 	}
 
-	@Override
-	public int getDamage() {
-		return super.getBaseDamage();
-	}
+	
 
 	@Override
 	public int getDistance() {

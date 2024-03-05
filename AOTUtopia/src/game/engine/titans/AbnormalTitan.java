@@ -13,11 +13,7 @@ public class AbnormalTitan extends Titan {
 		return TITAN_CODE;
 	}
 
-	@Override
-	public int getDamage() {
-		return super.getBaseDamage();
-	}
-
+	
 	@Override
 	public int getDistance() {
 		return super.getDistanceFromBase();
