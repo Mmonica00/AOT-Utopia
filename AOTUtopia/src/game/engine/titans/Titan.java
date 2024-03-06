@@ -4,7 +4,7 @@ import game.engine.interfaces.Attackee;
 import game.engine.interfaces.Attacker;
 import game.engine.interfaces.Mobil;
 
-public abstract class Titan implements Attacker,Attackee,Mobil{
+public abstract class Titan implements Attacker,Attackee,Mobil,Comparable<Titan>{
 
 	// R for READ ONLY , W for WRITE ONLY , F for FINAL WHEN INITIALIZED
 
@@ -58,16 +58,9 @@ public abstract class Titan implements Attacker,Attackee,Mobil{
 		this.currentHealth = Math.max(0, currentHealth);
 	}
 
-	public int getDistanceFromBase() {
-		return distanceFromBase;
-	}
-
 	@Override
 	public int getDistance() {
 		return distanceFromBase;
-	}
-	public void setDistanceFromBase(int distanceFromBase) {
-		this.distanceFromBase = distanceFromBase;
 	}
 
 	@Override

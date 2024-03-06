@@ -6,10 +6,6 @@ public abstract class Weapon implements Attacker {
 
 	private final int baseDamage; //damage made by the weapon on others
 
-	public int getBaseDamage() {
-		return baseDamage;
-	}
-
 	public Weapon(int baseDamage) {
 		super();
 		this.baseDamage = baseDamage;
