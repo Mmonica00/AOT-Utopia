@@ -30,7 +30,10 @@ public class DataLoader {
                 TitanRegistry titanregistry = new TitanRegistry(code,baseHealth,baseDamage,heightInMeters,speed,resourcesValue,dangerLevel);
                 titanRegistryMap.put(code, titanregistry);
 			}
+		} catch(IOException e) {
+			System.out.println("Invalid Titan Input");
 		}
+		
 		return titanRegistryMap;
 	}
 	
@@ -56,7 +59,10 @@ public class DataLoader {
 	            
 	            weaponRegistryMap.put(code, weaponRegistry);
 	        }
-	    }
+	    }catch(IOException e) {
+			System.out.println("Invalid Weapon Input");
+		}
+	    
 	    return weaponRegistryMap;
 	}
 	

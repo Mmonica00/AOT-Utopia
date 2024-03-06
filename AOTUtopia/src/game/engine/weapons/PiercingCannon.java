@@ -1,6 +1,7 @@
 package game.engine.weapons;
 
 public class PiercingCannon extends Weapon {
+	
 	public final static int  WEAPON_CODE = 1;
 
 	public PiercingCannon(int baseDamage) {
@@ -12,8 +13,4 @@ public class PiercingCannon extends Weapon {
 		return WEAPON_CODE;
 	}
 
-	@Override
-	public int getDamage() {
-		return super.getBaseDamage();
-	}
 }

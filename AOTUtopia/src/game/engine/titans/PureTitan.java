@@ -13,18 +13,5 @@ public class PureTitan extends Titan {
 		return TITAN_CODE;
 	}
 
-	
-
-	@Override
-	public int getDistance() {
-		return super.getDistanceFromBase();
-	}
-
-	@Override
-	public void setDistance(int distance) {
-		super.setDistanceFromBase(distance);
-	}
-
-
 
 }

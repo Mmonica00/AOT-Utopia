@@ -55,10 +55,7 @@ public abstract class Titan implements Attacker,Attackee,Mobil{
 
 	@Override
 	public void setCurrentHealth(int currentHealth) {
-		if(currentHealth<0)
-			this.currentHealth=0;
-		else
-			this.currentHealth = currentHealth;
+		this.currentHealth = Math.max(0, currentHealth);
 	}
 
 	public int getDistanceFromBase() {
@@ -67,7 +64,7 @@ public abstract class Titan implements Attacker,Attackee,Mobil{
 
 	@Override
 	public int getDistance() {
-		return this.getDistanceFromBase();
+		return distanceFromBase;
 	}
 	public void setDistanceFromBase(int distanceFromBase) {
 		this.distanceFromBase = distanceFromBase;
@@ -75,7 +72,12 @@ public abstract class Titan implements Attacker,Attackee,Mobil{
 
 	@Override
 	public void setDistance(int distance) {
-		this.setDistanceFromBase(distance);
+		this.distanceFromBase=distance;
+	}
+	
+	@Override
+	public int getResourcesValue() {
+		return resourcesValue;
 	}
 
 	@Override
@@ -88,17 +90,12 @@ public abstract class Titan implements Attacker,Attackee,Mobil{
 		this.speed = speed;
 	}
 
-	
-
 	@Override
 	public int getDamage() {
 		return baseDamage;
 	}
 
-	@Override
-	public int getResourcesValue() {
-		return resourcesValue;
-	}
+	
 
 
 }
