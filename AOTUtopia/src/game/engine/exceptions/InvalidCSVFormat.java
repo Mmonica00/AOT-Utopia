@@ -24,6 +24,8 @@ public class InvalidCSVFormat extends IOException{
 	public void setInputLine(String inputLine) {
 		this.inputLine = inputLine;
 	}
-
+	public static String getMSG() {
+		return MSG;
+	}
 
 }

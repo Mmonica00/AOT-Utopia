@@ -19,7 +19,7 @@ public class Battle {
 			{ 2, 2, 2, 1, 3, 3, 4 },
 			{ 4, 4, 4, 4, 4, 4, 4 }
 	};
-	private final int WALL_BASE_HEALTH;
+	private static final int WALL_BASE_HEALTH = 10000;
 	private int numberOfTurns; //RW
 	private int resourcesGathered; //RW - I
 	private BattlePhase battlePhase; //RW - I
@@ -28,14 +28,13 @@ public class Battle {
 	private int titanSpawnDistance;
 	private final  WeaponFactory weaponFactory;
 	private final HashMap<Integer, TitanRegistry> titansArchives; //read from Dataloader
-	private final ArrayList<Titan> approachingTitans;
+	private final ArrayList<Titan> approachingTitans; //will be treated as a queue (FIFO)
 	private final PriorityQueue<Lane> lanes;
 	private final ArrayList<Lane> originalLanes;
 
 	public Battle(int numberOfTurns, int score, int titanSpawnDistance, int initialNumOfLanes,
 			int initialResourcesPerLane) throws IOException {
 		super();
-		this.WALL_BASE_HEALTH = 10000;
 		this.numberOfTurns = numberOfTurns;
 		this.resourcesGathered = initialResourcesPerLane*initialNumOfLanes;
 		this.battlePhase = BattlePhase.EARLY;

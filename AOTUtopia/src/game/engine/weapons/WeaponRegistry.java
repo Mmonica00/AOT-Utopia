@@ -4,7 +4,7 @@ public class WeaponRegistry {
 	
 	final private int code;
 	private int price;
-	private int damage;
+	private int damage; //FIXME: probably should be final
 	private String name;
 	private int minRange;
 	private int maxRange;

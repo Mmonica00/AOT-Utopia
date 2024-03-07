@@ -8,12 +8,12 @@ public class InsufficientResourcesException extends GameActionException{
 
 	public InsufficientResourcesException(int resourcesProvided) {
 		super(MSG + resourcesProvided);
-		this.setResourcesProvided(resourcesProvided);
+		this.resourcesProvided=resourcesProvided;
 	}
 
 	public InsufficientResourcesException(String message,int resourcesProvided) {
 		super(message);
-		this.setResourcesProvided(resourcesProvided);
+		this.resourcesProvided=resourcesProvided;
 	}
 
 	public int getResourcesProvided() {
@@ -24,5 +24,8 @@ public class InsufficientResourcesException extends GameActionException{
 		this.resourcesProvided = resourcesProvided;
 	}
 
+	public static String getMSG() {
+		return MSG;
+	}
 
 }
