@@ -2,9 +2,9 @@ package game.engine.weapons;
 
 public class WeaponRegistry {
 	
-	final private int code;
+	private final int code;
 	private int price;
-	private int damage; //FIXME: probably should be final
+	private final int damage; 
 	private String name;
 	private int minRange;
 	private int maxRange;
@@ -13,6 +13,7 @@ public class WeaponRegistry {
 		super();
 		this.code = code;
 		this.price = price;
+		this.damage = 0;
 
 	}
 	
