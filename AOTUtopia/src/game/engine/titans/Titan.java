@@ -65,7 +65,7 @@ public abstract class Titan implements Attacker,Attackee,Mobil,Comparable<Titan>
 
 	@Override
 	public void setDistance(int distance) {
-		this.distanceFromBase=distance;
+		this.distanceFromBase=Math.max(distance, 0);	
 	}
 	
 	@Override
