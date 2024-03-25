@@ -80,7 +80,7 @@ public abstract class Titan implements Attacker,Attackee,Mobil,Comparable<Titan>
 
 	@Override
 	public void setSpeed(int speed) {
-		this.speed = speed;
+		this.speed = Math.max(speed, 0);
 	}
 
 	@Override
