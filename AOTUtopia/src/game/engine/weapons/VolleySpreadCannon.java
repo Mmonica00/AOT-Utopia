@@ -11,6 +11,11 @@ public class VolleySpreadCannon extends Weapon{
 		this.minRange=minRange;
 		this.maxRange=maxRange;
 	}
+	public VolleySpreadCannon(WeaponRegistry weaponRegistry) {
+		super(weaponRegistry);
+		this.minRange = weaponRegistry.getMinRange();
+		this.maxRange = weaponRegistry.getMaxRange();
+	}
 
 	public int getWEAPON_CODE() {
 		return WEAPON_CODE;

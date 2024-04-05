@@ -64,5 +64,14 @@ public class WeaponRegistry {
 		return "WeaponRegistry [code=" + code + ", price=" + price + ", damage=" + damage + ", name=" + name
 				+ ", minRange=" + minRange + ", maxRange=" + maxRange + "]";
 	}
+	public Weapon buildWeapon() { //returns null if invalid code
+		switch(this.code) {
+		case 1: return new PiercingCannon(this);
+		case 2: return new SniperCannon(this);
+		case 3: return new VolleySpreadCannon(this);
+		case 4: return new WallTrap(this);
+		}
+		return null; 
+	}
 	
 }

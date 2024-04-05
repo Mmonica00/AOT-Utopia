@@ -44,7 +44,7 @@ public class Lane implements Comparable<Lane>{
 		int temp= this.dangerLevel - o.dangerLevel;
 		return (temp<0)?-1:(temp>0)?1:0;
 	}
-
+	
 	
 	
 

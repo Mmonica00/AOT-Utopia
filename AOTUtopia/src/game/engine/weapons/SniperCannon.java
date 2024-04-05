@@ -7,6 +7,10 @@ public class SniperCannon extends Weapon {
 	public SniperCannon(int baseDamage) {
 		super(baseDamage);
 	}
+	
+	public SniperCannon(WeaponRegistry weaponRegistry) {
+		super(weaponRegistry);
+	}
 
 	public int getWEAPON_CODE() {
 		return WEAPON_CODE;

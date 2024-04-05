@@ -15,5 +15,9 @@ public abstract class Weapon implements Attacker {
 	public int getDamage() {
 		return baseDamage;
 	}
+	public Weapon(WeaponRegistry weaponRegistry) {
+		super();
+		this.baseDamage = weaponRegistry.getDamage();
+	}
 
 }
