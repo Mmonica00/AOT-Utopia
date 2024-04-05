@@ -17,7 +17,7 @@ public class WallTrap extends Weapon{
 	}
 
 	@Override
-	public int turnAttack(PriorityQueue<Titan> laneTitans) {
+	public int turnAttack(PriorityQueue<Titan> laneTitans) { //attacks first if reached the wall
 		int totalResourcesGained=0;
 		if(laneTitans.peek() != null) {
 			Titan peekTitan = laneTitans.peek();
