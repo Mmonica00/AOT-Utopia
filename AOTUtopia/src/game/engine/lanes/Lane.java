@@ -40,10 +40,10 @@ public class Lane implements Comparable<Lane>{
 		this.dangerLevel = dangerLevel;
 	}
 
-
 	public Wall getLaneWall() {
 		return laneWall;
 	}
+	
 	@Override
 	public int compareTo(Lane o) {
 		int temp= this.dangerLevel - o.dangerLevel;
@@ -53,82 +53,83 @@ public class Lane implements Comparable<Lane>{
 	public void addTitan(Titan titan) {
 		titans.add(titan);
 	}
+	
 	public void addWeapon(Weapon weapon) {
 		weapons.add(weapon);
 	}
 
 	public void moveLaneTitans() {
-		int x=titans.size();
-		for(int i=0;i<x;i++) {
-			Titan temp=titans.remove();
-
-			if(temp!=null) {
-			temp.move();
-			titans.add(temp);}
+		int numOfTitans=titans.size();
+		for(int i=0;i<numOfTitans;i++) {
+			Titan titanMoving=titans.remove();
+			if(titanMoving!=null) {
+				titanMoving.move();
+				titans.add(titanMoving);
+			}
 		}
 	}
+	
 	public int performLaneTitansAttacks() {
-		int x=titans.size();
-		int resources=0;
-		for(int i=0;i<x;i++) {
-			Titan temp=titans.remove();
-
-			if(temp!=null) {
-			if(temp.hasReachedTarget()) {
-				temp.attack(laneWall);
-				resources=resources+ temp.getResourcesValue();
+		int numOfTitans=titans.size();
+		int totalResources=0;
+		for(int i=0;i<numOfTitans;i++) {
+			Titan titanAttacking=titans.remove();
+			if(titanAttacking!=null) {
+				if(titanAttacking.hasReachedTarget()) 
+					totalResources+= titanAttacking.attack(laneWall);
 			}
-			}
-				
-		}return resources;
-		
-		
+		}
+		return totalResources;
 	}
+	
 	public int performLaneWeaponsAttacks() {
-		int x=weapons.size();
+		int numOfWeapons=weapons.size();
 		int totalResourcesGained=0;
 		int resourcesGained=0;
-		for(int i=0;i<x;i++) {
-			Weapon tempw=weapons.remove(i);
-			if(tempw!=null) {
-				if(tempw instanceof PiercingCannon) {
-					PiercingCannon newWeapon = (PiercingCannon)tempw;
+		
+		for(int i=0;i<numOfWeapons;i++) {
+			Weapon weaponAttacking=weapons.remove(i);
+			
+			if(weaponAttacking!=null) {
+				if(weaponAttacking instanceof PiercingCannon) {
+					PiercingCannon newWeapon = (PiercingCannon)weaponAttacking;
 					resourcesGained=newWeapon.turnAttack(titans);
 				}
-				if(tempw instanceof SniperCannon) {
-					SniperCannon newWeapon = (SniperCannon)tempw;
+				if(weaponAttacking instanceof SniperCannon) {
+					SniperCannon newWeapon = (SniperCannon)weaponAttacking;
 					resourcesGained=newWeapon.turnAttack(titans);
-				}if(tempw instanceof WallTrap) {
-					WallTrap newWeapon = (WallTrap)tempw;
+				}
+				if(weaponAttacking instanceof WallTrap) {
+					WallTrap newWeapon = (WallTrap)weaponAttacking;
 					resourcesGained=newWeapon.turnAttack(titans);
-				}if(tempw instanceof VolleySpreadCannon) {
-					VolleySpreadCannon newWeapon = (VolleySpreadCannon)tempw;
+				}
+				if(weaponAttacking instanceof VolleySpreadCannon) {
+					VolleySpreadCannon newWeapon = (VolleySpreadCannon)weaponAttacking;
 					resourcesGained=newWeapon.turnAttack(titans);
 				}
 				totalResourcesGained+=resourcesGained;
 			}
-			weapons.add(tempw);
+			weapons.add(weaponAttacking);
 
 		}
 		return totalResourcesGained;
-		
-		
 	}
+	
 	public boolean isLaneLost() {
 		return laneWall.isDefeated();
 	}
+	
 	public void updateLaneDangerLevel() {
-		int x= titans.size();
+		int numOfTitans= titans.size();
 		int sumDangerLevel=0;
-		for(int i=0; i<x; i++) {
-			Titan temp= titans.remove();
-
-			if(temp!=null) {
-				sumDangerLevel+=temp.getDangerLevel();
-				titans.add(temp);
-			}
+		
+		for(int i=0; i<numOfTitans; i++) {
+			Titan currentTitan= titans.remove();
+			if(currentTitan!=null) 
+				sumDangerLevel+=currentTitan.getDangerLevel();
+			titans.add(currentTitan);
 		}
-		dangerLevel=sumDangerLevel;
+		this.dangerLevel=sumDangerLevel;
 	}
 
 }
