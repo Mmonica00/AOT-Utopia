@@ -28,6 +28,15 @@ public abstract class Titan implements Attacker,Attackee,Mobil,Comparable<Titan>
 		this.resourcesValue=resourcesValue;
 		this.dangerLevel=dangerLevel;
 	}
+	public Titan(TitanRegistry registry) {
+		this.baseHealth = registry.getBaseHealth();
+		this.currentHealth = registry.getBaseHealth();
+		this.baseDamage = registry.getBaseDamage();
+		this.heightInMeters = registry.getHeightInMeters();
+		this.speed = registry.getSpeed();
+		this.resourcesValue = registry.getResourcesValue();
+		this.dangerLevel = registry.getDangerLevel();
+	}
 
 	public int compareTo(Titan o) {
 		int temp=this.distanceFromBase-o.distanceFromBase;

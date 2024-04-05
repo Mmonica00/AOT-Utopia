@@ -1,5 +1,10 @@
 package game.engine.titans;
 
+import game.engine.weapons.PiercingCannon;
+import game.engine.weapons.SniperCannon;
+import game.engine.weapons.VolleySpreadCannon;
+import game.engine.weapons.WallTrap;
+
 public class TitanRegistry {
 	final private int code;
 	private int baseHealth;
@@ -43,7 +48,16 @@ public class TitanRegistry {
 		return dangerLevel;
 	}
 	public Titan spawnTitan(int distanceFromBase) {
+		Titan titan = null;
+		switch(this.code) {
+		case 1: titan = new PureTitan(this);
+		case 2: titan = new AbnormalTitan(this);
+		case 3: titan = new ArmoredTitan(this);
+		case 4: titan = new ColossalTitan(this);
+		}
+		titan.setDistance(distanceFromBase);
 		
+		return titan; 
 	}
 
 

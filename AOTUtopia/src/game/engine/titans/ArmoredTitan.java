@@ -8,6 +8,13 @@ public class ArmoredTitan extends Titan{
 			int resourcesValue, int dangerLevel) {
 		super(baseHealth, baseDamage, heightInMeters, distanceFromBase, speed, resourcesValue, dangerLevel);
 	}
+	
+
+	public ArmoredTitan(TitanRegistry registry) {
+		super(registry);
+		
+	}
+
 
 	public int getTITAN_CODE() {
 		return TITAN_CODE;
