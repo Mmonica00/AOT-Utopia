@@ -1,5 +1,7 @@
 package game.engine.titans;
 
+import game.engine.interfaces.Attackee;
+
 public class AbnormalTitan extends Titan {
 
 	public final static int TITAN_CODE = 2;
@@ -13,5 +15,13 @@ public class AbnormalTitan extends Titan {
 		return TITAN_CODE;
 	}
 
+	@Override
+	public int attack(Attackee target) {
+		int resourcesGained = super.attack(target);
+		if(!target.isDefeated())
+			resourcesGained+=super.attack(target);
+		return resourcesGained;
+	}
 
+	
 }

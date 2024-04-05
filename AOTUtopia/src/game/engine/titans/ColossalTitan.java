@@ -13,4 +13,12 @@ public class ColossalTitan extends Titan {
 		return TITAN_CODE;
 	}
 
+	@Override
+	public boolean move() {
+		boolean temp = super.move();
+		this.setSpeed(getSpeed()+1);
+		return temp;
+	}
+
+	
 }
