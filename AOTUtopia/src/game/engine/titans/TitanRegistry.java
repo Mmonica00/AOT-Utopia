@@ -42,6 +42,9 @@ public class TitanRegistry {
 	public int getDangerLevel() {
 		return dangerLevel;
 	}
+	public Titan spawnTitan(int distanceFromBase) {
+		
+	}
 
 
 }
