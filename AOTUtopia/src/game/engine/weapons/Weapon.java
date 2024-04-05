@@ -1,6 +1,9 @@
 package game.engine.weapons;
 
+import java.util.PriorityQueue;
+
 import game.engine.interfaces.Attacker;
+import game.engine.titans.Titan;
 
 public abstract class Weapon implements Attacker {
 
@@ -20,4 +23,5 @@ public abstract class Weapon implements Attacker {
 		this.baseDamage = weaponRegistry.getDamage();
 	}
 
+	public abstract int turnAttack(PriorityQueue<Titan> laneTitans);
 }

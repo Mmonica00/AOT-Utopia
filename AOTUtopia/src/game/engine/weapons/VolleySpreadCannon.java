@@ -1,5 +1,9 @@
 package game.engine.weapons;
 
+import java.util.PriorityQueue;
+
+import game.engine.titans.Titan;
+
 public class VolleySpreadCannon extends Weapon{
 	
 	public final static int WEAPON_CODE =3;
@@ -27,6 +31,21 @@ public class VolleySpreadCannon extends Weapon{
 
 	public int getMaxRange() {
 		return maxRange;
+	}
+
+	@Override
+	public int turnAttack(PriorityQueue<Titan> laneTitans) {
+		int totalResourcesGained=0;
+		if(laneTitans.peek() != null) {
+			Titan peekTitan = laneTitans.peek();
+			if(peekTitan.getDistance()>=getMinRange() && peekTitan.getDistance()<=getMaxRange()) {
+				Titan titanBeingAttacked = laneTitans.remove();
+				totalResourcesGained=this.attack(titanBeingAttacked);
+				if(!titanBeingAttacked.isDefeated())
+					laneTitans.add(titanBeingAttacked);
+			}
+		}
+		return totalResourcesGained;
 	}
 
 }

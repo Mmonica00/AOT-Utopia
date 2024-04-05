@@ -13,4 +13,10 @@ public class ArmoredTitan extends Titan{
 		return TITAN_CODE;
 	}
 
+	@Override
+	public int takeDamage(int damage) {
+		return super.takeDamage((int)(0.25*damage));
+	}
+
+	
 }
