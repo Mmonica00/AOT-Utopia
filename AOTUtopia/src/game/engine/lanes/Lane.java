@@ -88,7 +88,7 @@ public class Lane implements Comparable<Lane>{
 		int resourcesGained=0;
 		
 		for(int i=0;i<numOfWeapons;i++) {
-			Weapon weaponAttacking=weapons.remove(i);
+			Weapon weaponAttacking=weapons.remove(i); //logic of looping should be corrected
 			
 			if(weaponAttacking!=null) {
 				if(weaponAttacking instanceof PiercingCannon) {
