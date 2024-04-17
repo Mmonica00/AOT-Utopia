@@ -7,6 +7,8 @@ import java.util.PriorityQueue;
 
 import game.engine.base.Wall;
 import game.engine.dataloader.DataLoader;
+import game.engine.exceptions.InsufficientResourcesException;
+import game.engine.exceptions.InvalidLaneException;
 import game.engine.lanes.Lane;
 import game.engine.titans.AbnormalTitan;
 import game.engine.titans.ArmoredTitan;
@@ -139,7 +141,33 @@ public class Battle {
 		return gameOver;
 	}
 	
+	private void moveTitans() {
+		int size = lanes.size();
+		for(int i=0 ;i<size;i++) {
+			Lane currentLane = lanes.remove();
+			currentLane.moveLaneTitans();
+			lanes.add(currentLane);   //FIXME: might not be accessing all the elements in the queue
+		}
+	}
+	private int performWeaponsAttacks() {
+		int size = lanes.size();
+		int accumulatedResources = resourcesGathered;
+		for(int i=0 ;i<size;i++) {
+			Lane currentLane = lanes.remove();
+			accumulatedResources +=currentLane.performLaneWeaponsAttacks();
+			lanes.add(currentLane);   //FIXME: might not be accessing all the elements in the queue
+		}
+		return accumulatedResources;
+	}
 	
+	private void updateLanesDangerLevels() {
+		int size = lanes.size();
+		for(int i=0 ;i<size;i++) {
+			Lane currentLane = lanes.remove();
+			currentLane.updateLaneDangerLevel();;
+			lanes.add(currentLane);   //FIXME: might not be accessing all the elements in the queue
+		}
+	}
 	
 	
 	
