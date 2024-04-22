@@ -123,7 +123,8 @@ public class Battle {
 		else if(numberOfTurns>=30 && numberOfTurns%5==0) {
 			battlePhase=BattlePhase.GRUMBLING;
 			numberOfTitansPerTurn=numberOfTitansPerTurn*2;
-		}else if(numberOfTurns>=30)
+		}
+		else if(numberOfTurns>=30)
 			battlePhase=BattlePhase.GRUMBLING;
 		
 	}
