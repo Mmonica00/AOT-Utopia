@@ -36,15 +36,17 @@ public class VolleySpreadCannon extends Weapon{
 	@Override
 	public int turnAttack(PriorityQueue<Titan> laneTitans) {
 		int totalResourcesGained=0;
-		if(laneTitans.peek() != null) {
-			Titan peekTitan = laneTitans.peek();
-			if(peekTitan.getDistance()>=getMinRange() && peekTitan.getDistance()<=getMaxRange()) {
-				Titan titanBeingAttacked = laneTitans.remove();
-				totalResourcesGained=this.attack(titanBeingAttacked);
-				if(!titanBeingAttacked.isDefeated())
-					laneTitans.add(titanBeingAttacked);
-			}
+		PriorityQueue<Titan> tempPQ = new PriorityQueue<Titan>();
+		while(!laneTitans.isEmpty()) {
+			Titan peekTitan = laneTitans.remove();
+			if(peekTitan.getDistance()>=getMinRange() && peekTitan.getDistance()<=getMaxRange()) 
+				totalResourcesGained=this.attack(peekTitan);
+			if(!peekTitan.isDefeated())
+				tempPQ.add(peekTitan);
+			
 		}
+		while(!tempPQ.isEmpty())
+			laneTitans.add(tempPQ.remove());
 		return totalResourcesGained;
 	}
 
