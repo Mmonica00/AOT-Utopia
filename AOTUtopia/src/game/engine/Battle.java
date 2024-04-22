@@ -132,7 +132,7 @@ public class Battle {
 	}
 	
 	
-	private void performTurn() { //FIXME:
+	private void performTurn() { //FIXME: where to add weapon and titan attacks
 		moveTitans();
 		resourcesGathered+= performWeaponsAttacks();
 		resourcesGathered+= performTitansAttacks();
@@ -167,7 +167,7 @@ public class Battle {
 		while(!lanes.isEmpty()) {
 			Lane currentLane = lanes.remove();
 			currentLane.moveLaneTitans();
-			tempPQ.add(currentLane);   //FIXME: might not be accessing all the elements in the queue
+			tempPQ.add(currentLane);   
 		}
 		while(!tempPQ.isEmpty()) {
 			lanes.add(tempPQ.remove());
@@ -210,7 +210,7 @@ public class Battle {
 			Lane currentLane = lanes.remove();
 			sum+= currentLane.performLaneTitansAttacks();
 			if(!currentLane.isLaneLost())
-				lanes.add(currentLane);   //FIXME: might not be accessing all the elements in the queue
+				lanes.add(currentLane);   
 		}
 		return sum;
 	}
