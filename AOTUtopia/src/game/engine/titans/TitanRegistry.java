@@ -6,7 +6,7 @@ import game.engine.weapons.VolleySpreadCannon;
 import game.engine.weapons.WallTrap;
 
 public class TitanRegistry {
-	final private int code;
+	private final int code;
 	private int baseHealth;
 	private int baseDamage;
 	private int heightInMeters;
@@ -50,12 +50,13 @@ public class TitanRegistry {
 	public Titan spawnTitan(int distanceFromBase) {
 		Titan titan = null;
 		switch(this.code) {
-		case 1: titan = new PureTitan(this);
-		case 2: titan = new AbnormalTitan(this);
-		case 3: titan = new ArmoredTitan(this);
-		case 4: titan = new ColossalTitan(this);
+		case 1: titan = new PureTitan(this); break;
+		case 2: titan = new AbnormalTitan(this); break;
+		case 3: titan = new ArmoredTitan(this); break;
+		case 4: titan = new ColossalTitan(this); break;
 		}
-		titan.setDistance(distanceFromBase);
+		if(titan!=null)
+			titan.setDistance(distanceFromBase);
 		
 		return titan; 
 	}

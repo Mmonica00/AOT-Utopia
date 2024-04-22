@@ -82,7 +82,9 @@ public class Battle {
 		
 		int[] thisPhaseTitans = PHASES_APPROACHING_TITANS[phaseNum];
 		for(int i=0;i<thisPhaseTitans.length;i++) {
-			approachingTitans.add(getTitan(thisPhaseTitans[i]));
+			Titan tempTitan= getTitan(thisPhaseTitans[i]);
+			tempTitan.setDistance(titanSpawnDistance);
+			approachingTitans.add(tempTitan);
 		}
 	}
 	
