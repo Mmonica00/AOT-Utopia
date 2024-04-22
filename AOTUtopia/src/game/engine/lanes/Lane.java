@@ -60,7 +60,7 @@ public class Lane implements Comparable<Lane>{
 
 	public void moveLaneTitans() {
 		PriorityQueue<Titan> tempPQ= new PriorityQueue<Titan>();
-		while(!tempPQ.isEmpty()){
+		while(!titans.isEmpty()){
 			Titan titanMoving=titans.remove();
 			if(!titanMoving.hasReachedTarget())
 				titanMoving.move();
@@ -135,5 +135,6 @@ public class Lane implements Comparable<Lane>{
 		}
 		this.dangerLevel=sumDangerLevel;
 	}
+	
 
 }
