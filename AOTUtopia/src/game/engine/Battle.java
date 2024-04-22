@@ -156,23 +156,31 @@ public class Battle {
 	}
 	
 	private int performWeaponsAttacks() {
-		int size = lanes.size();
-		int accumulatedResources = resourcesGathered;
-		for(int i=0 ;i<size;i++) {
+		PriorityQueue<Lane> tempPQ= new PriorityQueue<Lane>();
+		int accumlatedResources= resourcesGathered;
+		while(!lanes.isEmpty()) {
 			Lane currentLane = lanes.remove();
-			accumulatedResources +=currentLane.performLaneWeaponsAttacks();
-			lanes.add(currentLane);   //FIXME: might not be accessing all the elements in the queue
+			accumlatedResources +=currentLane.performLaneWeaponsAttacks();
+			tempPQ.add(currentLane);  
 		}
-		return accumulatedResources;
+		while(!tempPQ.isEmpty()) {
+			lanes.add(tempPQ.remove());
+		}
+		return accumlatedResources;
 	}
 	
 	private void updateLanesDangerLevels() {
-		int size = lanes.size();
-		for(int i=0 ;i<size;i++) {
+		PriorityQueue<Lane> tempPQ= new PriorityQueue<Lane>();
+		
+		while(!lanes.isEmpty()) {
 			Lane currentLane = lanes.remove();
 			currentLane.updateLaneDangerLevel();;
-			lanes.add(currentLane);   //FIXME: might not be accessing all the elements in the queue
+			tempPQ.add(currentLane); 
 		}
+		while(!tempPQ.isEmpty()) {
+			lanes.add(tempPQ.remove());
+		}
+		
 	}
 	private int performTitansAttacks() {
 		int size = lanes.size();

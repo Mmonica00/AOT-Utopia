@@ -93,7 +93,7 @@ public class Lane implements Comparable<Lane>{
 		int resourcesGained=0;
 		
 		for(int i=0;i<numOfWeapons;i++) {
-			Weapon weaponAttacking=weapons.remove(i); //logic of looping should be corrected
+			Weapon weaponAttacking=weapons.remove(0); //logic of looping should be corrected
 			
 			if(weaponAttacking!=null) {
 				if(weaponAttacking instanceof PiercingCannon) {
@@ -114,7 +114,7 @@ public class Lane implements Comparable<Lane>{
 				}
 				totalResourcesGained+=resourcesGained;
 			}
-			weapons.add(i,weaponAttacking);
+			weapons.add(weaponAttacking);
 
 		}
 		return totalResourcesGained;
@@ -125,15 +125,17 @@ public class Lane implements Comparable<Lane>{
 	}
 	
 	public void updateLaneDangerLevel() {
-		int numOfTitans= titans.size();
 		int sumDangerLevel=0;
-		
-		for(int i=0; i<numOfTitans; i++) {
+		PriorityQueue<Titan> tempPQ = new PriorityQueue<Titan>();
+		while (!titans.isEmpty()){
 			Titan currentTitan= titans.remove();
 			sumDangerLevel+=currentTitan.getDangerLevel();
-			titans.add(currentTitan);
+			tempPQ.add(currentTitan);
 		}
 		this.dangerLevel=sumDangerLevel;
+		while(!tempPQ.isEmpty()) {
+			titans.add(tempPQ.remove());
+		}
 	}
 	
 
