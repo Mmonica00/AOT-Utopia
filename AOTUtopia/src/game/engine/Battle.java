@@ -130,10 +130,10 @@ public class Battle {
 	}
 	
 	
-	private void performTurn() {
+	private void performTurn() { //FIXME:
 		moveTitans();
-		int temp1= performWeaponsAttacks();
-		int temp2= performTitansAttacks();
+		resourcesGathered+= performWeaponsAttacks();
+		resourcesGathered+= performTitansAttacks();
 		addTurnTitansToLane();
 		updateLanesDangerLevels();
 		finalizeTurns();
@@ -174,7 +174,7 @@ public class Battle {
 	
 	private int performWeaponsAttacks() {
 		PriorityQueue<Lane> tempPQ= new PriorityQueue<Lane>();
-		int accumlatedResources= resourcesGathered;
+		int accumlatedResources= 0;
 		while(!lanes.isEmpty()) {
 			Lane currentLane = lanes.remove();
 			accumlatedResources +=currentLane.performLaneWeaponsAttacks();
@@ -183,6 +183,8 @@ public class Battle {
 		while(!tempPQ.isEmpty()) {
 			lanes.add(tempPQ.remove());
 		}
+		resourcesGathered+=accumlatedResources;
+		score+=accumlatedResources;
 		return accumlatedResources;
 	}
 	
@@ -213,8 +215,9 @@ public class Battle {
 	
 	public void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException, InvalidLaneException{
 		FactoryResponse factoryResponse = weaponFactory.buyWeapon(resourcesGathered, weaponCode);
-		if (!lane.isLaneLost())
-			lane.addWeapon(factoryResponse.getWeapon());
+		if(lane.isLaneLost())
+			throw new InvalidLaneException();
+		lane.addWeapon(factoryResponse.getWeapon());
 		resourcesGathered = factoryResponse.getRemainingResources();
 	}
 	
