@@ -16,6 +16,7 @@ import game.engine.titans.ColossalTitan;
 import game.engine.titans.PureTitan;
 import game.engine.titans.Titan;
 import game.engine.titans.TitanRegistry;
+import game.engine.weapons.factory.FactoryResponse;
 import game.engine.weapons.factory.WeaponFactory;
 
 public class Battle {
@@ -173,10 +174,23 @@ public class Battle {
 			lanes.add(currentLane);   //FIXME: might not be accessing all the elements in the queue
 		}
 	}
+	private int performTitansAttacks() {
+		int size = lanes.size();
+		int sum = 0;
+		for(int i=0 ;i<size;i++) {
+			Lane currentLane = lanes.remove();
+			sum+= currentLane.performLaneTitansAttacks();
+			lanes.add(currentLane);   //FIXME: might not be accessing all the elements in the queue
+		}
+		return sum;
+	}
 	
-	
-	
-	
+	void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException, InvalidLaneException{
+		FactoryResponse factoryResponse = weaponFactory.buyWeapon(resourcesGathered, weaponCode);
+		if (!lane.isLaneLost())
+			lane.addWeapon(factoryResponse.getWeapon());
+		resourcesGathered = factoryResponse.getRemainingResources();
+	}
 	
 	
 	
