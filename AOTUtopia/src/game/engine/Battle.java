@@ -156,6 +156,7 @@ public class Battle {
 		return gameOver;
 	}
 	
+	
 	private void moveTitans() {
 		PriorityQueue<Lane> tempPQ= new PriorityQueue<Lane>();
 		
