@@ -142,13 +142,18 @@ public class Battle {
 	}
 	
 	private void moveTitans() {
-		int size = lanes.size();
-		for(int i=0 ;i<size;i++) {
+		PriorityQueue<Lane> tempPQ= new PriorityQueue<Lane>();
+		
+		while(!lanes.isEmpty()) {
 			Lane currentLane = lanes.remove();
 			currentLane.moveLaneTitans();
-			lanes.add(currentLane);   //FIXME: might not be accessing all the elements in the queue
+			tempPQ.add(currentLane);   //FIXME: might not be accessing all the elements in the queue
+		}
+		while(!tempPQ.isEmpty()) {
+			lanes.add(tempPQ.remove());
 		}
 	}
+	
 	private int performWeaponsAttacks() {
 		int size = lanes.size();
 		int accumulatedResources = resourcesGathered;

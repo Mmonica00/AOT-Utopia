@@ -45,7 +45,7 @@ public class WeaponFactory {
 		WeaponRegistry weaponRegistry = new WeaponRegistry(code,price,damage,name);
 		weaponShop.put(code, weaponRegistry);
 	}
-	void addWeaponToShop(int code, int price, int damage, String name, int minRange, int maxRange) {
+	public void addWeaponToShop(int code, int price, int damage, String name, int minRange, int maxRange) {
 		WeaponRegistry weaponRegistry = new WeaponRegistry(code,price,damage,name,minRange,maxRange);
 		weaponShop.put(code, weaponRegistry);
 	}

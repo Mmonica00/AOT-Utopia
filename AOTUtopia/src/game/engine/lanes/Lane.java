@@ -59,13 +59,18 @@ public class Lane implements Comparable<Lane>{
 	}
 
 	public void moveLaneTitans() {
-		int numOfTitans=titans.size();
-		for(int i=0;i<numOfTitans;i++) {
-			Titan titanMoving=titans.poll();
-			titanMoving.move();
-			titans.add(titanMoving);
+		PriorityQueue<Titan> tempPQ= new PriorityQueue<Titan>();
+		while(!tempPQ.isEmpty()){
+			Titan titanMoving=titans.remove();
+			if(!titanMoving.hasReachedTarget())
+				titanMoving.move();
+			tempPQ.add(titanMoving);
 			
 		}
+		while(!tempPQ.isEmpty()) {
+			titans.add(tempPQ.remove());
+		}
+		
 	}
 	
 	public int performLaneTitansAttacks() {
@@ -108,7 +113,7 @@ public class Lane implements Comparable<Lane>{
 				}
 				totalResourcesGained+=resourcesGained;
 			}
-			weapons.add(weaponAttacking);
+			weapons.add(i,weaponAttacking);
 
 		}
 		return totalResourcesGained;
