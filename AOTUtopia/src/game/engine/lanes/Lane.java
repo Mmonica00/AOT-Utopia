@@ -61,11 +61,10 @@ public class Lane implements Comparable<Lane>{
 	public void moveLaneTitans() {
 		int numOfTitans=titans.size();
 		for(int i=0;i<numOfTitans;i++) {
-			Titan titanMoving=titans.remove();
-			if(titanMoving!=null) {
-				titanMoving.move();
-				titans.add(titanMoving);
-			}
+			Titan titanMoving=titans.poll();
+			titanMoving.move();
+			titans.add(titanMoving);
+			
 		}
 	}
 	
@@ -125,8 +124,7 @@ public class Lane implements Comparable<Lane>{
 		
 		for(int i=0; i<numOfTitans; i++) {
 			Titan currentTitan= titans.remove();
-			if(currentTitan!=null) 
-				sumDangerLevel+=currentTitan.getDangerLevel();
+			sumDangerLevel+=currentTitan.getDangerLevel();
 			titans.add(currentTitan);
 		}
 		this.dangerLevel=sumDangerLevel;
