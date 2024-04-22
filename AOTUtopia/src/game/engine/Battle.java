@@ -128,6 +128,7 @@ public class Battle {
 		
 	}
 	
+	
 	private void performTurn() {
 		moveTitans();
 		int temp1= performWeaponsAttacks();
