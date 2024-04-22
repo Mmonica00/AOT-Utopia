@@ -73,6 +73,7 @@ public class Lane implements Comparable<Lane>{
 		
 	}
 	
+	
 	public int performLaneTitansAttacks() {
 		int numOfTitans=titans.size();
 		int totalResources=0;
