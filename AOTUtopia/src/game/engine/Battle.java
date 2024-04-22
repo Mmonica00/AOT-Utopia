@@ -99,6 +99,10 @@ public class Battle {
 		return null;
 	}
 	
+	public void passTurn() {
+		
+	}
+	
 	private void addTurnTitansToLane() {
 		Lane currLane = lanes.remove();
 		for(int i=0;i<numberOfTitansPerTurn;i++) {
@@ -123,6 +127,16 @@ public class Battle {
 			battlePhase=BattlePhase.GRUMBLING;
 		
 	}
+	
+	private void performTurn() {
+		moveTitans();
+		int temp1= performWeaponsAttacks();
+		int temp2= performTitansAttacks();
+		addTurnTitansToLane();
+		updateLanesDangerLevels();
+		finalizeTurns();
+	}
+	
 	
 	public boolean isGameOver() {
 		PriorityQueue<Lane> tempQ = new PriorityQueue<Lane>();
@@ -193,7 +207,7 @@ public class Battle {
 		return sum;
 	}
 	
-	void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException, InvalidLaneException{
+	public void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException, InvalidLaneException{
 		FactoryResponse factoryResponse = weaponFactory.buyWeapon(resourcesGathered, weaponCode);
 		if (!lane.isLaneLost())
 			lane.addWeapon(factoryResponse.getWeapon());
