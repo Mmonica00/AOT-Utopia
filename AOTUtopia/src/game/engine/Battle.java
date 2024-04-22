@@ -227,7 +227,6 @@ public class Battle {
 	
 	
 	
-	
 
 	//Getters & setters
 
