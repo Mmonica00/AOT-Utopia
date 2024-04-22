@@ -100,7 +100,7 @@ public class Battle {
 	}
 	
 	public void passTurn() {
-		
+		performTurn();
 	}
 	
 	private void addTurnTitansToLane() {
@@ -123,7 +123,7 @@ public class Battle {
 		else if(numberOfTurns>=30 && numberOfTurns%5==0) {
 			battlePhase=BattlePhase.GRUMBLING;
 			numberOfTitansPerTurn=numberOfTitansPerTurn*2;
-		}else
+		}else if(numberOfTurns>=30)
 			battlePhase=BattlePhase.GRUMBLING;
 		
 	}
@@ -194,7 +194,8 @@ public class Battle {
 		for(int i=0 ;i<size;i++) {
 			Lane currentLane = lanes.remove();
 			sum+= currentLane.performLaneTitansAttacks();
-			lanes.add(currentLane);   //FIXME: might not be accessing all the elements in the queue
+			if(!currentLane.isLaneLost())
+				lanes.add(currentLane);   //FIXME: might not be accessing all the elements in the queue
 		}
 		return sum;
 	}
