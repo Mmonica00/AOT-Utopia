@@ -105,7 +105,19 @@ public class Battle {
 			return new ColossalTitan(tempTitan);
 		return null;
 	}
+<<<<<<< HEAD
 
+=======
+	
+	public void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException, InvalidLaneException{
+		FactoryResponse factoryResponse = weaponFactory.buyWeapon(resourcesGathered, weaponCode);
+		if(lane.isLaneLost())
+			throw new InvalidLaneException();
+		lane.addWeapon(factoryResponse.getWeapon());
+		resourcesGathered = factoryResponse.getRemainingResources();
+	}
+	
+>>>>>>> branch 'master' of https://github.com/rogereliass/AOT-Utopia.git
 	public void passTurn() {
 		performTurn();
 	}
@@ -229,6 +241,17 @@ public class Battle {
 		lanes.removeAll(temp);
 		return sum;
 	}
+<<<<<<< HEAD
+=======
+	
+	
+	
+	
+	
+	
+	
+	
+>>>>>>> branch 'master' of https://github.com/rogereliass/AOT-Utopia.git
 
 	public void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException, InvalidLaneException {
 		if (lane == null || lane.isLaneLost() || !lanes.contains(lane)) // lanes.contains(lane)
@@ -320,4 +343,5 @@ public class Battle {
 		return originalLanes;
 	}
 
+	
 }
