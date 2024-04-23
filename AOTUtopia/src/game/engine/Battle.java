@@ -71,18 +71,10 @@ public class Battle {
 		int phaseNum;
 
 		switch (battlePhase) {
-		case EARLY:
-			phaseNum = 0;
-			break;
-		case INTENSE:
-			phaseNum = 1;
-			break;
-		case GRUMBLING:
-			phaseNum = 2;
-			break;
-		default:
-			phaseNum = 0;
-			break;
+		case EARLY: phaseNum = 0; break;
+		case INTENSE: phaseNum = 1; break;
+		case GRUMBLING: phaseNum = 2; break;
+		default: phaseNum = 0; break;
 		}
 
 		int[] thisPhaseTitans = PHASES_APPROACHING_TITANS[phaseNum];
@@ -93,7 +85,7 @@ public class Battle {
 		}
 	}
 
-	public Titan getTitan(int code) { // helper to return titan given code
+	public Titan getTitan(int code) { // helper to return titan given it's code
 		TitanRegistry tempTitan = titansArchives.get(code);
 		if (code == 1)
 			return new PureTitan(tempTitan);
@@ -106,6 +98,15 @@ public class Battle {
 		return null;
 	}
 
+	public void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException, InvalidLaneException {
+		if (lane == null || lane.isLaneLost() || !lanes.contains(lane)) // lanes.contains(lane)
+			throw new InvalidLaneException();
+		
+		FactoryResponse factoryResponse = weaponFactory.buyWeapon(resourcesGathered, weaponCode);
+		lane.addWeapon(factoryResponse.getWeapon());
+		resourcesGathered = factoryResponse.getRemainingResources();
+		performTurn();
+	}
 	
 	public void passTurn() {
 		performTurn();
@@ -124,18 +125,16 @@ public class Battle {
 
 	private void finalizeTurns() {
 		numberOfTurns++;
-		
 		if (numberOfTurns == 15)
 			battlePhase = BattlePhase.INTENSE;
-		else if (numberOfTurns == 30) {
+		else if (numberOfTurns == 30)
 			battlePhase = BattlePhase.GRUMBLING;
-		} 
-		 if (numberOfTurns > 30 && numberOfTurns % 5 == 0)
-				numberOfTitansPerTurn = numberOfTitansPerTurn * 2;
-
+		
+		if (numberOfTurns > 30 && numberOfTurns % 5 == 0)
+			numberOfTitansPerTurn = numberOfTitansPerTurn * 2;
 	}
 
-	private void performTurn() { // FIXME: where to add weapon and titan attacks
+	private void performTurn() { 
 		moveTitans();
 		performWeaponsAttacks();
 		performTitansAttacks();
@@ -145,46 +144,19 @@ public class Battle {
 	}
 
 	public boolean isGameOver() {
-		PriorityQueue<Lane> tempQ = new PriorityQueue<Lane>();
-		int numOfLanes = lanes.size();
-		boolean gameOver = true;
-		for (int i = 0; i < numOfLanes; i++) {
-			Lane currLane = lanes.remove();
-			if (!currLane.isLaneLost()) {
-				gameOver = false;
-			}
-			tempQ.add(currLane);
-		}
-
-		for (int i = 0; i < numOfLanes; i++) {
-			lanes.add(tempQ.remove());
-		}
-		return gameOver;
+		return lanes.isEmpty();
 	}
 
 	private void moveTitans() {
-		PriorityQueue<Lane> tempPQ = new PriorityQueue<Lane>();
-
-		while (!lanes.isEmpty()) {
-			Lane currentLane = lanes.remove();
-			currentLane.moveLaneTitans();
-			tempPQ.add(currentLane);
-		}
-		while (!tempPQ.isEmpty()) {
-			lanes.add(tempPQ.remove());
+		for(Lane currLane : lanes) {
+			currLane.moveLaneTitans();
 		}
 	}
 
 	private int performWeaponsAttacks() {
-		PriorityQueue<Lane> tempPQ = new PriorityQueue<Lane>();
 		int accumlatedResources = 0;
-		while (!lanes.isEmpty()) {
-			Lane currentLane = lanes.remove();
-			accumlatedResources += currentLane.performLaneWeaponsAttacks();
-			tempPQ.add(currentLane);
-		}
-		while (!tempPQ.isEmpty()) {
-			lanes.add(tempPQ.remove());
+		for(Lane currLane : lanes) {
+			accumlatedResources+=currLane.performLaneWeaponsAttacks();
 		}
 		resourcesGathered += accumlatedResources;
 		score += accumlatedResources;
@@ -192,7 +164,9 @@ public class Battle {
 	}
 
 	private void updateLanesDangerLevels() {
-		PriorityQueue<Lane> tempPQ = new PriorityQueue<Lane>(); //input lanes if 2nd implementation
+		//DON'T change logic of Looping hena ya monica :)
+		
+		PriorityQueue<Lane> tempPQ = new PriorityQueue<Lane>(); 
 		
 		while(!lanes.isEmpty()) {
 			lanes.peek().updateLaneDangerLevel();
@@ -201,47 +175,22 @@ public class Battle {
 		while(!tempPQ.isEmpty()) {
 			lanes.add(tempPQ.poll());
 		}
-		
-		
-//		lanes.clear();
-//		while (!tempPQ.isEmpty()) {
-//			Lane currentLane = tempPQ.poll();
-//			System.out.println("BEFORE" + currentLane.getDangerLevel());
-//			currentLane.updateLaneDangerLevel();
-//			System.out.println("After" + currentLane.getDangerLevel());
-//			lanes.add(currentLane);
-//		}
-
-//		while (!tempPQ.isEmpty()) {
-//			lanes.add(tempPQ.remove());
-//		}
-
 	}
 
 	private int performTitansAttacks() {
-		int size = lanes.size();
-		int sum = 0;
-		ArrayList<Lane> temp = new ArrayList<>();
-		for (Lane l : lanes) {
-			sum += l.performLaneTitansAttacks();
-			if(l.isLaneLost())
-				temp.add(l);
+		int sumGainedResources = 0;
+		ArrayList<Lane> lostLanes = new ArrayList<>();
+		
+		for (Lane currentLane : lanes) {
+			sumGainedResources += currentLane.performLaneTitansAttacks();
+			if(currentLane.isLaneLost())
+				lostLanes.add(currentLane);
 		}
-		lanes.removeAll(temp);
-		return sum;
+		
+		lanes.removeAll(lostLanes);
+		return sumGainedResources;
 	}
 
-	public void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException, InvalidLaneException {
-		if (lane == null || lane.isLaneLost() || !lanes.contains(lane)) // lanes.contains(lane)
-			throw new InvalidLaneException();
-		
-			FactoryResponse factoryResponse = weaponFactory.buyWeapon(resourcesGathered, weaponCode);
-			lane.addWeapon(factoryResponse.getWeapon());
-			resourcesGathered = factoryResponse.getRemainingResources();
-			performTurn();
-		
-
-	}
 
 	// Getters & setters
 
