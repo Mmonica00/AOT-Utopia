@@ -1,4 +1,5 @@
 package game.engine.lanes;
+
 import java.util.ArrayList;
 import game.engine.titans.Titan;
 import java.util.PriorityQueue;
@@ -11,17 +12,18 @@ import game.engine.weapons.VolleySpreadCannon;
 import game.engine.weapons.Weapon;
 import game.engine.interfaces.Attackee;
 
-public class Lane implements Comparable<Lane>{
-	final private Wall laneWall; //A wall object found in the lane.
-	private int dangerLevel; //danger level of a lane based on the number and danger level of the titans on it.
-	private final PriorityQueue<Titan> titans; //A queue that stores all the titans in a given lane
-	private final ArrayList<Weapon> weapons; //A queue that stores all the weapons in a given lane
+public class Lane implements Comparable<Lane> {
+	final private Wall laneWall; // A wall object found in the lane.
+	private int dangerLevel = 0; // danger level of a lane based on the number and danger level of the titans on
+									// it.
+	private final PriorityQueue<Titan> titans; // A queue that stores all the titans in a given lane
+	private final ArrayList<Weapon> weapons; // A queue that stores all the weapons in a given lane
 
 	public Lane(Wall laneWall) {
 		super();
 		this.laneWall = laneWall;
-		this.titans= new PriorityQueue<Titan>();
-		this.weapons= new ArrayList<Weapon>();
+		this.titans = new PriorityQueue<Titan>();
+		this.weapons = new ArrayList<Weapon>();
 	}
 
 	public PriorityQueue<Titan> getTitans() {
@@ -43,100 +45,86 @@ public class Lane implements Comparable<Lane>{
 	public Wall getLaneWall() {
 		return laneWall;
 	}
-	
+
 	@Override
 	public int compareTo(Lane o) {
-		int temp= this.dangerLevel - o.dangerLevel;
-		return (temp<0)?-1:(temp>0)?1:0;
+		return this.dangerLevel - o.dangerLevel;
+
 	}
 
 	public void addTitan(Titan titan) {
 		titans.add(titan);
 	}
-	
+
 	public void addWeapon(Weapon weapon) {
 		weapons.add(weapon);
 	}
 
 	public void moveLaneTitans() {
-		PriorityQueue<Titan> tempPQ= new PriorityQueue<Titan>();
-		while(!titans.isEmpty()){
-			Titan titanMoving=titans.remove();
-			if(!titanMoving.hasReachedTarget())
+		PriorityQueue<Titan> tempPQ = new PriorityQueue<Titan>();
+		while (!titans.isEmpty()) {
+			Titan titanMoving = titans.remove();
+			if (!titanMoving.hasReachedTarget())
 				titanMoving.move();
 			tempPQ.add(titanMoving);
-			
+
 		}
-		while(!tempPQ.isEmpty()) {
+		while (!tempPQ.isEmpty()) {
 			titans.add(tempPQ.remove());
 		}
-		
+
 	}
-	
-	
+
 	public int performLaneTitansAttacks() {
-		int numOfTitans=titans.size();
-		int totalResources=0;
-		for(int i=0;i<numOfTitans;i++) {
-			Titan titanAttacking=titans.remove();
-			if(titanAttacking!=null) {
-				if(titanAttacking.hasReachedTarget()) 
-					totalResources+= titanAttacking.attack(laneWall);
-			}
+		int numOfTitans = titans.size();
+		int totalResources = 0;
+		for (Titan t : titans) {
+			if(t.hasReachedTarget())
+				totalResources += t.attack(laneWall);
+			
 		}
 		return totalResources;
 	}
-	
+
 	public int performLaneWeaponsAttacks() {
-		int numOfWeapons=weapons.size();
-		int totalResourcesGained=0;
-		int resourcesGained=0;
-		
-		for(int i=0;i<numOfWeapons;i++) {
-			Weapon weaponAttacking=weapons.remove(0); //logic of looping should be corrected
-			
-			if(weaponAttacking!=null) {
-				if(weaponAttacking instanceof PiercingCannon) {
-					PiercingCannon newWeapon = (PiercingCannon)weaponAttacking;
-					resourcesGained=newWeapon.turnAttack(titans);
-				}
-				if(weaponAttacking instanceof SniperCannon) {
-					SniperCannon newWeapon = (SniperCannon)weaponAttacking;
-					resourcesGained=newWeapon.turnAttack(titans);
-				}
-				if(weaponAttacking instanceof WallTrap) {
-					WallTrap newWeapon = (WallTrap)weaponAttacking;
-					resourcesGained=newWeapon.turnAttack(titans);
-				}
-				if(weaponAttacking instanceof VolleySpreadCannon) {
-					VolleySpreadCannon newWeapon = (VolleySpreadCannon)weaponAttacking;
-					resourcesGained=newWeapon.turnAttack(titans);
-				}
-				totalResourcesGained+=resourcesGained;
+		int numOfWeapons = weapons.size();
+		int totalResourcesGained = 0;
+		int resourcesGained = 0;
+
+		for (int i = 0; i < numOfWeapons; i++) {
+			Weapon weaponAttacking = weapons.remove(0); // logic of looping should be corrected
+
+			if (weaponAttacking != null) {
+
+				resourcesGained = weaponAttacking.turnAttack(titans);
+
+				totalResourcesGained += resourcesGained;
 			}
 			weapons.add(weaponAttacking);
 
 		}
 		return totalResourcesGained;
 	}
-	
+
 	public boolean isLaneLost() {
 		return laneWall.isDefeated();
 	}
-	
+
 	public void updateLaneDangerLevel() {
-		int sumDangerLevel=0;
+		int sumDangerLevel = 0;
 		PriorityQueue<Titan> tempPQ = new PriorityQueue<Titan>();
-		while (!titans.isEmpty()){
-			Titan currentTitan= titans.remove();
-			sumDangerLevel+=currentTitan.getDangerLevel();
+		while (!titans.isEmpty()) {
+			Titan currentTitan = titans.poll();
+			sumDangerLevel = sumDangerLevel + currentTitan.getDangerLevel();
+			System.out.println("internal" + sumDangerLevel);
 			tempPQ.add(currentTitan);
 		}
-		this.dangerLevel=sumDangerLevel;
-		while(!tempPQ.isEmpty()) {
+		
+		System.out.println("expected" + sumDangerLevel);
+		while (!tempPQ.isEmpty()) {
 			titans.add(tempPQ.remove());
 		}
+		this.dangerLevel = sumDangerLevel;
 	}
-	
 
 }

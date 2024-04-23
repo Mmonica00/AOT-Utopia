@@ -1,10 +1,5 @@
 package game.engine.titans;
 
-import game.engine.weapons.PiercingCannon;
-import game.engine.weapons.SniperCannon;
-import game.engine.weapons.VolleySpreadCannon;
-import game.engine.weapons.WallTrap;
-
 public class TitanRegistry {
 	private final int code;
 	private int baseHealth;
