@@ -101,6 +101,14 @@ public class Battle {
 		return null;
 	}
 	
+	public void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException, InvalidLaneException{
+		FactoryResponse factoryResponse = weaponFactory.buyWeapon(resourcesGathered, weaponCode);
+		if(lane.isLaneLost())
+			throw new InvalidLaneException();
+		lane.addWeapon(factoryResponse.getWeapon());
+		resourcesGathered = factoryResponse.getRemainingResources();
+	}
+	
 	public void passTurn() {
 		performTurn();
 	}
@@ -215,13 +223,7 @@ public class Battle {
 		return sum;
 	}
 	
-	public void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException, InvalidLaneException{
-		FactoryResponse factoryResponse = weaponFactory.buyWeapon(resourcesGathered, weaponCode);
-		if(lane.isLaneLost())
-			throw new InvalidLaneException();
-		lane.addWeapon(factoryResponse.getWeapon());
-		resourcesGathered = factoryResponse.getRemainingResources();
-	}
+	
 	
 	
 	
