@@ -115,12 +115,9 @@ public class Lane implements Comparable<Lane> {
 		PriorityQueue<Titan> tempPQ = new PriorityQueue<Titan>();
 		while (!titans.isEmpty()) {
 			Titan currentTitan = titans.poll();
-			sumDangerLevel = sumDangerLevel + currentTitan.getDangerLevel();
-			System.out.println("internal" + sumDangerLevel);
+			sumDangerLevel +=  currentTitan.getDangerLevel();
 			tempPQ.add(currentTitan);
 		}
-		
-		System.out.println("expected" + sumDangerLevel);
 		while (!tempPQ.isEmpty()) {
 			titans.add(tempPQ.remove());
 		}

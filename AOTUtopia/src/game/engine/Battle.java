@@ -232,15 +232,13 @@ public class Battle {
 	}
 
 	public void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException, InvalidLaneException {
-		if (lane == null || lane.isLaneLost() || !lanes.contains(lane)) // lanes.contains(lane)
+		if (lane == null || lane.isLaneLost() || !lanes.contains(lane))
 			throw new InvalidLaneException();
 		
 			FactoryResponse factoryResponse = weaponFactory.buyWeapon(resourcesGathered, weaponCode);
 			lane.addWeapon(factoryResponse.getWeapon());
 			resourcesGathered = factoryResponse.getRemainingResources();
 			performTurn();
-		
-
 	}
 
 	// Getters & setters

@@ -40,7 +40,7 @@ public class VolleySpreadCannon extends Weapon{
 		while(!laneTitans.isEmpty()) {
 			Titan peekTitan = laneTitans.remove();
 			if(peekTitan.getDistance()>=getMinRange() && peekTitan.getDistance()<=getMaxRange()) 
-				totalResourcesGained=this.attack(peekTitan);
+				totalResourcesGained+=this.attack(peekTitan);
 			if(!peekTitan.isDefeated())
 				tempPQ.add(peekTitan);
 			
