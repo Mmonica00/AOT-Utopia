@@ -25,6 +25,53 @@ public class Lane implements Comparable<Lane> {
 		this.titans = new PriorityQueue<Titan>();
 		this.weapons = new ArrayList<Weapon>();
 	}
+	
+	public void moveLaneTitans() {
+		PriorityQueue<Titan> tempPQ = new PriorityQueue<Titan>();
+		while (!titans.isEmpty()) {
+			Titan titanMoving = titans.remove();
+			if (!titanMoving.hasReachedTarget())
+				titanMoving.move();
+			tempPQ.add(titanMoving);
+
+		}
+		while (!tempPQ.isEmpty()) {
+			titans.add(tempPQ.remove());
+		}
+
+	}
+
+	public int performLaneTitansAttacks() {
+		int numOfTitans = titans.size();
+		int totalResources = 0;
+		for (Titan t : titans) {
+			if(t.hasReachedTarget())
+				totalResources += t.attack(laneWall);
+			
+		}
+		return totalResources;
+	}
+
+	public int performLaneWeaponsAttacks() {
+		int totalResourcesGained = 0;
+		for (Weapon currentWeapon : weapons) {
+			if (currentWeapon != null) 
+				totalResourcesGained += currentWeapon.turnAttack(titans);
+		}
+		return totalResourcesGained;
+	}
+
+	public boolean isLaneLost() {
+		return laneWall.isDefeated();
+	}
+
+	public void updateLaneDangerLevel() {
+		int sumDangerLevel = 0;
+		for(Titan currentTitan : titans) {
+			sumDangerLevel+= currentTitan.getDangerLevel();
+		}
+		this.dangerLevel = sumDangerLevel;
+	}
 
 	public PriorityQueue<Titan> getTitans() {
 		return titans;
@@ -60,6 +107,7 @@ public class Lane implements Comparable<Lane> {
 		weapons.add(weapon);
 	}
 
+<<<<<<< HEAD
 	public void moveLaneTitans() {
 		PriorityQueue<Titan> tempPQ = new PriorityQueue<Titan>();
 		while (!titans.isEmpty()) {
@@ -123,5 +171,8 @@ public class Lane implements Comparable<Lane> {
 		}
 		this.dangerLevel = sumDangerLevel;
 	}
+=======
+	
+>>>>>>> branch 'master' of https://github.com/rogereliass/AOT-Utopia.git
 
 }

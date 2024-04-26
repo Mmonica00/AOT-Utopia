@@ -4751,7 +4751,7 @@ public class Milestone2PublicTests {
 
 		} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | 
 				InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchFieldException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			fail("Please check the console for the error, its an error from this catch statment."+e.getClass()+" occured");
 		}
@@ -4787,7 +4787,7 @@ public class Milestone2PublicTests {
 
 		} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | 
 				InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchFieldException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			fail("Please check the console for the error, its an error from this catch statment."+e.getClass()+" occured");
 		}
@@ -4832,7 +4832,7 @@ public class Milestone2PublicTests {
 
 		} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | 
 				InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchFieldException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			fail("Please check the console for the error, its an error from this catch statment."+e.getClass()+" occured");
 		}
@@ -4881,7 +4881,7 @@ public class Milestone2PublicTests {
 
 		} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | 
 				InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchFieldException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			fail("Please check the console for the error, its an error from this catch statment."+e.getClass()+" occured");
 		}
@@ -4909,7 +4909,7 @@ public class Milestone2PublicTests {
 
 		} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | 
 				InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchFieldException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			fail("Please check the console for the error, its an error from this catch statment."+e.getClass()+" occured");
 		}
@@ -4941,7 +4941,6 @@ public class Milestone2PublicTests {
 
 		} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | 
 				InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchFieldException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail("Please check the console for the error, its an error from this catch statment."+e.getClass()+" occured");
 
@@ -4986,7 +4985,6 @@ public class Milestone2PublicTests {
 
 		} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | 
 				InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchFieldException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail("Please check the console for the error, its an error from this catch statment."+e.getClass()+" occured");
 		}
