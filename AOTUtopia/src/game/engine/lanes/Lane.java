@@ -42,7 +42,6 @@ public class Lane implements Comparable<Lane> {
 	}
 
 	public int performLaneTitansAttacks() {
-		int numOfTitans = titans.size();
 		int totalResources = 0;
 		for (Titan t : titans) {
 			if(t.hasReachedTarget())
@@ -107,72 +106,5 @@ public class Lane implements Comparable<Lane> {
 		weapons.add(weapon);
 	}
 
-<<<<<<< HEAD
-	public void moveLaneTitans() {
-		PriorityQueue<Titan> tempPQ = new PriorityQueue<Titan>();
-		while (!titans.isEmpty()) {
-			Titan titanMoving = titans.remove();
-			if (!titanMoving.hasReachedTarget())
-				titanMoving.move();
-			tempPQ.add(titanMoving);
-
-		}
-		while (!tempPQ.isEmpty()) {
-			titans.add(tempPQ.remove());
-		}
-
-	}
-
-	public int performLaneTitansAttacks() {
-		int numOfTitans = titans.size();
-		int totalResources = 0;
-		for (Titan t : titans) {
-			if(t.hasReachedTarget())
-				totalResources += t.attack(laneWall);
-			
-		}
-		return totalResources;
-	}
-
-	public int performLaneWeaponsAttacks() {
-		int numOfWeapons = weapons.size();
-		int totalResourcesGained = 0;
-		int resourcesGained = 0;
-
-		for (int i = 0; i < numOfWeapons; i++) {
-			Weapon weaponAttacking = weapons.remove(0); // logic of looping should be corrected
-
-			if (weaponAttacking != null) {
-
-				resourcesGained = weaponAttacking.turnAttack(titans);
-
-				totalResourcesGained += resourcesGained;
-			}
-			weapons.add(weaponAttacking);
-
-		}
-		return totalResourcesGained;
-	}
-
-	public boolean isLaneLost() {
-		return laneWall.isDefeated();
-	}
-
-	public void updateLaneDangerLevel() {
-		int sumDangerLevel = 0;
-		PriorityQueue<Titan> tempPQ = new PriorityQueue<Titan>();
-		while (!titans.isEmpty()) {
-			Titan currentTitan = titans.poll();
-			sumDangerLevel +=  currentTitan.getDangerLevel();
-			tempPQ.add(currentTitan);
-		}
-		while (!tempPQ.isEmpty()) {
-			titans.add(tempPQ.remove());
-		}
-		this.dangerLevel = sumDangerLevel;
-	}
-=======
-	
->>>>>>> branch 'master' of https://github.com/rogereliass/AOT-Utopia.git
 
 }

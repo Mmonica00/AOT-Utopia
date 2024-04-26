@@ -191,18 +191,7 @@ public class Battle {
 		return sumGainedResources;
 	}
 
-<<<<<<< HEAD
-	public void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException, InvalidLaneException {
-		if (lane == null || lane.isLaneLost() || !lanes.contains(lane))
-			throw new InvalidLaneException();
-		
-			FactoryResponse factoryResponse = weaponFactory.buyWeapon(resourcesGathered, weaponCode);
-			lane.addWeapon(factoryResponse.getWeapon());
-			resourcesGathered = factoryResponse.getRemainingResources();
-			performTurn();
-	}
-=======
->>>>>>> branch 'master' of https://github.com/rogereliass/AOT-Utopia.git
+
 
 	// Getters & setters
 
