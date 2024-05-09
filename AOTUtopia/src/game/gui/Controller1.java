@@ -20,15 +20,12 @@ import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class Controller implements Initializable{
+public class Controller1 implements Initializable{
 	
 	private int countIntroCycles=0;
 	
-	
-	
 	@FXML
 	private MediaView mediaView1;
-
 
 	@FXML 
 	private Button startGame;
