@@ -10,33 +10,34 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.gui.Controller4">
    <children>
       <ImageView fitHeight="620.0" fitWidth="1180.0" pickOnBounds="true">
          <image>
             <Image url="@BG2.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="14.0" layoutY="14.0" text="Score:">
+      <Label fx:id="scoreNumLabel" layoutX="26.0" layoutY="51.0">
          <font>
             <Font name="Arial Black" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="51.0" text="Turn:">
+      <Label fx:id="turnNumLabel" layoutX="26.0" layoutY="14.0">
          <font>
             <Font name="Arial Black" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="197.0" layoutY="14.0" text="Phase:">
+      <Label fx:id="phaseLabel" layoutX="216.0" layoutY="14.0">
          <font>
             <Font name="Arial Black" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="197.0" layoutY="51.0" text="Resources:">
+      <Label fx:id="resourcesNumLabel" layoutX="216.0" layoutY="51.0">
          <font>
             <Font name="Arial Black" size="24.0" />
          </font>
@@ -85,7 +86,6 @@
             <Text layoutX="61.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" />
          </children>
       </AnchorPane>
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fitHeight="481.0" fitWidth="790.0" pickOnBounds="true" x="377.0" y="125.0">
          <image>
             <Image url="@BG3.jpg" />
@@ -127,7 +127,9 @@
                   <Image url="@wall.png" />
                </image>
             </ImageView>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowSpan="3" />
          </children>
       </GridPane>
+      <Button layoutX="598.0" layoutY="65.0" mnemonicParsing="false" onAction="#switchToScene6" text="Button" />
    </children>
 </AnchorPane>

@@ -16,6 +16,10 @@ import javafx.stage.Stage;
 
 public class Controller3 implements Initializable{
 
+	public Controller3() {
+		super();
+	}
+
 	@FXML
 	private Button playButton;
 	
@@ -32,18 +36,20 @@ public class Controller3 implements Initializable{
 		
 	}
 	
-	public void goToGameMode(ActionEvent event) {
+	public void goToGameMode(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("Scene4.fxml"));;
 		try {
 			if (gameMode==2) //goes to hard Game Mode
-				root = FXMLLoader.load(getClass().getResource("Scene5.fxml"));
+				loader = new FXMLLoader(getClass().getResource("Scene5.fxml"));
 			else //goes to easy Game Mode
-				root = FXMLLoader.load(getClass().getResource("Scene4.fxml"));
+				loader = new FXMLLoader(getClass().getResource("Scene4.fxml"));
 		}catch(Exception e) {
 			System.out.println(e.getCause());
 		}
 		
-//		Controller4 controller4 = loader.getController();
-//		controller4.setPlayerName(playerName);;
+		root=loader.load();
+		
+		//Controller4 controller4 = new Controller4();
 		
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);

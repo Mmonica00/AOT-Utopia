@@ -48,6 +48,7 @@ public class Main extends Application {
 	public void logout(Stage stage){	
 		
 		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setResizable(false);
 		alert.setTitle("Logout");
 		alert.setHeaderText("You're about to logout!");
 		alert.setContentText("Do you want to close the game? ");

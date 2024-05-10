@@ -39,6 +39,7 @@ public class Controller6 {
 		alert.setTitle("Logout");
 		alert.setHeaderText("You're about to logout!");
 		alert.setContentText("Do you want to close the game? ");
+		alert.setResizable(false);
 		
 		if(alert.showAndWait().get() == ButtonType.OK){
 			stage = (Stage) anchorPane.getScene().getWindow();

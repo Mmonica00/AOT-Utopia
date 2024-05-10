@@ -20,6 +20,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,7 +34,7 @@ public class Controller4 implements Initializable {
 	
 	//Battle Attributes
 	private Battle battle;
-	private HashMap<Integer, WeaponRegistry> weapons = battle.getWeaponFactory().getWeaponShop();
+	private HashMap<Integer, WeaponRegistry> weapons;
 	private int WALL_BASE_HEALTH;
 	private int numberOfTurns; 
 	private int resourcesGathered; 
@@ -47,6 +49,18 @@ public class Controller4 implements Initializable {
 	//SceneBuilder Attributes
 	@FXML
 	private GridPane gridPane;
+	@FXML
+	private Label turnNumLabel;
+	@FXML
+	private Label scoreNumLabel;
+	@FXML
+	private Label resourcesNumLabel;
+	@FXML
+	private Label phaseLabel;
+	
+	
+	
+	
 	
 	//Other GUI Attributes
 	private Stage stage;
@@ -75,14 +89,27 @@ public class Controller4 implements Initializable {
 		updateBattleAttributes();
 		
 		//setup the UI (WeaponShop, Attributes, Lanes)
+		setupInitialUI();
 		
 		//call gamePlay for actual game 
-		gamePlay();
+		//gamePlay();
 
+		
 		if(battle.isGameOver())
 			switchToScene6();
 	}
 	
+	private void setupInitialUI() { // TODO: a work here
+		//setup the initial values of 4 buttons
+		this.turnNumLabel.setText("Turn: "+this.numberOfTurns+"");
+		this.scoreNumLabel.setText("Score: "+this.score+"");
+		this.resourcesNumLabel.setText("Resources: "+this.resourcesGathered+"");
+		this.phaseLabel.setText("Battle Phase: "+this.battlePhase+"");
+		
+		System.out.println("UI is set");
+	
+	}
+
 	private void gamePlay() {
 		//while game is not over do the following
 		do {
@@ -93,8 +120,8 @@ public class Controller4 implements Initializable {
 		// update UI (Attributes, Lanes)
 				
 		
-		}while(!battle.isGameOver()); //Check End game condition if lost then switchToScene6 else repeat actions
-		
+		}while(!battle.isGameOver()); 
+		//Checks End game condition if lost then switchToScene6 else repeat actions
 	}
 	
 
@@ -110,6 +137,7 @@ public class Controller4 implements Initializable {
 		this.titansArchives = battle.getTitansArchives(); // read from Dataloader
 		this.approachingTitans = battle.getApproachingTitans(); // will be treated as a queue (FIFO)
 		this.lanes = battle.getLanes();
+		this.weapons = battle.getWeaponFactory().getWeaponShop();
 	}
 	
 	public void switchToScene6()  {
@@ -124,14 +152,13 @@ public class Controller4 implements Initializable {
 		  stage.show();
 	}
 	
-	/*
-	 * Methods to be implemented:
-	 * update UI, 
-	 * getWeapons from battle and create a weaponshop
-	 * 
-	 * 
-	 * 
-	 */
+	//--------------------------------------------------------------------------------
+	
+	private void useAIHelper() {
+		//get the most Dangerous lane ID (ex. 1,2,3)
+		//get a suitable weapon ID (ex. 1,2,3,4)
+		//purschase the weapon into the lane
+	}
 	
 	private void test() {
 		System.out.println("Tester method Shouldn't be called");
@@ -139,6 +166,8 @@ public class Controller4 implements Initializable {
 		
 		
 	}
+
+	//--------------------------------------------------------------------------------
 
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
