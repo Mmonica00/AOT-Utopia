@@ -46,7 +46,12 @@ public class Controller2 implements Initializable {
 		  battleMode=(rButtonHard.isSelected())?2:1; //if non chosen the default is applied which is Easy Mode
 		  playerName = nameTextArea.getText();
 		  
-		  root = FXMLLoader.load(getClass().getResource("Scene3.fxml"));
+		  FXMLLoader loader = new FXMLLoader(getClass().getResource("Scene3.fxml"));	
+		  root = loader.load();
+			
+		  Controller3 controller3 = loader.getController();
+		  controller3.setGameMode(battleMode);
+
 		  stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		  scene = new Scene(root);
 		  stage.setScene(scene);
