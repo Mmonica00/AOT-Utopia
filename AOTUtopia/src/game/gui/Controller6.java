@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,7 +13,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Controller6 {
@@ -26,8 +30,8 @@ public class Controller6 {
 	private Scene scene;
 	private Parent root;
 	
-	public void switchToScene1(ActionEvent event) throws IOException {
-		  root = FXMLLoader.load(getClass().getResource("Scene1.fxml"));
+	public void switchToScene2(ActionEvent event) throws IOException {
+		  root = FXMLLoader.load(getClass().getResource("Scene2.fxml"));
 		  stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		  scene = new Scene(root);
 		  stage.setScene(scene);
@@ -47,5 +51,5 @@ public class Controller6 {
 			stage.close();
 		}
 	}
-	
+
 }

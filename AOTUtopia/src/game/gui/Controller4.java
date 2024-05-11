@@ -34,7 +34,6 @@ public class Controller4 implements Initializable {
 	
 	//Battle Attributes
 	private Battle battle;
-	private HashMap<Integer, WeaponRegistry> weapons;
 	private int WALL_BASE_HEALTH;
 	private int numberOfTurns; 
 	private int resourcesGathered; 
@@ -45,6 +44,8 @@ public class Controller4 implements Initializable {
 	private HashMap<Integer, TitanRegistry> titansArchives; // read from Dataloader
 	private ArrayList<Titan> approachingTitans; // will be treated as a queue (FIFO)
 	private PriorityQueue<Lane> lanes;
+	private ArrayList<Lane> originalLanes;
+	private HashMap<Integer, WeaponRegistry> weapons;
 	
 	//SceneBuilder Attributes
 	@FXML
@@ -60,20 +61,11 @@ public class Controller4 implements Initializable {
 	
 	
 	
-	
-	
 	//Other GUI Attributes
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
 	
-	
-//	for (int row = 0; row < gridPane.getRowCount(); row++) {
-//  for (int col = 0; col < gridPane.getColumnCount(); col++) {
-//      ImageView imageView = new ImageView(new Image("BG3.png")); 
-//      gridPane.add(imageView, col, row);
-//  }
-//}
 	
 
 	@Override
@@ -86,47 +78,18 @@ public class Controller4 implements Initializable {
 		}
 		
 		//assign starting values of battle attributes
-		updateBattleAttributes();
+		setupInitialBattleAttributes();
 		
 		//setup the UI (WeaponShop, Attributes, Lanes)
 		setupInitialUI();
 		
-		//call gamePlay for actual game 
-		//gamePlay();
-
+		//call game play for actual game by buttons
+		//game play will be called based on pass turn or purchase weapon being clicked
+		//after any of them they will perform actions in performPassTurn();
 		
-		if(battle.isGameOver())
-			switchToScene6();
 	}
 	
-	private void setupInitialUI() { // TODO: a work here
-		//setup the initial values of 4 buttons
-		this.turnNumLabel.setText("Turn: "+this.numberOfTurns+"");
-		this.scoreNumLabel.setText("Score: "+this.score+"");
-		this.resourcesNumLabel.setText("Resources: "+this.resourcesGathered+"");
-		this.phaseLabel.setText("Battle Phase: "+this.battlePhase+"");
-		
-		System.out.println("UI is set");
-	
-	}
-
-	private void gamePlay() {
-		//while game is not over do the following
-		do {
-		// check if buyWeapon() or passTurn() clicked 
-		
-		//perfom backend action
-				
-		// update UI (Attributes, Lanes)
-				
-		
-		}while(!battle.isGameOver()); 
-		//Checks End game condition if lost then switchToScene6 else repeat actions
-	}
-	
-
-	
-	public void updateBattleAttributes() {
+	public void setupInitialBattleAttributes() {
 		this.WALL_BASE_HEALTH = battle.getWALL_BASE_HEALTH();
 		this.numberOfTurns = battle.getNumberOfTurns(); 
 		this.resourcesGathered = battle.getResourcesGathered(); 
@@ -137,37 +100,93 @@ public class Controller4 implements Initializable {
 		this.titansArchives = battle.getTitansArchives(); // read from Dataloader
 		this.approachingTitans = battle.getApproachingTitans(); // will be treated as a queue (FIFO)
 		this.lanes = battle.getLanes();
+		this.originalLanes = battle.getOriginalLanes();
 		this.weapons = battle.getWeaponFactory().getWeaponShop();
 	}
 	
-	public void switchToScene6()  {
-		  try {
+	private void setupInitialUI() { // TODO: a work here
+		//setup the initial values of 4 labels
+		this.turnNumLabel.setText("Turn: "+this.numberOfTurns+" ");
+		this.scoreNumLabel.setText("Score: "+this.score+" ");
+		this.resourcesNumLabel.setText("Resources: "+this.resourcesGathered+" ");
+		this.phaseLabel.setText("Battle Phase: "+this.battlePhase+" ");
+		
+		//setup the lanes based on this.originalLanes
+		
+		
+		//setup the weaponShop
+		//setupWeaponShop
+		
+		System.out.println("UI is set");
+	
+	}
+
+	private void performBuyWeapon() {
+		
+		
+		//calls updateTurnUI() after completion
+		updateTurnUI();
+		//checks if game is over then moves to end Scene
+		checkEndGameCondition();
+	}
+
+	private void performPassTurn() {
+		battle.passTurn();
+		//calls updateTurnUI() after completion
+		updateTurnUI();
+	}
+	
+	private void updateTurnUI() {
+		/* LANES:
+		 * Update Walls 
+		 * Remove wall if lane is lost
+		 * Update Titans Health & location
+		 * 
+		 * 
+		 */
+	}
+	
+	private void checkEndGameCondition(){
+		if(battle.isGameOver()) {
+			switchToScene6();
+		}
+	}
+	
+	public void switchToScene6() {
+		try {
 			root = FXMLLoader.load(getClass().getResource("Scene6.fxml"));
 		} catch (IOException e) {
 			System.out.println(e.getCause());
 		}
-		  stage = (Stage)((Node)gridPane).getScene().getWindow();
-		  scene = new Scene(root);
-		  stage.setScene(scene);
-		  stage.show();
+		
+		stage = (Stage)((Node)gridPane).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
 	}
 	
 	//--------------------------------------------------------------------------------
+	// Supplementary methods
 	
 	private void useAIHelper() {
 		//get the most Dangerous lane ID (ex. 1,2,3)
 		//get a suitable weapon ID (ex. 1,2,3,4)
-		//purschase the weapon into the lane
+		//Purchase the weapon into the lane
 	}
 	
 	private void test() {
 		System.out.println("Tester method Shouldn't be called");
-		battle.getWeaponFactory().getWeaponShop();
+		weapons.get(2).buildWeapon();
 		
 		
 	}
 
 	//--------------------------------------------------------------------------------
+	//Getters and Setters (Just in case)
+	
+	public Battle getBattle() {
+		return battle;
+	}
 
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;

@@ -19,7 +19,7 @@
             <Font name="Stencil" size="54.0" />
          </font>
       </Label>
-      <Button fx:id="switchToScene1" layoutX="680.0" layoutY="463.0" mnemonicParsing="false" text="Play Again">
+      <Button fx:id="switchToScene1" layoutX="680.0" layoutY="463.0" mnemonicParsing="false" onAction="#switchToScene2" text="Play Again">
          <font>
             <Font name="Century" size="28.0" />
          </font>
