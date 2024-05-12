@@ -9,6 +9,8 @@ import java.util.ResourceBundle;
 
 import game.engine.Battle;
 import game.engine.BattlePhase;
+import game.engine.exceptions.InsufficientResourcesException;
+import game.engine.exceptions.InvalidLaneException;
 import game.engine.lanes.Lane;
 import game.engine.titans.Titan;
 import game.engine.titans.TitanRegistry;
@@ -17,15 +19,21 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Controller4 implements Initializable {
@@ -46,6 +54,7 @@ public class Controller4 implements Initializable {
 	private PriorityQueue<Lane> lanes;
 	private ArrayList<Lane> originalLanes;
 	private HashMap<Integer, WeaponRegistry> weapons;
+	private ArrayList<LaneController> laneViews = new ArrayList<LaneController>();
 	
 	//SceneBuilder Attributes
 	@FXML
@@ -58,6 +67,8 @@ public class Controller4 implements Initializable {
 	private Label resourcesNumLabel;
 	@FXML
 	private Label phaseLabel;
+	@FXML
+	private ToggleGroup weaponsToggleGroup;
 	
 	
 	
@@ -115,13 +126,13 @@ public class Controller4 implements Initializable {
 		
 		
 		//setup the weaponShop
-		//setupWeaponShop
+		//setupWeaponShop()
 		
 		System.out.println("UI is set");
 	
 	}
 
-	private void performBuyWeapon() {
+	private void performBuyWeaponFromShop() { //NOT FINISHED
 		
 		
 		//calls updateTurnUI() after completion
@@ -129,30 +140,75 @@ public class Controller4 implements Initializable {
 		//checks if game is over then moves to end Scene
 		checkEndGameCondition();
 	}
+	
+	private int getSelectedWeaponCodeFromShop() { //NOT FINISHED
+		//Helper for performBuyWeaponFromShop();
+		int weaponCode = 0;
+		//TODO: 'A' Handle Null Case
+		RadioButton selectedWeapon = (RadioButton)weaponsToggleGroup.getSelectedToggle();
+		System.out.println(selectedWeapon.getText());
+		
+		//get weaponCode based on Button clicked
+		
+		
+		
+		return weaponCode;
+	}
+	
+	private void useAIHelper() { //NOT FINISHED
+		//get the most Dangerous lane ID (ex. 1,2,3)
+		
+		//get a suitable weapon ID (ex. 1,2,3,4)
+		
+		//Purchase the weapon into the lane
+		//call performBuyWeaponFromAI(int weaponCode, Lane lane);
+	}
+	
+	private void performBuyWeaponFromAI(int weaponCode, Lane lane) { //NOT FINISHED
+		// An edited version of performBuyWeaponFrom shop but is called when calling AI Button
+		try {
+			battle.purchaseWeapon(weaponCode, lane);
+		} catch (InsufficientResourcesException e) {
+			System.out.println(e.getCause());
+			display("Insufficent Resources!", e.getMSG()+e.getResourcesProvided());
+		} catch (InvalidLaneException e) {
+			System.out.println(e.getCause());
+			display("Invalid Lane!", e.getMSG());
+		}
+		
+		//calls updateTurnUI() after completion of action
+		updateTurnUI();
+		//checks if game is over then moves to end Scene
+		checkEndGameCondition();
+	}
 
-	private void performPassTurn() {
+	private void performPassTurn() { //NOT FINISHED
 		battle.passTurn();
 		//calls updateTurnUI() after completion
 		updateTurnUI();
+		//checks if game is over then moves to end Scene
+		checkEndGameCondition();
 	}
 	
-	private void updateTurnUI() {
-		/* LANES:
-		 * Update Walls 
-		 * Remove wall if lane is lost
-		 * Update Titans Health & location
-		 * 
-		 * 
-		 */
+	private void updateTurnUI() { //NOT FINISHED
+//		for(LaneController currLaneController : laneViews) {
+//			currLaneController.refreshLane();
+//		}
 	}
 	
-	private void checkEndGameCondition(){
+	
+	
+	
+	
+	private void checkEndGameCondition(){ //FINISHED
 		if(battle.isGameOver()) {
 			switchToScene6();
 		}
 	}
 	
-	public void switchToScene6() {
+	public void switchToScene6() { //FINISHED
+		//int x=getSelectedWeaponCodeFromShop();
+		
 		try {
 			root = FXMLLoader.load(getClass().getResource("Scene6.fxml"));
 		} catch (IOException e) {
@@ -165,14 +221,37 @@ public class Controller4 implements Initializable {
 		stage.show();
 	}
 	
+	public static void display(String title, String message) { //NOT FINISHED
+		//Helper method to show Alerts with custom message
+        Stage window = new Stage();
+        
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle(title);
+        window.setWidth(400);
+        window.setHeight(200);
+
+        Label label = new Label();
+        label.setText(message);
+        Font font = new Font("Arial", 20); // Font name, font size
+
+        // Set the font of the Label
+        label.setFont(font);
+        Button closeButton = new Button("Close window");
+        closeButton.setTranslateY(30);
+        closeButton.setOnAction(e -> window.close());
+
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(label, closeButton);
+        layout.setAlignment(Pos.CENTER);
+
+        Scene scene = new Scene(layout);
+        window.setScene(scene);
+        window.showAndWait();
+    }
+	
 	//--------------------------------------------------------------------------------
 	// Supplementary methods
 	
-	private void useAIHelper() {
-		//get the most Dangerous lane ID (ex. 1,2,3)
-		//get a suitable weapon ID (ex. 1,2,3,4)
-		//Purchase the weapon into the lane
-	}
 	
 	private void test() {
 		System.out.println("Tester method Shouldn't be called");
@@ -191,5 +270,5 @@ public class Controller4 implements Initializable {
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
 	}
-	
+
 }

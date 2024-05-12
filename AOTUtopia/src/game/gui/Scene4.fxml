@@ -65,13 +65,16 @@
                   <Font name="Arial Black" size="18.0" />
                </font>
                <toggleGroup>
-                  <ToggleGroup fx:id="group" />
+                  <ToggleGroup fx:id="weaponsToggleGroup" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton layoutX="17.0" layoutY="175.0" mnemonicParsing="false" text="Long Range Spear" toggleGroup="$group">
+            <RadioButton layoutX="17.0" layoutY="175.0" mnemonicParsing="false" text="Long Range Spear">
                <font>
                   <Font name="Arial Black" size="18.0" />
                </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="group" />
+               </toggleGroup>
             </RadioButton>
             <RadioButton layoutX="17.0" layoutY="291.0" mnemonicParsing="false" text="Wall Spread Cannon" toggleGroup="$group">
                <font>
