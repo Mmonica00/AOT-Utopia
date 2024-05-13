@@ -70,4 +70,5 @@ public class WallView extends HBox implements Initializable{
 	}
 	
 	
+	
 }
