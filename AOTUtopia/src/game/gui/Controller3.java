@@ -55,7 +55,6 @@ public class Controller3 implements Initializable{
 		
 		//Controller4 controller4 = new Controller4();
 		
-		
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
