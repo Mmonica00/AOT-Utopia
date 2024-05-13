@@ -13,7 +13,10 @@ import game.engine.weapons.Weapon;
 import game.engine.interfaces.Attackee;
 
 public class Lane implements Comparable<Lane> {
-	final private Wall laneWall; // A wall object found in the lane.
+	public static int nextID=0;
+	public final int LANE_ID ;
+	
+	private final Wall laneWall; // A wall object found in the lane.
 	private int dangerLevel = 0; // danger level of a lane based on the number and danger level of the titans on
 									// it.
 	private final PriorityQueue<Titan> titans; // A queue that stores all the titans in a given lane
@@ -24,6 +27,9 @@ public class Lane implements Comparable<Lane> {
 		this.laneWall = laneWall;
 		this.titans = new PriorityQueue<Titan>();
 		this.weapons = new ArrayList<Weapon>();
+		
+		LANE_ID=nextID;
+		nextID++;
 	}
 	
 	public void moveLaneTitans() {
@@ -105,6 +111,12 @@ public class Lane implements Comparable<Lane> {
 	public void addWeapon(Weapon weapon) {
 		weapons.add(weapon);
 	}
+
+	public int getLANE_ID() {
+		return LANE_ID;
+	}
+	
+	
 
 
 }

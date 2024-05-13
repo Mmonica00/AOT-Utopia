@@ -19,9 +19,10 @@ import javafx.scene.shape.Rectangle;
 
 public class TitanView extends VBox implements Initializable{
 	
-	private ProgressBar healthBar;
+	private ProgressBar healthBar = new ProgressBar();
 	private ImageView titanIcon;
-	private int health;
+	private int currHealth;
+	private int orgHealth;
 	private int location;
 	private Titan titan;
 	private VBox titanBox = new VBox();
@@ -30,8 +31,25 @@ public class TitanView extends VBox implements Initializable{
 	
 	public TitanView(Titan titan) {
 		this.titan = titan;
-		this.health = titan.getCurrentHealth();
+		this.currHealth = titan.getCurrentHealth();
+		this.orgHealth = titan.getBaseHealth();
+		titanBox.setMaxWidth(100);
+		titanBox.setMaxHeight(150);
 		
+		Label l1 = new Label("   HP:"+titan.getCurrentHealth());
+		l1.setMaxSize(100, 25);
+		l1.setStyle("-fx-font-family: 'Times New Roman';" +
+                "-fx-font-size: 22;" +
+                "-fx-font-weight: bold;");
+		
+		//set healthBar 
+		healthBar.setPrefHeight(25);
+		healthBar.setPrefWidth(100);
+		healthBar.setStyle("-fx-accent: green;");
+		double progress = (double) orgHealth/currHealth;
+		healthBar.setProgress(progress);
+		
+		//Set titan Image
 		Image titanImg;
 		if(titan instanceof ArmoredTitan) 
 			titanImg = new Image("Titan4.gif");
@@ -43,18 +61,11 @@ public class TitanView extends VBox implements Initializable{
 			titanImg = new Image("Titan1.gif");
 		
 		titanIcon = new ImageView(titanImg);
+		titanIcon.setFitHeight(100);
+		titanIcon.setFitWidth(100);
 		
-		
-		//set healthBar NOTDONE
-		titanBox.setSpacing(100);
-		titanBox.setMaxHeight(150);
-		Label l1 = new Label("HP:"+titan.getCurrentHealth());
-		l1.setMaxSize(100, 25);
-		//ADD PROGRESSBAR
-		
-		titanIcon.setFitHeight(100);titanIcon.setFitWidth(100);
-		titanIcon.setTranslateY(50);
-		titanBox.getChildren().addAll(l1,titanIcon);
+
+		titanBox.getChildren().addAll(l1,healthBar,titanIcon);
 		
 	}
 	
@@ -84,12 +95,15 @@ public class TitanView extends VBox implements Initializable{
 	public void setTitanIcon(ImageView titanIcon) {
 		this.titanIcon = titanIcon;
 	}
-	public int getHealth() {
-		return health;
+	
+	public int getCurrHealth() {
+		return currHealth;
 	}
-	public void setHealth(int health) {
-		this.health = health;
+
+	public void setCurrHealth(int currHealth) {
+		this.currHealth = currHealth;
 	}
+
 	public int getLocation() {
 		return location;
 	}

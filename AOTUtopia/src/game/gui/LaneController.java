@@ -8,18 +8,23 @@ import game.engine.titans.Titan;
 
 public class LaneController {
 
+	Lane lane;
 	ArrayList<TitanView> titansInLane = new ArrayList<TitanView>();
 	//WallView 
 	//WeaponView
 	//Pane
 	
 	
-	public LaneController() {
-		//setup wall
+	public LaneController(Lane lane) {
+		
+		//setup wall view
+		this.lane=lane;
 	}
 
-	public void refreshLane(Lane lane) {
-		if(lane.isLaneLost()) {
+	public void refreshLane(Lane newLane) {
+		this.lane = newLane;
+		
+		if(lane==null || lane.isLaneLost()) {
 			//ne2fel el wall khaless graphic
 			
 			
@@ -29,11 +34,11 @@ public class LaneController {
 			//update weapon view
 			
 			
-			updateTitansViews(lane);		
+			updateTitansViews();		
 		}
 	}
 
-	public void updateTitansViews(Lane lane) {
+	public void updateTitansViews() {
 		titansInLane.clear();
 		PriorityQueue<Titan> queue = lane.getTitans();
 		for(Titan currTitan : queue) {
@@ -43,5 +48,15 @@ public class LaneController {
 			currTitan.moveTitan();
 		}
 	}
+
+	public Lane getLane() {
+		return lane;
+	}
+
+	public ArrayList<TitanView> getTitansInLane() {
+		return titansInLane;
+	}
 			
+	
+	
 }

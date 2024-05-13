@@ -54,7 +54,7 @@ public class Controller4 implements Initializable {
 	private PriorityQueue<Lane> lanes;
 	private ArrayList<Lane> originalLanes;
 	private HashMap<Integer, WeaponRegistry> weapons;
-	private ArrayList<LaneController> laneViews = new ArrayList<LaneController>();
+	
 	
 	//SceneBuilder Attributes
 	@FXML
@@ -73,6 +73,10 @@ public class Controller4 implements Initializable {
 	
 	
 	//Other GUI Attributes
+	private LaneController firstLaneController;
+	private LaneController secondLaneController;
+	private LaneController thirdLaneController;
+	
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
@@ -122,7 +126,10 @@ public class Controller4 implements Initializable {
 		this.resourcesNumLabel.setText("Resources: "+this.resourcesGathered+" ");
 		this.phaseLabel.setText("Battle Phase: "+this.battlePhase+" ");
 		
-		//setup the lanes based on this.originalLanes
+		//setup the lane Controllers based on this.originalLanes
+		firstLaneController = new LaneController(originalLanes.get(0));
+		secondLaneController = new LaneController(originalLanes.get(1));
+		thirdLaneController = new LaneController(originalLanes.get(2));
 		
 		
 		//setup the weaponShop
@@ -133,7 +140,7 @@ public class Controller4 implements Initializable {
 	}
 
 	private void performBuyWeaponFromShop() { //NOT FINISHED
-		
+		//called when weapon and lane are selected 
 		
 		//calls updateTurnUI() after completion
 		updateTurnUI();
@@ -143,6 +150,7 @@ public class Controller4 implements Initializable {
 	
 	private int getSelectedWeaponCodeFromShop() { //NOT FINISHED
 		//Helper for performBuyWeaponFromShop();
+		
 		int weaponCode = 0;
 		//TODO: 'A' Handle Null Case
 		RadioButton selectedWeapon = (RadioButton)weaponsToggleGroup.getSelectedToggle();
@@ -156,6 +164,9 @@ public class Controller4 implements Initializable {
 	}
 	
 	private void useAIHelper() { //NOT FINISHED
+		//called when AI Help button is selected  
+		
+		
 		//get the most Dangerous lane ID (ex. 1,2,3)
 		
 		//get a suitable weapon ID (ex. 1,2,3,4)
@@ -183,6 +194,8 @@ public class Controller4 implements Initializable {
 	}
 
 	private void performPassTurn() { //NOT FINISHED
+		//called when pass turn button is clicked
+		
 		battle.passTurn();
 		//calls updateTurnUI() after completion
 		updateTurnUI();
@@ -190,24 +203,40 @@ public class Controller4 implements Initializable {
 		checkEndGameCondition();
 	}
 	
-	private void updateTurnUI() { //NOT FINISHED
-//		for(LaneController currLaneController : laneViews) {
-//			currLaneController.refreshLane();
-//		}
+	private void updateTurnUI() { //FINISHED
+		//calls refresh lane for every lane
+		
+		Lane newFirstLane = findCorrespondingLane(firstLaneController.getLane(), lanes);
+		firstLaneController.refreshLane(newFirstLane);
+		
+		Lane newSecondLane = findCorrespondingLane(secondLaneController.getLane(), lanes);
+		firstLaneController.refreshLane(newSecondLane);
+		
+		Lane newThirdLane = findCorrespondingLane(thirdLaneController.getLane(), lanes);
+		firstLaneController.refreshLane(newThirdLane);
+
 	}
 	
-	
-	
-	
+	private Lane findCorrespondingLane(Lane lane,PriorityQueue<Lane> lanes) { //STATUS: FINISHED
+		//helper to link original lane to newLane in PQ
+		
+		for(Lane currLane:lanes) {
+			if(lane.getLANE_ID()==currLane.getLANE_ID())
+				return currLane;
+		}
+		
+		//if lane is lost it's removed from PQ so method returns null
+		return null; 
+	}
+
 	
 	private void checkEndGameCondition(){ //FINISHED
-		if(battle.isGameOver()) {
+		if(battle.isGameOver())
 			switchToScene6();
-		}
 	}
 	
 	public void switchToScene6() { //FINISHED
-		//int x=getSelectedWeaponCodeFromShop();
+		//int x=getSelectedWeaponCodeFromShop(); //tester
 		
 		try {
 			root = FXMLLoader.load(getClass().getResource("Scene6.fxml"));
