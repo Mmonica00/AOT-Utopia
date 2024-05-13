@@ -23,6 +23,7 @@ import javafx.util.Duration;
 public class Controller1 implements Initializable{
 	
 	private int countIntroCycles=0;
+	private MediaPlayer audioPlayer;
 	
 	@FXML
 	private MediaView mediaView1;
@@ -70,6 +71,18 @@ public class Controller1 implements Initializable{
 			
 	}
 	
-
+	private void playMusic() {
+		Media media = new Media(getClass().getResource("Music1.mp3").toExternalForm());
+		audioPlayer = new MediaPlayer(media);
+		audioPlayer.setVolume(0.35);
+		audioPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+		audioPlayer.play();
+	}
+	
+	private void stopMusic() {
+		if(audioPlayer!=null) {
+			audioPlayer.stop();
+		}
+	}
 
 }

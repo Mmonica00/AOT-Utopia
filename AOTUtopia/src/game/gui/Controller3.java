@@ -12,6 +12,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class Controller3 implements Initializable{
@@ -20,6 +22,7 @@ public class Controller3 implements Initializable{
 		super();
 	}
 
+	private MediaPlayer audioPlayer;
 	@FXML
 	private Button playButton;
 	
@@ -48,8 +51,10 @@ public class Controller3 implements Initializable{
 		}
 		
 		root=loader.load();
+		playMusic();
 		
 		//Controller4 controller4 = new Controller4();
+		
 		
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
@@ -59,6 +64,7 @@ public class Controller3 implements Initializable{
 	
 	public void switchToScene4(ActionEvent event) throws IOException {
 		  root = FXMLLoader.load(getClass().getResource("Scene4.fxml"));
+		  playMusic();
 		  stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		  scene = new Scene(root);
 		  stage.setScene(scene);
@@ -67,10 +73,25 @@ public class Controller3 implements Initializable{
 
 	public void switchToScene5(ActionEvent event) throws IOException {
 		  root = FXMLLoader.load(getClass().getResource("Scene5.fxml"));
+		  playMusic();
 		  stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		  scene = new Scene(root);
 		  stage.setScene(scene);
 		  stage.show();	
+	}
+	
+	private void playMusic() {
+		Media media = new Media(getClass().getResource("Music1.mp3").toExternalForm());
+		audioPlayer = new MediaPlayer(media);
+		audioPlayer.setVolume(0.30);
+		audioPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+		audioPlayer.play();
+	}
+	
+	private void stopMusic() {
+		if(audioPlayer!=null) {
+			audioPlayer.stop();
+		}
 	}
 	
 	public int getGameMode() {

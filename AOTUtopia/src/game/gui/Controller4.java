@@ -30,6 +30,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -58,7 +59,11 @@ public class Controller4 implements Initializable {
 	
 	//SceneBuilder Attributes
 	@FXML
-	private GridPane gridPane;
+	private AnchorPane anchorPane;
+	@FXML
+	private Button passTurnButton;
+	@FXML
+	private Button AIButton;
 	@FXML
 	private Label turnNumLabel;
 	@FXML
@@ -235,7 +240,7 @@ public class Controller4 implements Initializable {
 			switchToScene6();
 	}
 	
-	public void switchToScene6() { //FINISHED
+	public void switchToScene6() { //FINISHED 
 		//int x=getSelectedWeaponCodeFromShop(); //tester
 		
 		try {
@@ -244,7 +249,7 @@ public class Controller4 implements Initializable {
 			System.out.println(e.getCause());
 		}
 		
-		stage = (Stage)((Node)gridPane).getScene().getWindow();
+		stage = (Stage)((Node)anchorPane).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();

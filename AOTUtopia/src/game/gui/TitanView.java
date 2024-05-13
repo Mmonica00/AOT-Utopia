@@ -52,13 +52,13 @@ public class TitanView extends VBox implements Initializable{
 		//Set titan Image
 		Image titanImg;
 		if(titan instanceof ArmoredTitan) 
-			titanImg = new Image("Titan4.gif");
+			titanImg = new Image(getClass().getResourceAsStream("Titan2.gif"));
 		else if (titan instanceof ColossalTitan) 
-			titanImg = new Image("Titan2.gif");
+			titanImg = new Image(getClass().getResourceAsStream("Titan4.gif"));
 		else if (titan instanceof AbnormalTitan) 
-			titanImg = new Image("Titan3.gif");
+			titanImg = new Image(getClass().getResourceAsStream("Titan3.gif"));
 		else 
-			titanImg = new Image("Titan1.gif");
+			titanImg = new Image(getClass().getResourceAsStream("Titan1.gif"));
 		
 		titanIcon = new ImageView(titanImg);
 		titanIcon.setFitHeight(100);

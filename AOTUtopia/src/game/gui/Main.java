@@ -13,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 
 
@@ -21,8 +23,9 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			double screenWidth = 1180; //1280 Org size
-		    double screenHeight = 620; //720 Org size
+			double screenWidth = 1280; //1280 Org size
+		    double screenHeight = 720; //720 Org size
+		    primaryStage.getMaxHeight();
 		    
 			Parent root = FXMLLoader.load(getClass().getResource("Scene1.fxml"));
 			Scene scene = new Scene(root,screenWidth,screenHeight);
@@ -32,7 +35,7 @@ public class Main extends Application {
 			Image icon= new Image(getClass().getResourceAsStream("gameIcon1.png"));
 			primaryStage.getIcons().add(icon);
 			
-			primaryStage.setResizable(false);
+			primaryStage.setResizable(true);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			
@@ -44,6 +47,7 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	public void logout(Stage stage){	
 		
