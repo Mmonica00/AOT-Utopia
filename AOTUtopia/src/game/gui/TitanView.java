@@ -9,12 +9,17 @@ import game.engine.titans.Titan;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class TitanView extends VBox implements Initializable{
@@ -41,10 +46,12 @@ public class TitanView extends VBox implements Initializable{
 		l1.setStyle("-fx-font-family: 'Times New Roman';" +
                 "-fx-font-size: 22;" +
                 "-fx-font-weight: bold;");
+		l1.setOpacity(0.0);
 		
 		//set healthBar 
 		healthBar.setPrefHeight(25);
 		healthBar.setPrefWidth(100);
+		healthBar.setOpacity(0.0);
 		healthBar.setStyle("-fx-accent: green;");
 		double progress = (double) orgHealth/currHealth;
 		healthBar.setProgress(progress);
@@ -63,9 +70,24 @@ public class TitanView extends VBox implements Initializable{
 		titanIcon = new ImageView(titanImg);
 		titanIcon.setFitHeight(100);
 		titanIcon.setFitWidth(100);
-		
+		titanIcon.setOnMouseEntered(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event arg0) {
+				l1.setOpacity(1.0);
+				healthBar.setOpacity(1.0);
+			}
+		});
+		titanIcon.setOnMouseExited(new EventHandler<Event>() {
+			@Override
+			public void handle(Event arg0) {
+				l1.setOpacity(0.0);
+				healthBar.setOpacity(0.0);
+			}
+		});
 
 		titanBox.getChildren().addAll(l1,healthBar,titanIcon);
+		titanBox.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT,null,null)));
 		
 	}
 	

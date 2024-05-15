@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 import game.engine.Battle;
 import game.engine.BattlePhase;
+import game.engine.base.Wall;
 import game.engine.exceptions.InsufficientResourcesException;
 import game.engine.exceptions.InvalidLaneException;
 import game.engine.lanes.Lane;
@@ -92,13 +93,19 @@ public class Controller4 implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		//Creates an instance of battle (aka TheBackend)
 		try {
-			battle = new Battle(1, 0, 10, 3, 250);
+			battle = new Battle(1, 0, 100, 3, 250);
 		} catch (IOException e) {
 			System.out.println(e.getCause());
 		}
 		
+//		battle.passTurn();
+//		Wall wall = battle.getOriginalLanes().get(0).getLaneWall();
+//		WallView wv = new WallView(wall);
+//		AnchorPane.setTopAnchor(wv, 10.0);
+//		anchorPane.getChildren().add(wv);
+		
 		//assign starting values of battle attributes
-		setupInitialBattleAttributes();
+		updateBattleAttributes();
 		
 		//setup the UI (WeaponShop, Attributes, Lanes)
 		setupInitialUI();
@@ -109,7 +116,7 @@ public class Controller4 implements Initializable {
 		
 	}
 	
-	public void setupInitialBattleAttributes() {
+	public void updateBattleAttributes() {
 		this.WALL_BASE_HEALTH = battle.getWALL_BASE_HEALTH();
 		this.numberOfTurns = battle.getNumberOfTurns(); 
 		this.resourcesGathered = battle.getResourcesGathered(); 
@@ -146,6 +153,9 @@ public class Controller4 implements Initializable {
 
 	private void performBuyWeaponFromShop() { //NOT FINISHED
 		//called when weapon and lane are selected 
+		
+		//update the battle attributes
+		updateBattleAttributes();
 		
 		//calls updateTurnUI() after completion
 		updateTurnUI();
@@ -192,6 +202,8 @@ public class Controller4 implements Initializable {
 			display("Invalid Lane!", e.getMSG());
 		}
 		
+		//update the battle attributes
+		updateBattleAttributes();
 		//calls updateTurnUI() after completion of action
 		updateTurnUI();
 		//checks if game is over then moves to end Scene
@@ -202,6 +214,8 @@ public class Controller4 implements Initializable {
 		//called when pass turn button is clicked
 		
 		battle.passTurn();
+		//update the battle attributes
+		updateBattleAttributes();
 		//calls updateTurnUI() after completion
 		updateTurnUI();
 		//checks if game is over then moves to end Scene
@@ -209,8 +223,13 @@ public class Controller4 implements Initializable {
 	}
 	
 	private void updateTurnUI() { //FINISHED
+		//refresh the initial values of 4 labels
+		this.turnNumLabel.setText("Turn: "+this.numberOfTurns+" ");
+		this.scoreNumLabel.setText("Score: "+this.score+" ");
+		this.resourcesNumLabel.setText("Resources: "+this.resourcesGathered+" ");
+		this.phaseLabel.setText("Battle Phase: "+this.battlePhase+" ");
+				
 		//calls refresh lane for every lane
-		
 		Lane newFirstLane = findCorrespondingLane(firstLaneController.getLane(), lanes);
 		firstLaneController.refreshLane(newFirstLane);
 		
@@ -241,8 +260,6 @@ public class Controller4 implements Initializable {
 	}
 	
 	public void switchToScene6() { //FINISHED 
-		//int x=getSelectedWeaponCodeFromShop(); //tester
-		
 		try {
 			root = FXMLLoader.load(getClass().getResource("Scene6.fxml"));
 		} catch (IOException e) {
