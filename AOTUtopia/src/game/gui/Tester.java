@@ -1,9 +1,16 @@
 package game.gui;
 
 import game.engine.Battle;
+import game.engine.base.Wall;
+import game.engine.lanes.Lane;
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Tester extends Application {
@@ -11,16 +18,39 @@ public class Tester extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Battle battle = new Battle(1, 0, 100, 3, 250);
-		battle.passTurn();
+		battle.purchaseWeapon(1, battle.getOriginalLanes().get(0));
+		battle.purchaseWeapon(2, battle.getOriginalLanes().get(1));
+		battle.purchaseWeapon(3, battle.getOriginalLanes().get(2));
+//		battle.purchaseWeapon(4, battle.getOriginalLanes().get(0));
+		LaneController LC =new LaneController(battle.getOriginalLanes().get(0));
+		LaneController LC2 =new LaneController(battle.getOriginalLanes().get(1));
+		LaneController LC3 =new LaneController(battle.getOriginalLanes().get(2));
+		for(int i=0; i<5;i++) {
+			battle.passTurn();
+		}
 		
-		//WeaponLaneView wp = new WeaponLaneView(battle.getOriginalLanes().get(0).getWeapons());
-		TitanView tv = new TitanView(battle.getApproachingTitans().get(0));
+		LC =new LaneController(battle.getOriginalLanes().get(0));
+		//LC2 =new LaneController(battle.getOriginalLanes().get(1));
+//		LC3 =new LaneController(battle.getOriginalLanes().get(2));
+//		LC.refreshLane(battle.getOriginalLanes().get(0));
+		//LC2.refreshLane(battle.getOriginalLanes().get(1));
+		LC3.refreshLane(battle.getOriginalLanes().get(2));
+	
 		
-		VBox pane = new VBox();
-		pane.setMaxHeight(200);
-		pane.setMaxWidth(200);
-		pane.getChildren().add(tv);
-		Scene scene = new Scene(pane, 200, 200);
+		
+		Label l1 = new Label("Lane1");
+		Label l2 = new Label("Lane2");
+		Label l3 = new Label("Lane3");
+		HBox hb1 = new HBox();
+		hb1.getChildren().add(LC.getFullLaneView());
+
+		VBox pane =new VBox();
+		pane.getChildren().add(hb1);
+		pane.getChildren().add(LC2.getFullLaneView());
+		pane.getChildren().add(LC3.getFullLaneView());
+		AnchorPane.setLeftAnchor(pane, 0.0);
+		
+		Scene scene = new Scene(pane, 700, 500);
         //scene.setFill(Color.RED);
 
         primaryStage.setScene(scene);

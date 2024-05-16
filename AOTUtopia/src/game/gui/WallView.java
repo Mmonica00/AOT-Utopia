@@ -99,6 +99,14 @@ public class WallView extends HBox implements Initializable{
 	public void setLaneWall(Wall laneWall) {
 		this.laneWall = laneWall;
 	}
+
+	public HBox getWallBox() {
+		return wallBox;
+	}
+
+	public void setWallBox(HBox wallBox) {
+		this.wallBox = wallBox;
+	}
 	
 	
 	

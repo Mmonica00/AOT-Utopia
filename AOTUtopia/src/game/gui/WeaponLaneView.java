@@ -48,19 +48,19 @@ public class WeaponLaneView implements Initializable {
 		
 		setWeaponCounts();
 		
-		Image w1 = new Image(getClass().getResourceAsStream("Weapon1.gif"));
+		Image w1 = new Image(getClass().getResourceAsStream("BG3.jpg"));
 		this.weapon1Img = new ImageView(w1);
 		weapon1Img.setFitHeight(height);
 		weapon1Img.setFitWidth(width);
-		Image w2 = new Image(getClass().getResourceAsStream("Weapon2.gif"));
+		Image w2 = new Image(getClass().getResourceAsStream("BG3.jpg"));
 		this.weapon2Img = new ImageView(w2);
 		weapon2Img.setFitHeight(height);
 		weapon2Img.setFitWidth(width);
-		Image w3 = new Image(getClass().getResourceAsStream("Weapon3.gif"));
+		Image w3 = new Image(getClass().getResourceAsStream("BG3.jpg"));
 		this.weapon3Img = new ImageView(w3);
 		weapon3Img.setFitHeight(height);
 		weapon3Img.setFitWidth(width);
-		Image w4 = new Image(getClass().getResourceAsStream("Weapon4.gif"));
+		Image w4 = new Image(getClass().getResourceAsStream("BG3.jpg"));
 		this.weapon4Img = new ImageView(w4);
 		weapon4Img.setFitHeight(height);
 		weapon4Img.setFitWidth(width);
@@ -92,7 +92,7 @@ public class WeaponLaneView implements Initializable {
 		VBox grpWeapon3 = new VBox();
 		grpWeapon3.setMaxHeight(height);
 		grpWeapon3.setMaxWidth(width);
-		Label l3 = new Label(" Count: "+ 10);
+		Label l3 = new Label(" Count: "+ weapon3Count);
 		l3.setMaxSize(100, 25);	
 		l3.setStyle("-fx-font-family: 'Times New Roman';" + "-fx-font-weight: bold;");
 		grpWeapon3.getChildren().addAll(l3,weapon3Img);

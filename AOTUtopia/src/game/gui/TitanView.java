@@ -53,7 +53,7 @@ public class TitanView extends VBox implements Initializable{
 		healthBar.setPrefWidth(100);
 		healthBar.setOpacity(0.0);
 		healthBar.setStyle("-fx-accent: green;");
-		double progress = (double) orgHealth/currHealth;
+		double progress = (double) currHealth/orgHealth;
 		healthBar.setProgress(progress);
 		
 		//Set titan Image
@@ -86,6 +86,7 @@ public class TitanView extends VBox implements Initializable{
 			}
 		});
 
+		titanBox.setTranslateY(0.0);
 		titanBox.getChildren().addAll(l1,healthBar,titanIcon);
 		titanBox.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT,null,null)));
 		
@@ -137,6 +138,14 @@ public class TitanView extends VBox implements Initializable{
 	}
 	public void setTitan(Titan titan) {
 		this.titan = titan;
+	}
+
+	public VBox getTitanBox() {
+		return titanBox;
+	}
+
+	public void setTitanBox(VBox titanBox) {
+		this.titanBox = titanBox;
 	}
 	
 	

@@ -24,11 +24,14 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -75,6 +78,18 @@ public class Controller4 implements Initializable {
 	private Label phaseLabel;
 	@FXML
 	private ToggleGroup weaponsToggleGroup;
+	@FXML
+	private VBox allLanesBox;
+	@FXML
+	private Button buyLane1;
+	@FXML
+	private RadioButton weapon1;
+	@FXML
+	private RadioButton weapon2;
+	@FXML
+	private RadioButton weapon3;
+	@FXML
+	private RadioButton weapon4;
 	
 	
 	
@@ -93,7 +108,7 @@ public class Controller4 implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		//Creates an instance of battle (aka TheBackend)
 		try {
-			battle = new Battle(1, 0, 100, 3, 250);
+			battle = new Battle(1, 0, 40, 3, 250);
 		} catch (IOException e) {
 			System.out.println(e.getCause());
 		}
@@ -116,7 +131,7 @@ public class Controller4 implements Initializable {
 		
 	}
 	
-	public void updateBattleAttributes() {
+	private void updateBattleAttributes() {
 		this.WALL_BASE_HEALTH = battle.getWALL_BASE_HEALTH();
 		this.numberOfTurns = battle.getNumberOfTurns(); 
 		this.resourcesGathered = battle.getResourcesGathered(); 
@@ -139,24 +154,69 @@ public class Controller4 implements Initializable {
 		this.phaseLabel.setText("Battle Phase: "+this.battlePhase+" ");
 		
 		//setup the lane Controllers based on this.originalLanes
-		firstLaneController = new LaneController(originalLanes.get(0));
-		secondLaneController = new LaneController(originalLanes.get(1));
-		thirdLaneController = new LaneController(originalLanes.get(2));
+		firstLaneController = new LaneController(battle.getOriginalLanes().get(0));
+		secondLaneController = new LaneController(battle.getOriginalLanes().get(1));
+		thirdLaneController = new LaneController(battle.getOriginalLanes().get(2));
 		
-		
+		allLanesBox.getChildren().add(firstLaneController.getFullLaneView());
+		allLanesBox.getChildren().add(secondLaneController.getFullLaneView());
+		allLanesBox.getChildren().add(thirdLaneController.getFullLaneView());
 		//setup the weaponShop
-		//setupWeaponShop()
+		//setupWeaponShop();
 		
 		System.out.println("UI is set");
 	
 	}
 
-	private void performBuyWeaponFromShop() { //NOT FINISHED
+	public void performBuyWeaponFromShopLane1() { //NOT FINISHED
 		//called when weapon and lane are selected 
+		int boughtWeaponCode = getSelectedWeaponCodeFromShop();
+		try {
+			battle.purchaseWeapon(boughtWeaponCode, battle.getOriginalLanes().get(0));
+		} catch (InsufficientResourcesException e) {
+			showAlert("Insufficient Resources", InsufficientResourcesException.getMSG() + battle.getResourcesGathered());
+		} catch (InvalidLaneException e) {
+			showAlert("Invalid Lane Selected", InvalidLaneException.getMSG());
+		}
 		
 		//update the battle attributes
 		updateBattleAttributes();
+		//calls updateTurnUI() after completion
+		updateTurnUI();
+		//checks if game is over then moves to end Scene
+		checkEndGameCondition();
+	}
+	public void performBuyWeaponFromShopLane2() { //NOT FINISHED
+		//called when weapon and lane are selected 
+		int boughtWeaponCode = getSelectedWeaponCodeFromShop();
+		try {
+			battle.purchaseWeapon(boughtWeaponCode, battle.getOriginalLanes().get(1));
+		} catch (InsufficientResourcesException e) {
+			showAlert("Insufficient Resources", InsufficientResourcesException.getMSG() + battle.getResourcesGathered());
+		} catch (InvalidLaneException e) {
+			showAlert("Invalid Lane Selected", InvalidLaneException.getMSG());
+		}
 		
+		//update the battle attributes
+		updateBattleAttributes();
+		//calls updateTurnUI() after completion
+		updateTurnUI();
+		//checks if game is over then moves to end Scene
+		checkEndGameCondition();
+	}
+	public void performBuyWeaponFromShopLane3() { //NOT FINISHED
+		//called when weapon and lane are selected 
+		int boughtWeaponCode = getSelectedWeaponCodeFromShop();
+		try {
+			battle.purchaseWeapon(boughtWeaponCode, battle.getOriginalLanes().get(2));
+		} catch (InsufficientResourcesException e) {
+			showAlert("Insufficient Resources", InsufficientResourcesException.getMSG() + battle.getResourcesGathered());
+		} catch (InvalidLaneException e) {
+			showAlert("Invalid Lane Selected", InvalidLaneException.getMSG());
+		}
+		
+		//update the battle attributes
+		updateBattleAttributes();
 		//calls updateTurnUI() after completion
 		updateTurnUI();
 		//checks if game is over then moves to end Scene
@@ -167,50 +227,24 @@ public class Controller4 implements Initializable {
 		//Helper for performBuyWeaponFromShop();
 		
 		int weaponCode = 0;
-		//TODO: 'A' Handle Null Case
 		RadioButton selectedWeapon = (RadioButton)weaponsToggleGroup.getSelectedToggle();
-		System.out.println(selectedWeapon.getText());
-		
-		//get weaponCode based on Button clicked
-		
-		
-		
+		//System.out.println(selectedWeapon.getText());
+		if(selectedWeapon==null) {
+			showAlert("No weapon selected", "please select a weapon from the weaponshop and try again");
+		}else {
+			if(selectedWeapon.equals(weapon1))
+				return 1;
+			if(selectedWeapon.equals(weapon2))
+				return 2;
+			if(selectedWeapon.equals(weapon3))
+				return 3;
+			if(selectedWeapon.equals(weapon4))
+				return 4;
+		}
 		return weaponCode;
 	}
 	
-	private void useAIHelper() { //NOT FINISHED
-		//called when AI Help button is selected  
-		
-		
-		//get the most Dangerous lane ID (ex. 1,2,3)
-		
-		//get a suitable weapon ID (ex. 1,2,3,4)
-		
-		//Purchase the weapon into the lane
-		//call performBuyWeaponFromAI(int weaponCode, Lane lane);
-	}
-	
-	private void performBuyWeaponFromAI(int weaponCode, Lane lane) { //NOT FINISHED
-		// An edited version of performBuyWeaponFrom shop but is called when calling AI Button
-		try {
-			battle.purchaseWeapon(weaponCode, lane);
-		} catch (InsufficientResourcesException e) {
-			System.out.println(e.getCause());
-			display("Insufficent Resources!", e.getMSG()+e.getResourcesProvided());
-		} catch (InvalidLaneException e) {
-			System.out.println(e.getCause());
-			display("Invalid Lane!", e.getMSG());
-		}
-		
-		//update the battle attributes
-		updateBattleAttributes();
-		//calls updateTurnUI() after completion of action
-		updateTurnUI();
-		//checks if game is over then moves to end Scene
-		checkEndGameCondition();
-	}
-
-	private void performPassTurn() { //NOT FINISHED
+	public void performPassTurn() { //NOT FINISHED
 		//called when pass turn button is clicked
 		
 		battle.passTurn();
@@ -222,6 +256,38 @@ public class Controller4 implements Initializable {
 		checkEndGameCondition();
 	}
 	
+	public void useAIHelper() { //NOT FINISHED
+		//called when AI Help button is selected  
+		
+		
+		//get the most Dangerous lane ID (ex. 1,2,3)
+		
+		//get a suitable weapon ID (ex. 1,2,3,4)
+		
+		//Purchase the weapon into the lane
+		//call performBuyWeaponFromAI(int weaponCode, Lane lane);
+	}
+	
+	public void performBuyWeaponFromAI(int weaponCode, Lane lane) { //NOT FINISHED
+		// An edited version of performBuyWeaponFrom shop but is called when calling AI Button
+		try {
+			battle.purchaseWeapon(weaponCode, lane);
+		} catch (InsufficientResourcesException e) {
+			showAlert("Insufficient Resources", InsufficientResourcesException.getMSG() + battle.getResourcesGathered());
+		} catch (InvalidLaneException e) {
+			showAlert("Invalid Lane Selected", InvalidLaneException.getMSG());
+		}
+		
+		//update the battle attributes
+		updateBattleAttributes();
+		//calls updateTurnUI() after completion of action
+		updateTurnUI();
+		//checks if game is over then moves to end Scene
+		checkEndGameCondition();
+	}
+
+	
+	
 	private void updateTurnUI() { //FINISHED
 		//refresh the initial values of 4 labels
 		this.turnNumLabel.setText("Turn: "+this.numberOfTurns+" ");
@@ -230,15 +296,25 @@ public class Controller4 implements Initializable {
 		this.phaseLabel.setText("Battle Phase: "+this.battlePhase+" ");
 				
 		//calls refresh lane for every lane
-		Lane newFirstLane = findCorrespondingLane(firstLaneController.getLane(), lanes);
-		firstLaneController.refreshLane(newFirstLane);
-		
-		Lane newSecondLane = findCorrespondingLane(secondLaneController.getLane(), lanes);
-		firstLaneController.refreshLane(newSecondLane);
-		
-		Lane newThirdLane = findCorrespondingLane(thirdLaneController.getLane(), lanes);
-		firstLaneController.refreshLane(newThirdLane);
+//		Lane newFirstLane = battle.getOriginalLanes().get(0);
+//		firstLaneController.refreshLane(newFirstLane);
+//		
+//		Lane newSecondLane = battle.getOriginalLanes().get(1);
+//		firstLaneController.refreshLane(newSecondLane);
+//		
+//		Lane newThirdLane = battle.getOriginalLanes().get(2);
+//		firstLaneController.refreshLane(newThirdLane);
 
+		firstLaneController = new LaneController(battle.getOriginalLanes().get(0));
+		secondLaneController = new LaneController(battle.getOriginalLanes().get(1));
+		thirdLaneController = new LaneController(battle.getOriginalLanes().get(2));
+		
+		allLanesBox.getChildren().clear();
+		
+		allLanesBox.getChildren().add(firstLaneController.getFullLaneView());
+		allLanesBox.getChildren().add(secondLaneController.getFullLaneView());
+		allLanesBox.getChildren().add(thirdLaneController.getFullLaneView());
+		
 	}
 	
 	private Lane findCorrespondingLane(Lane lane,PriorityQueue<Lane> lanes) { //STATUS: FINISHED
@@ -272,34 +348,20 @@ public class Controller4 implements Initializable {
 		stage.show();
 	}
 	
-	public static void display(String title, String message) { //NOT FINISHED
-		//Helper method to show Alerts with custom message
-        Stage window = new Stage();
-        
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle(title);
-        window.setWidth(400);
-        window.setHeight(200);
+	public void showAlert(String header, String msg){	
+		
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setResizable(false);
+		alert.setTitle("Alert");
+		alert.setHeaderText(header);
+		alert.setContentText(msg);
+		
+		if (alert.showAndWait().get() == ButtonType.OK){
+			System.out.println("Alert is closed");
+			//stage.close();
+		} 
+	}
 
-        Label label = new Label();
-        label.setText(message);
-        Font font = new Font("Arial", 20); // Font name, font size
-
-        // Set the font of the Label
-        label.setFont(font);
-        Button closeButton = new Button("Close window");
-        closeButton.setTranslateY(30);
-        closeButton.setOnAction(e -> window.close());
-
-        VBox layout = new VBox(10);
-        layout.getChildren().addAll(label, closeButton);
-        layout.setAlignment(Pos.CENTER);
-
-        Scene scene = new Scene(layout);
-        window.setScene(scene);
-        window.showAndWait();
-    }
-	
 	//--------------------------------------------------------------------------------
 	// Supplementary methods
 	
