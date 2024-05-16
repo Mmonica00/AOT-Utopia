@@ -23,6 +23,7 @@ public class WeaponLaneView implements Initializable {
 
 	private ArrayList<Weapon> weapons;
 	
+	
 	private int height = 60;
 	private int width = 60;
 
@@ -123,7 +124,7 @@ public class WeaponLaneView implements Initializable {
 		
 	}
 
-	private void setWeaponCounts() {
+	public void setWeaponCounts() {
 		for(Weapon currWeapon : weapons) {
 			if(currWeapon instanceof PiercingCannon)
 				weapon1Count++;
@@ -164,7 +165,14 @@ public class WeaponLaneView implements Initializable {
 	public GridPane getGridPane() {
 		return gridPane;
 	}
-	
+	public ArrayList<Weapon> getWeapons() {
+		return weapons;
+	}
+
+	public void setWeapons(ArrayList<Weapon> weapons) {
+		this.weapons = weapons;
+	}
+
 
 
 }

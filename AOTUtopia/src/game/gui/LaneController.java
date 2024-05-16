@@ -5,35 +5,40 @@ import java.util.PriorityQueue;
 
 import game.engine.lanes.Lane;
 import game.engine.titans.Titan;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 public class LaneController {
 
 	Lane lane;
 	ArrayList<TitanView> titansInLane = new ArrayList<TitanView>();
-	//WallView 
-	//WeaponView
-	//Pane
+	WallView wallView  = new WallView(lane.getLaneWall()); 
+	WeaponLaneView weaponLane = new WeaponLaneView(lane.getWeapons());
+	AnchorPane lanePane;
+	private ImageView lostLane;
 	
 	
 	public LaneController(Lane lane) {
 		
-		//setup wall view
 		this.lane=lane;
+		lanePane.getChildren().add(wallView);
+		AnchorPane.setLeftAnchor(wallView, 0.0);
+		//Image laneImg = new Image(getClass().getResourceAsStream("wall.png"));
+        //lostLane = new ImageView(laneImg);
 	}
 
 	public void refreshLane(Lane newLane) {
 		this.lane = newLane;
 		
 		if(lane==null || lane.isLaneLost()) {
-			//ne2fel el wall khaless graphic
+			//lanePane.getChildren().add(lostLane);
 			
 			
 			
 		} else {
-			//update wall view 
-			//update weapon view
-			
-			
+			WallView.updateWall(lane.getLaneWall());
+			weaponLane = new WeaponLaneView(lane.getWeapons());
 			updateTitansViews();		
 		}
 	}

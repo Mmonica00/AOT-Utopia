@@ -15,10 +15,10 @@ import javafx.scene.paint.Color;
 
 public class WallView extends HBox implements Initializable{
 
-	private ProgressBar healthBar = new ProgressBar();
-	private ImageView wallIcon;
-	private int currHealth;
-	private int orgHealth;
+	private static ProgressBar healthBar = new ProgressBar();
+	private static ImageView wallIcon;
+	private static int currHealth;
+	private static int orgHealth;
 	private Wall laneWall;
 	private HBox wallBox = new HBox();
 	
@@ -31,7 +31,7 @@ public class WallView extends HBox implements Initializable{
 		healthBar.setMinWidth(150);
 		healthBar.setRotate(-90.0);
 		healthBar.setStyle("-fx-accent: green;");
-		double progress = (double) orgHealth/currHealth;
+		double progress = (double) currHealth/orgHealth;
 		healthBar.setProgress(progress);
 		healthBar.setTranslateY(65);
 		
@@ -48,6 +48,14 @@ public class WallView extends HBox implements Initializable{
 		
 		
 		
+	}
+	
+	public static void updateWall(Wall newWall) {
+		currHealth=newWall.getCurrentHealth();
+		double progress = (double) currHealth/orgHealth;
+		healthBar.setProgress(progress);
+		if(newWall.isDefeated())
+			wallIcon.setOpacity(0.0);
 	}
 	
 	@Override
