@@ -29,7 +29,12 @@ public class LaneController {
 	
 	
 	public LaneController(Lane lane) {
+		this.lane = lane;
+		this.wallView = new WallView(lane.getLaneWall()); 
+		this.weaponLane = new WeaponLaneView(lane.getWeapons());
+		
 		if(lane==null || lane.isLaneLost()) {
+			lane.getTitans().clear();
 			lostLane.setOpacity(0.0);
 		}
 			
@@ -38,9 +43,7 @@ public class LaneController {
 		lanePane.setMaxWidth(700);
 		lanePane.setMaxHeight(500);
 		
-		this.lane = lane;
-		this.wallView = new WallView(lane.getLaneWall()); 
-		this.weaponLane = new WeaponLaneView(lane.getWeapons());
+		
 		fullLaneView.getChildren().addAll(weaponLane.getGridPane(),wallView.getWallBox(),lanePane);
 		
 		

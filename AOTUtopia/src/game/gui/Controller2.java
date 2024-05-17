@@ -23,8 +23,7 @@ public class Controller2 implements Initializable {
 
 	@FXML
 	private RadioButton rButtonEasy,rButtonHard;
-	@FXML
-	private TextField nameTextArea;
+	
 	
 	private String playerName; //stores player name
 	private int battleMode; //stores mode (1 for EASY && 2 for HARD)
@@ -44,7 +43,7 @@ public class Controller2 implements Initializable {
 	public void switchToScene3(ActionEvent event) throws IOException {
 	  
 		  battleMode=(rButtonHard.isSelected())?2:1; //if non chosen the default is applied which is Easy Mode
-		  playerName = nameTextArea.getText();
+		
 		  
 		  FXMLLoader loader = new FXMLLoader(getClass().getResource("Scene3.fxml"));	
 		  root = loader.load();

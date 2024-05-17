@@ -1,10 +1,13 @@
 package game.gui;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -19,16 +22,26 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class Controller6 {
+public class Controller6 implements Initializable{
 	
     @FXML
     private Button logout;
     @FXML
     private AnchorPane anchorPane;
+    @FXML 
+    private Label scoreLabel;
+    
+    private int finalScore;
     
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
+	
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		this.scoreLabel.setText("Your Final Score is: "+finalScore);
+		
+	}
 	
 	public void switchToScene2(ActionEvent event) throws IOException {
 		  root = FXMLLoader.load(getClass().getResource("Scene2.fxml"));
@@ -52,4 +65,15 @@ public class Controller6 {
 		}
 	}
 
+	public int getFinalScore() {
+		return finalScore;
+	}
+
+	public void setFinalScore(int finalScore) {
+		this.finalScore = finalScore;
+	}
+
+	
+
+	
 }

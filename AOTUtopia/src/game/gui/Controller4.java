@@ -168,64 +168,39 @@ public class Controller4 implements Initializable {
 	
 	}
 
+	//*****************************************************************************************
+	
 	public void performBuyWeaponFromShopLane1() { //NOT FINISHED
 		//called when weapon and lane are selected 
-		int boughtWeaponCode = getSelectedWeaponCodeFromShop();
-		try {
-			battle.purchaseWeapon(boughtWeaponCode, battle.getOriginalLanes().get(0));
-		} catch (InsufficientResourcesException e) {
-			showAlert("Insufficient Resources", InsufficientResourcesException.getMSG() + battle.getResourcesGathered());
-		} catch (InvalidLaneException e) {
-			showAlert("Invalid Lane Selected", InvalidLaneException.getMSG());
-		}
 		
-		//update the battle attributes
-		updateBattleAttributes();
-		//calls updateTurnUI() after completion
-		updateTurnUI();
-		//checks if game is over then moves to end Scene
-		checkEndGameCondition();
+		int boughtWeaponCode = getSelectedWeaponCodeFromShop();
+		if(boughtWeaponCode!=0)
+			performPurschaeWeapon(boughtWeaponCode, battle.getOriginalLanes().get(0));
+		
+		endOfActionCalls();
 	}
 	public void performBuyWeaponFromShopLane2() { //NOT FINISHED
 		//called when weapon and lane are selected 
-		int boughtWeaponCode = getSelectedWeaponCodeFromShop();
-		try {
-			battle.purchaseWeapon(boughtWeaponCode, battle.getOriginalLanes().get(1));
-		} catch (InsufficientResourcesException e) {
-			showAlert("Insufficient Resources", InsufficientResourcesException.getMSG() + battle.getResourcesGathered());
-		} catch (InvalidLaneException e) {
-			showAlert("Invalid Lane Selected", InvalidLaneException.getMSG());
-		}
 		
-		//update the battle attributes
-		updateBattleAttributes();
-		//calls updateTurnUI() after completion
-		updateTurnUI();
-		//checks if game is over then moves to end Scene
-		checkEndGameCondition();
+		int boughtWeaponCode = getSelectedWeaponCodeFromShop();
+		if(boughtWeaponCode!=0)
+			performPurschaeWeapon(boughtWeaponCode, battle.getOriginalLanes().get(1));
+		
+		endOfActionCalls();
 	}
 	public void performBuyWeaponFromShopLane3() { //NOT FINISHED
 		//called when weapon and lane are selected 
-		int boughtWeaponCode = getSelectedWeaponCodeFromShop();
-		try {
-			battle.purchaseWeapon(boughtWeaponCode, battle.getOriginalLanes().get(2));
-		} catch (InsufficientResourcesException e) {
-			showAlert("Insufficient Resources", InsufficientResourcesException.getMSG() + battle.getResourcesGathered());
-		} catch (InvalidLaneException e) {
-			showAlert("Invalid Lane Selected", InvalidLaneException.getMSG());
-		}
 		
-		//update the battle attributes
-		updateBattleAttributes();
-		//calls updateTurnUI() after completion
-		updateTurnUI();
-		//checks if game is over then moves to end Scene
-		checkEndGameCondition();
+		int boughtWeaponCode = getSelectedWeaponCodeFromShop();
+		if(boughtWeaponCode!=0)
+			performPurschaeWeapon(boughtWeaponCode, battle.getOriginalLanes().get(2));
+		
+		endOfActionCalls();
 	}
 	
 	private int getSelectedWeaponCodeFromShop() { //NOT FINISHED
 		//Helper for performBuyWeaponFromShop();
-		
+		checkEndGameCondition();
 		int weaponCode = 0;
 		RadioButton selectedWeapon = (RadioButton)weaponsToggleGroup.getSelectedToggle();
 		//System.out.println(selectedWeapon.getText());
@@ -246,14 +221,11 @@ public class Controller4 implements Initializable {
 	
 	public void performPassTurn() { //NOT FINISHED
 		//called when pass turn button is clicked
+		checkEndGameCondition();
 		
 		battle.passTurn();
-		//update the battle attributes
-		updateBattleAttributes();
-		//calls updateTurnUI() after completion
-		updateTurnUI();
-		//checks if game is over then moves to end Scene
-		checkEndGameCondition();
+		
+		endOfActionCalls();
 	}
 	
 	public void useAIHelper() { //NOT FINISHED
@@ -265,27 +237,20 @@ public class Controller4 implements Initializable {
 		//get a suitable weapon ID (ex. 1,2,3,4)
 		
 		//Purchase the weapon into the lane
-		//call performBuyWeaponFromAI(int weaponCode, Lane lane);
+		
+		//call performPurschaseWeapon(int weaponCode, Lane lane);
+		
+		endOfActionCalls();
 	}
 	
-	public void performBuyWeaponFromAI(int weaponCode, Lane lane) { //NOT FINISHED
-		// An edited version of performBuyWeaponFrom shop but is called when calling AI Button
-		try {
-			battle.purchaseWeapon(weaponCode, lane);
-		} catch (InsufficientResourcesException e) {
-			showAlert("Insufficient Resources", InsufficientResourcesException.getMSG() + battle.getResourcesGathered());
-		} catch (InvalidLaneException e) {
-			showAlert("Invalid Lane Selected", InvalidLaneException.getMSG());
-		}
-		
-		//update the battle attributes
+	private void endOfActionCalls() {
 		updateBattleAttributes();
-		//calls updateTurnUI() after completion of action
 		updateTurnUI();
-		//checks if game is over then moves to end Scene
 		checkEndGameCondition();
 	}
+	
 
+	//*****************************************************************************************************
 	
 	
 	private void updateTurnUI() { //FINISHED
@@ -295,19 +260,15 @@ public class Controller4 implements Initializable {
 		this.resourcesNumLabel.setText("Resources: "+this.resourcesGathered+" ");
 		this.phaseLabel.setText("Battle Phase: "+this.battlePhase+" ");
 				
-		//calls refresh lane for every lane
-//		Lane newFirstLane = battle.getOriginalLanes().get(0);
-//		firstLaneController.refreshLane(newFirstLane);
-//		
-//		Lane newSecondLane = battle.getOriginalLanes().get(1);
-//		firstLaneController.refreshLane(newSecondLane);
-//		
-//		Lane newThirdLane = battle.getOriginalLanes().get(2);
-//		firstLaneController.refreshLane(newThirdLane);
+		//refresh lanes by re-creation 
 
-		firstLaneController = new LaneController(battle.getOriginalLanes().get(0));
-		secondLaneController = new LaneController(battle.getOriginalLanes().get(1));
-		thirdLaneController = new LaneController(battle.getOriginalLanes().get(2));
+		Lane lane1 = getLaneFromID(0, battle.getLanes());
+		Lane lane2 = getLaneFromID(1, battle.getLanes());
+		Lane lane3 = getLaneFromID(2, battle.getLanes());
+
+		firstLaneController = new LaneController(lane1);
+		secondLaneController = new LaneController(lane2);
+		thirdLaneController = new LaneController(lane3);
 		
 		allLanesBox.getChildren().clear();
 		
@@ -317,18 +278,24 @@ public class Controller4 implements Initializable {
 		
 	}
 	
-	private Lane findCorrespondingLane(Lane lane,PriorityQueue<Lane> lanes) { //STATUS: FINISHED
-		//helper to link original lane to newLane in PQ
-		
-		for(Lane currLane:lanes) {
-			if(lane.getLANE_ID()==currLane.getLANE_ID())
+	private Lane getLaneFromID(int ID, PriorityQueue<Lane> lanes) {
+		for(Lane currLane: lanes) {
+			if(currLane.getLANE_ID()==ID)
 				return currLane;
 		}
-		
-		//if lane is lost it's removed from PQ so method returns null
-		return null; 
+		return null;
 	}
-
+	
+	private void performPurschaeWeapon(int weaponCode, Lane lane) {//FINISHED
+		checkEndGameCondition();
+		try {
+			battle.purchaseWeapon(weaponCode, lane);
+		} catch (InsufficientResourcesException e) {
+			showAlert("Insufficient Resources", InsufficientResourcesException.getMSG() + battle.getResourcesGathered());
+		} catch (InvalidLaneException e) {
+			showAlert("Invalid Lane Selected", InvalidLaneException.getMSG());
+		}
+	}
 	
 	private void checkEndGameCondition(){ //FINISHED
 		if(battle.isGameOver())
@@ -350,7 +317,7 @@ public class Controller4 implements Initializable {
 	
 	public void showAlert(String header, String msg){	
 		
-		Alert alert = new Alert(AlertType.WARNING);
+		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setResizable(false);
 		alert.setTitle("Alert");
 		alert.setHeaderText(header);
@@ -383,5 +350,11 @@ public class Controller4 implements Initializable {
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
 	}
+
+	public int getScore() {
+		return score;
+	}
+	
+	
 
 }

@@ -2,35 +2,35 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.gui.Controller3">
-   <content>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
-         <children>
-            <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true">
-               <image>
-                  <Image url="@BG1.jpg" />
-               </image>
-            </ImageView>
-            <Label layoutX="448.0" layoutY="58.0" text="Game Rules" textFill="WHITE">
-               <font>
-                  <Font name="Stencil" size="48.0" />
-               </font>
-            </Label>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#29373dea" height="413.0" layoutX="229.0" layoutY="116.0" opacity="0.39" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="723.0" />
-            <Button fx:id="playButton" layoutX="523.0" layoutY="538.0" mnemonicParsing="false" onAction="#goToGameMode" text="Play">
-               <font>
-                  <Font name="Stencil" size="36.0" />
-               </font>
-            </Button>
-         </children>
-      </AnchorPane>
-   </content>
-</ScrollPane>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.gui.Controller3">
+   <children>
+      <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true">
+         <image>
+            <Image url="@BG1.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="498.0" layoutY="58.0" text="Game Rules" textFill="WHITE">
+         <font>
+            <Font name="Stencil" size="48.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#000000eb" height="466.0" layoutX="192.0" layoutY="122.0" opacity="0.69" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="891.0" />
+      <Button fx:id="playButton" layoutX="573.0" layoutY="612.0" mnemonicParsing="false" onAction="#goToGameMode" text="Play">
+         <font>
+            <Font name="Stencil" size="36.0" />
+         </font>
+      </Button>
+      <Text fill="WHITE" layoutX="237.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Objective: Survive as long as possible by defending the wall from attacking titans. There is no winning condition; the game continues until you lose.&#10;&#10;Losing Condition: You lose when all starting lanes are destroyed (all Wall Parts are gone). Your final score is the score at the time of losing.&#10;&#10;Titan Movement: Each turn, titans move closer to the wall based on their speed. Colossal titans move an extra unit.&#10;&#10;Attacks: Titans at the wall attack it, reducing Wall Part HP. Abnormal titans attack twice. Your weapons attack titans, reducing their HP.&#10;&#10;Defeating Titans: When a titan's HP reaches 0, it is removed from the lane, and you gain resources and score equal to its value.&#10;&#10;Wall Parts: When a Wall Part is destroyed, that lane is lost. No more weapons can be deployed, and no titans will spawn in that lane.&#10;&#10;Player Actions: Each turn, you can purchase and deploy weapons in active lanes if you have resources. Manage your resources wisely to defend the wall." wrappingWidth="800.0390625">
+         <font>
+            <Font name="Courier New Bold" size="17.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
