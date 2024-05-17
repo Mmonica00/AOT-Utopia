@@ -30,7 +30,7 @@ public class LaneController {
 	
 	public LaneController(Lane lane) {
 		this.lane = lane;
-		this.wallView = new WallView(lane.getLaneWall()); 
+		this.wallView = new WallView(lane); 
 		this.weaponLane = new WeaponLaneView(lane.getWeapons());
 		
 		if(lane==null || lane.isLaneLost()) {
@@ -41,11 +41,12 @@ public class LaneController {
 		this.lanePane = new AnchorPane();
 		this.fullLaneView = new HBox();
 		lanePane.setMaxWidth(700);
-		lanePane.setMaxHeight(500);
+		lanePane.setMaxHeight(450);
+		fullLaneView.setMaxWidth(700);
+		fullLaneView.setMaxHeight(450);
 		
 		
 		fullLaneView.getChildren().addAll(weaponLane.getGridPane(),wallView.getWallBox(),lanePane);
-		
 		
 		//lanePane.setStyle(null);
 //		AnchorPane.setLeftAnchor(wallView.getWallBox(), 0.0);
@@ -53,6 +54,7 @@ public class LaneController {
 		//Image laneImg = new Image(getClass().getResourceAsStream("wall.png"));
         //lostLane = new ImageView(laneImg);
 		updateTitansViews();
+		
 	}
 
 	public void refreshLane(Lane newLane) {
@@ -78,8 +80,9 @@ public class LaneController {
 		}
 		
 		for(TitanView currTitan : titansInLane) {
-			int rndm = (int)Math.random()*50;
+			int rndm = (int)Math.random()*70;
 			currTitan.getTitanBox().setTranslateX(currTitan.getTitan().getDistance()*20+rndm);
+			currTitan.getTitanBox().setTranslateY(-30);
 			lanePane.getChildren().add(currTitan.getTitanBox());
 			AnchorPane.setLeftAnchor(currTitan, 0.0);
 		}

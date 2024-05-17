@@ -37,10 +37,19 @@ public class Controller6 implements Initializable{
 	private Scene scene;
 	private Parent root;
 	
+	
+	public Controller6() {
+		super();
+	}
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		this.scoreLabel.setText("Your Final Score is: "+finalScore);
 		
+	}
+	
+	public void setScore(int n) {
+		this.scoreLabel.setText("Your Final Score is: "+n);
 	}
 	
 	public void switchToScene2(ActionEvent event) throws IOException {

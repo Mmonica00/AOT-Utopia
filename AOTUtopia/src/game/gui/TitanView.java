@@ -39,13 +39,14 @@ public class TitanView extends VBox implements Initializable{
 		this.currHealth = titan.getCurrentHealth();
 		this.orgHealth = titan.getBaseHealth();
 		titanBox.setMaxWidth(100);
-		titanBox.setMaxHeight(150);
+		titanBox.setMaxHeight(180);
 		
 		Label l1 = new Label("   HP:"+titan.getCurrentHealth());
 		l1.setMaxSize(100, 25);
 		l1.setStyle("-fx-font-family: 'Times New Roman';" +
                 "-fx-font-size: 22;" +
-                "-fx-font-weight: bold;");
+                "-fx-font-weight: bold;" +
+                "-fx-text-fill: white;");
 		l1.setOpacity(0.0);
 		
 		//set healthBar 
@@ -68,7 +69,10 @@ public class TitanView extends VBox implements Initializable{
 			titanImg = new Image(getClass().getResourceAsStream("Titan1.gif"));
 		
 		titanIcon = new ImageView(titanImg);
-		titanIcon.setFitHeight(100);
+		if(titan.getHeightInMeters()>=50)
+			titanIcon.setFitHeight(100+(titan.getHeightInMeters()/2));
+		else
+			titanIcon.setFitHeight(100+titan.getHeightInMeters());
 		titanIcon.setFitWidth(100);
 		titanIcon.setOnMouseEntered(new EventHandler<Event>() {
 

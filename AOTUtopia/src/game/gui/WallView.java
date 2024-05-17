@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import game.engine.base.Wall;
+import game.engine.lanes.Lane;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
@@ -22,8 +23,8 @@ public class WallView extends HBox implements Initializable{
 	private Wall laneWall;
 	private HBox wallBox = new HBox();
 	
-	public WallView(Wall laneWall) {
-		this.laneWall = laneWall;
+	public WallView(Lane lane) {
+		this.laneWall = lane.getLaneWall();
 		this.currHealth = laneWall.getCurrentHealth();
 		this.orgHealth = laneWall.getBaseHealth();
 		
@@ -39,10 +40,11 @@ public class WallView extends HBox implements Initializable{
         wallIcon = new ImageView(wallImg);
         wallIcon.setFitHeight(150);
         wallIcon.setFitWidth(50);
+        wallIcon.setTranslateX(-30);
         
         
         wallBox.setMaxHeight(100);
-        wallBox.setMaxWidth(75);
+        wallBox.setMaxWidth(45);
         wallBox.getChildren().addAll(healthBar,wallIcon);
 		wallBox.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT,null,null)));
 		

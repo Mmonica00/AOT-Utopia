@@ -70,7 +70,7 @@ public class WeaponLaneView implements Initializable {
 		grpWeapon1.setMaxWidth(width);
 		Label l1 = new Label(" Count: "+ weapon1Count);
 		l1.setMaxSize(100, 25);	
-		l1.setStyle("-fx-font-family: 'Times New Roman';" + "-fx-font-weight: bold;");
+		l1.setStyle( "-fx-font-family: 'Times New Roman';" +"-fx-font-weight: bold;" +"-fx-text-fill: white;");
 		grpWeapon1.getChildren().addAll(l1,weapon1Img);
 		grpWeapon1.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT,null,null)));
 		grpWeapon1.setOpacity(0.0);
@@ -82,7 +82,7 @@ public class WeaponLaneView implements Initializable {
 		grpWeapon2.setMaxWidth(width);
 		Label l2 = new Label(" Count: "+ weapon2Count);
 		l2.setMaxSize(100, 25);	
-		l2.setStyle("-fx-font-family: 'Times New Roman';" + "-fx-font-weight: bold;");
+		l2.setStyle( "-fx-font-family: 'Times New Roman';" +"-fx-font-weight: bold;" +"-fx-text-fill: white;");
 		grpWeapon2.getChildren().addAll(l2,weapon2Img);
 		grpWeapon2.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT,null,null)));
 		grpWeapon2.setOpacity(0.0);
@@ -94,7 +94,7 @@ public class WeaponLaneView implements Initializable {
 		grpWeapon3.setMaxWidth(width);
 		Label l3 = new Label(" Count: "+ weapon3Count);
 		l3.setMaxSize(100, 25);	
-		l3.setStyle("-fx-font-family: 'Times New Roman';" + "-fx-font-weight: bold;");
+		l3.setStyle( "-fx-font-family: 'Times New Roman';" +"-fx-font-weight: bold;" +"-fx-text-fill: white;");
 		grpWeapon3.getChildren().addAll(l3,weapon3Img);
 		grpWeapon3.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT,null,null)));
 		grpWeapon3.setOpacity(0.0);
@@ -106,7 +106,7 @@ public class WeaponLaneView implements Initializable {
 		grpWeapon4.setMaxWidth(width);
 		Label l4 = new Label(" Count: "+ weapon4Count);
 		l4.setMaxSize(100, 25);	
-		l4.setStyle("-fx-font-family: 'Times New Roman';" + "-fx-font-weight: bold;");
+		l4.setStyle( "-fx-font-family: 'Times New Roman';" +"-fx-font-weight: bold;" +"-fx-text-fill: white;");
 		grpWeapon4.getChildren().addAll(l4,weapon4Img);
 		grpWeapon4.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT,null,null)));
 		grpWeapon4.setOpacity(0.0);
@@ -139,7 +139,7 @@ public class WeaponLaneView implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
