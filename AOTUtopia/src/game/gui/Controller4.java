@@ -45,6 +45,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -248,7 +249,10 @@ public class Controller4 implements Initializable {
 		firstLaneController = new LaneController(lane1);
 		secondLaneController = new LaneController(lane2);
 		thirdLaneController = new LaneController(lane3);
-		//thirdLaneController.getFullLaneView().setTranslateY(-20);
+		
+		Rectangle rect = new Rectangle();
+		rect.setWidth(1000);
+		rect.setHeight(450);
 		
 		// Create three partitions
         AnchorPane partition1 = new AnchorPane();
@@ -260,14 +264,27 @@ public class Controller4 implements Initializable {
         partition2.setMaxHeight(450); // max height of 150 pixels
         partition3.setMaxHeight(450); // max height of 100 pixels
         
-        partition1.getChildren().add(firstLaneController.getFullLaneView());
-        partition2.getChildren().add(secondLaneController.getFullLaneView());
-        partition3.getChildren().add(thirdLaneController.getFullLaneView());
+        if(firstLaneController.lane.isLaneLost())
+        	partition1.getChildren().add(rect);
+        else
+        	partition1.getChildren().add(firstLaneController.getFullLaneView());
+        
+        if(secondLaneController.lane.isLaneLost())
+        	partition2.getChildren().add(rect);
+        else
+        	partition2.getChildren().add(secondLaneController.getFullLaneView());
+        
+        if(thirdLaneController.lane.isLaneLost())
+        	partition3.getChildren().add(rect);
+        else
+        	partition3.getChildren().add(thirdLaneController.getFullLaneView());
+        
+//        partition1.getChildren().add(firstLaneController.getFullLaneView());
+//        partition2.getChildren().add(secondLaneController.getFullLaneView());
+//        partition3.getChildren().add(thirdLaneController.getFullLaneView());
         
         VBox newPane = new VBox();
         newPane.setMaxHeight(450*3);
-        partition2.setTranslateY(-10);
-        partition3.setTranslateY(-20);
         newPane.getChildren().addAll(partition1,partition2,partition3);
         
 		

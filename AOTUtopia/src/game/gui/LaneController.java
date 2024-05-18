@@ -33,16 +33,16 @@ public class LaneController {
 		this.wallView = new WallView(lane); 
 		this.weaponLane = new WeaponLaneView(lane.getWeapons());
 		
-		if(lane==null || lane.isLaneLost()) {
-			lane.getTitans().clear();
-			lostLane.setOpacity(0.0);
-		}
+//		if(lane==null || lane.isLaneLost()) {
+//			titansInLane.clear();
+//			lostLane.setOpacity(0.0);
+//		}
 			
 		this.lanePane = new AnchorPane();
 		this.fullLaneView = new HBox();
-		lanePane.setMaxWidth(700);
+		lanePane.setMaxWidth(600);
 		lanePane.setMaxHeight(450);
-		fullLaneView.setMaxWidth(700);
+		fullLaneView.setMaxWidth(1000);
 		fullLaneView.setMaxHeight(450);
 		
 		
@@ -73,6 +73,7 @@ public class LaneController {
 	}
 
 	private void updateTitansViews() {
+		
 		titansInLane.clear();
 		PriorityQueue<Titan> queue = lane.getTitans();
 		for(Titan currTitan : queue) {
