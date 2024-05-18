@@ -95,9 +95,9 @@ public class Controller4 implements Initializable {
 	
 	
 	//Other GUI Attributes
-	private LaneController firstLaneController;
-	private LaneController secondLaneController;
-	private LaneController thirdLaneController;
+	private LaneControllerEasy firstLaneController;
+	private LaneControllerEasy secondLaneController;
+	private LaneControllerEasy thirdLaneController;
 	
 	private Stage stage;
 	private Scene scene;
@@ -155,15 +155,14 @@ public class Controller4 implements Initializable {
 		this.phaseLabel.setText("Battle Phase: "+this.battlePhase+" ");
 		
 		//setup the lane Controllers based on this.originalLanes
-		firstLaneController = new LaneController(battle.getOriginalLanes().get(0));
-		secondLaneController = new LaneController(battle.getOriginalLanes().get(1));
-		thirdLaneController = new LaneController(battle.getOriginalLanes().get(2));
+		firstLaneController = new LaneControllerEasy(battle.getOriginalLanes().get(0));
+		secondLaneController = new LaneControllerEasy(battle.getOriginalLanes().get(1));
+		thirdLaneController = new LaneControllerEasy(battle.getOriginalLanes().get(2));
 		
 		allLanesBox.getChildren().add(firstLaneController.getFullLaneView());
 		allLanesBox.getChildren().add(secondLaneController.getFullLaneView());
 		allLanesBox.getChildren().add(thirdLaneController.getFullLaneView());
-		//setup the weaponShop
-		//setupWeaponShop();
+
 		
 		System.out.println("UI is set");
 	
@@ -246,13 +245,19 @@ public class Controller4 implements Initializable {
 		Lane lane2 = getLaneFromID(1, battle.getLanes());
 		Lane lane3 = getLaneFromID(2, battle.getLanes());
 
-		firstLaneController = new LaneController(lane1);
-		secondLaneController = new LaneController(lane2);
-		thirdLaneController = new LaneController(lane3);
+		if(!firstLaneController.lane.isLaneLost())
+			firstLaneController = new LaneControllerEasy(lane1);
+		if(!secondLaneController.lane.isLaneLost())
+			secondLaneController = new LaneControllerEasy(lane2);
+		if(!thirdLaneController.lane.isLaneLost())
+			thirdLaneController = new LaneControllerEasy(lane3);
 		
 		Rectangle rect = new Rectangle();
 		rect.setWidth(1000);
-		rect.setHeight(450);
+		rect.setHeight(150);
+		rect.setTranslateX(100);
+		rect.setTranslateY(-30);
+		
 		
 		// Create three partitions
         AnchorPane partition1 = new AnchorPane();
@@ -347,10 +352,9 @@ public class Controller4 implements Initializable {
 		alert.setHeaderText(header);
 		alert.setContentText(msg);
 		
-		if (alert.showAndWait().get() == ButtonType.OK){
+		if (alert.showAndWait().get() == ButtonType.OK)
 			System.out.println("Alert is closed");
-			//stage.close();
-		} 
+			
 	}
 	
 	public int displayWeaponShop() {
@@ -468,7 +472,7 @@ public class Controller4 implements Initializable {
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Weapon Shop");
+        window.setTitle("WEAPON SHOP");
         window.setMinWidth(250);
 
         Label label = new Label();

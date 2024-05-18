@@ -16,7 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-public class WallView extends HBox implements Initializable{
+public class WallViewEasy extends HBox implements Initializable{
 
 	private static ProgressBar healthBar = new ProgressBar();
 	private static ImageView wallIcon;
@@ -25,7 +25,7 @@ public class WallView extends HBox implements Initializable{
 	private Wall laneWall;
 	private HBox wallBox = new HBox();
 	
-	public WallView(Lane lane) {
+	public WallViewEasy(Lane lane) {
 		this.laneWall = lane.getLaneWall();
 		this.currHealth = laneWall.getCurrentHealth();
 		this.orgHealth = laneWall.getBaseHealth();

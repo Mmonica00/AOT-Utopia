@@ -17,21 +17,21 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class LaneController {
+public class LaneControllerEasy {
 
 	Lane lane;
-	ArrayList<TitanView> titansInLane = new ArrayList<TitanView>();
-	WallView wallView ;
-	WeaponLaneView weaponLane;
+	ArrayList<TitanViewEasy> titansInLane = new ArrayList<TitanViewEasy>();
+	WallViewEasy wallView ;
+	WeaponLaneViewEasy weaponLane;
 	AnchorPane lanePane;
 	HBox fullLaneView; //ALL COMPONENTS OF THE LANE
 	private ImageView lostLane;
 	
 	
-	public LaneController(Lane lane) {
+	public LaneControllerEasy(Lane lane) {
 		this.lane = lane;
-		this.wallView = new WallView(lane); 
-		this.weaponLane = new WeaponLaneView(lane.getWeapons());
+		this.wallView = new WallViewEasy(lane); 
+		this.weaponLane = new WeaponLaneViewEasy(lane.getWeapons());
 		
 //		if(lane==null || lane.isLaneLost()) {
 //			titansInLane.clear();
@@ -66,8 +66,8 @@ public class LaneController {
 			
 			
 		} else {
-			WallView.updateWall(lane.getLaneWall());
-			weaponLane = new WeaponLaneView(lane.getWeapons());
+			WallViewEasy.updateWall(lane.getLaneWall());
+			weaponLane = new WeaponLaneViewEasy(lane.getWeapons());
 			updateTitansViews();		
 		}
 	}
@@ -77,10 +77,10 @@ public class LaneController {
 		titansInLane.clear();
 		PriorityQueue<Titan> queue = lane.getTitans();
 		for(Titan currTitan : queue) {
-			titansInLane.add(new TitanView(currTitan));
+			titansInLane.add(new TitanViewEasy(currTitan));
 		}
 		
-		for(TitanView currTitan : titansInLane) {
+		for(TitanViewEasy currTitan : titansInLane) {
 			int rndm = (int)Math.random()*70;
 			currTitan.getTitanBox().setTranslateX(currTitan.getTitan().getDistance()*20+rndm);
 			currTitan.getTitanBox().setTranslateY(-30);
@@ -94,7 +94,7 @@ public class LaneController {
 		return lane;
 	}
 
-	public ArrayList<TitanView> getTitansInLane() {
+	public ArrayList<TitanViewEasy> getTitansInLane() {
 		return titansInLane;
 	}
 

@@ -22,14 +22,14 @@ public class Tester extends Application {
 		battle.purchaseWeapon(2, battle.getOriginalLanes().get(1));
 		battle.purchaseWeapon(3, battle.getOriginalLanes().get(2));
 //		battle.purchaseWeapon(4, battle.getOriginalLanes().get(0));
-		LaneController LC =new LaneController(battle.getOriginalLanes().get(0));
-		LaneController LC2 =new LaneController(battle.getOriginalLanes().get(1));
-		LaneController LC3 =new LaneController(battle.getOriginalLanes().get(2));
+		LaneControllerEasy LC =new LaneControllerEasy(battle.getOriginalLanes().get(0));
+		LaneControllerEasy LC2 =new LaneControllerEasy(battle.getOriginalLanes().get(1));
+		LaneControllerEasy LC3 =new LaneControllerEasy(battle.getOriginalLanes().get(2));
 		for(int i=0; i<5;i++) {
 			battle.passTurn();
 		}
 		
-		LC =new LaneController(battle.getOriginalLanes().get(0));
+		LC =new LaneControllerEasy(battle.getOriginalLanes().get(0));
 		//LC2 =new LaneController(battle.getOriginalLanes().get(1));
 //		LC3 =new LaneController(battle.getOriginalLanes().get(2));
 //		LC.refreshLane(battle.getOriginalLanes().get(0));

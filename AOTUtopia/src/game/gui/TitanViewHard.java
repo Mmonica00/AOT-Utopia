@@ -22,7 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class TitanView extends VBox implements Initializable{
+public class TitanViewHard extends VBox implements Initializable{
 	
 	private ProgressBar healthBar = new ProgressBar();
 	private ImageView titanIcon;
@@ -34,23 +34,23 @@ public class TitanView extends VBox implements Initializable{
 	
 	
 	
-	public TitanView(Titan titan) {
+	public TitanViewHard(Titan titan) {
 		this.titan = titan;
 		this.currHealth = titan.getCurrentHealth();
 		this.orgHealth = titan.getBaseHealth();
 		titanBox.setMaxWidth(100);
-		titanBox.setMaxHeight(180);
+		titanBox.setMaxHeight(100);
 		
 		Label l1 = new Label("   HP:"+titan.getCurrentHealth());
-		l1.setMaxSize(100, 25);
+		l1.setMaxSize(100, 20);
 		l1.setStyle("-fx-font-family: 'Times New Roman';" +
-                "-fx-font-size: 22;" +
+                "-fx-font-size: 20;" +
                 "-fx-font-weight: bold;" +
                 "-fx-text-fill: white;");
 		l1.setOpacity(0.0);
 		
 		//set healthBar 
-		healthBar.setPrefHeight(25);
+		healthBar.setPrefHeight(20);
 		healthBar.setPrefWidth(100);
 		healthBar.setOpacity(0.0);
 		healthBar.setStyle("-fx-accent: green;");
@@ -70,9 +70,9 @@ public class TitanView extends VBox implements Initializable{
 		
 		titanIcon = new ImageView(titanImg);
 		if(titan.getHeightInMeters()>=50)
-			titanIcon.setFitHeight(100+(titan.getHeightInMeters()/2));
+			titanIcon.setFitHeight(40+(titan.getHeightInMeters()/2));
 		else
-			titanIcon.setFitHeight(100+titan.getHeightInMeters());
+			titanIcon.setFitHeight(40+titan.getHeightInMeters());
 		titanIcon.setFitWidth(100);
 		titanIcon.setOnMouseEntered(new EventHandler<Event>() {
 

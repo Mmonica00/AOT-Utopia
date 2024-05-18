@@ -19,7 +19,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-public class WeaponLaneView implements Initializable {
+public class WeaponLaneViewEasy implements Initializable {
 
 	private ArrayList<Weapon> weapons;
 	
@@ -40,7 +40,7 @@ public class WeaponLaneView implements Initializable {
 	private GridPane gridPane = new GridPane();
 	
 	
-	public WeaponLaneView(ArrayList<Weapon> weaponsInput) {
+	public WeaponLaneViewEasy(ArrayList<Weapon> weaponsInput) {
 		gridPane.setMaxHeight(200);
 		gridPane.setMaxWidth(200);
 		
