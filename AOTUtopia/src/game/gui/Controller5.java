@@ -154,7 +154,7 @@ public class Controller5 implements Initializable {
 		this.turnNumLabel.setText("Turn: "+this.numberOfTurns+" ");
 		this.scoreNumLabel.setText("Score: "+this.score+" ");
 		this.resourcesNumLabel.setText("Resources: "+this.resourcesGathered+" ");
-		this.phaseLabel.setText("Battle Phase: "+this.battlePhase+" ");
+		this.phaseLabel.setText("Phase: "+this.battlePhase+" ");
 		
 		//setup the lane Controllers based on this.originalLanes
 		firstLaneController = new LaneControllerHard(battle.getOriginalLanes().get(0));
@@ -286,6 +286,7 @@ public class Controller5 implements Initializable {
 		Rectangle rect = new Rectangle();
 		rect.setWidth(1000);
 		rect.setHeight(110);
+		rect.setOpacity(0.65);
 		
 		// Create three partitions
         AnchorPane partition1 = new AnchorPane();

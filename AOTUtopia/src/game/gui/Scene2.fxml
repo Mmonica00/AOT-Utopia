@@ -15,32 +15,32 @@
             <Image url="@BG1.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="258.0" layoutY="298.0" text="Welcome to Attack On Titan: Utopia" textFill="WHITE">
+      <Label layoutX="292.0" layoutY="304.0" text="Welcome to Attack On Titan: Utopia" textFill="WHITE">
          <font>
             <Font name="Stencil" size="36.0" />
          </font>
       </Label>
-      <Label layoutX="410.0" layoutY="361.0" text="Please Choose a game mode" textFill="WHITE">
+      <Label layoutX="422.0" layoutY="356.0" text="Please Choose a game mode" textFill="WHITE">
          <font>
             <Font name="Rockwell" size="30.0" />
          </font>
       </Label>
-      <RadioButton fx:id="rButtonEasy" layoutX="447.0" layoutY="410.0" mnemonicParsing="false" text="Easy" textFill="WHITE">
+      <RadioButton fx:id="rButtonEasy" layoutX="446.0" layoutY="407.0" mnemonicParsing="false" text="Easy" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="30.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="rButtonHard" layoutX="664.0" layoutY="410.0" mnemonicParsing="false" text="Hard" textFill="WHITE">
+      <RadioButton fx:id="rButtonHard" layoutX="679.0" layoutY="409.0" mnemonicParsing="false" text="Hard" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="30.0" />
          </font>
       </RadioButton>
-      <Button fx:id="continueToRules" layoutX="497.0" layoutY="491.0" mnemonicParsing="false" onAction="#switchToScene3" text="Continue">
+      <Button fx:id="continueToRules" layoutX="525.0" layoutY="491.0" mnemonicParsing="false" onAction="#switchToScene3" text="Continue">
          <font>
             <Font name="Stencil" size="32.0" />
          </font>
       </Button>
-      <ImageView fitHeight="266.0" fitWidth="509.0" layoutX="360.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="266.0" fitWidth="509.0" layoutX="383.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@AOTlogo.png" />
          </image>

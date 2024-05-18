@@ -39,6 +39,10 @@ public class Controller2 implements Initializable {
 		rButtonHard.setToggleGroup(group);
 		
 	}
+	
+	public void checkIfModeChosen() {
+		
+	}
 
 	public void switchToScene3(ActionEvent event) throws IOException {
 	  
