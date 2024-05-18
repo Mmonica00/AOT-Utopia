@@ -279,7 +279,6 @@ public class Controller4 implements Initializable {
         else
         	partition3.getChildren().add(thirdLaneController.getFullLaneView());
         
-        
 //        partition1.getChildren().add(firstLaneController.getFullLaneView());
 //        partition2.getChildren().add(secondLaneController.getFullLaneView());
 //        partition3.getChildren().add(thirdLaneController.getFullLaneView());
