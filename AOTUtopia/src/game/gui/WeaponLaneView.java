@@ -48,19 +48,19 @@ public class WeaponLaneView implements Initializable {
 		
 		setWeaponCounts();
 		
-		Image w1 = new Image(getClass().getResourceAsStream("BG3.jpg"));
+		Image w1 = new Image(getClass().getResourceAsStream("W1.png"));
 		this.weapon1Img = new ImageView(w1);
 		weapon1Img.setFitHeight(height);
 		weapon1Img.setFitWidth(width);
-		Image w2 = new Image(getClass().getResourceAsStream("BG3.jpg"));
+		Image w2 = new Image(getClass().getResourceAsStream("W2.png"));
 		this.weapon2Img = new ImageView(w2);
 		weapon2Img.setFitHeight(height);
 		weapon2Img.setFitWidth(width);
-		Image w3 = new Image(getClass().getResourceAsStream("BG3.jpg"));
+		Image w3 = new Image(getClass().getResourceAsStream("W3.png"));
 		this.weapon3Img = new ImageView(w3);
 		weapon3Img.setFitHeight(height);
 		weapon3Img.setFitWidth(width);
-		Image w4 = new Image(getClass().getResourceAsStream("BG3.jpg"));
+		Image w4 = new Image(getClass().getResourceAsStream("W4.png"));
 		this.weapon4Img = new ImageView(w4);
 		weapon4Img.setFitHeight(height);
 		weapon4Img.setFitWidth(width);

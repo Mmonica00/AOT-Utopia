@@ -19,6 +19,7 @@ import game.engine.titans.Titan;
 import game.engine.titans.TitanRegistry;
 import game.engine.weapons.WeaponRegistry;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -37,6 +38,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -82,16 +88,8 @@ public class Controller4 implements Initializable {
 	private ToggleGroup weaponsToggleGroup;
 	@FXML
 	private VBox allLanesBox;
-	@FXML
-	private Button buyLane1;
-	@FXML
-	private RadioButton weapon1;
-	@FXML
-	private RadioButton weapon2;
-	@FXML
-	private RadioButton weapon3;
-	@FXML
-	private RadioButton weapon4;
+	
+	
 	
 	
 	
@@ -184,7 +182,7 @@ public class Controller4 implements Initializable {
 	public void performBuyWeaponFromShopLane2() { //NOT FINISHED
 		//called when weapon and lane are selected 
 		
-		int boughtWeaponCode = getSelectedWeaponCodeFromShop();
+		int boughtWeaponCode = displayWeaponShop();
 		if(boughtWeaponCode!=0)
 			performPurschaeWeapon(boughtWeaponCode, battle.getOriginalLanes().get(1));
 		
@@ -193,32 +191,11 @@ public class Controller4 implements Initializable {
 	public void performBuyWeaponFromShopLane3() { //NOT FINISHED
 		//called when weapon and lane are selected 
 		
-		int boughtWeaponCode = getSelectedWeaponCodeFromShop();
+		int boughtWeaponCode = displayWeaponShop();
 		if(boughtWeaponCode!=0)
 			performPurschaeWeapon(boughtWeaponCode, battle.getOriginalLanes().get(2));
 		
 		endOfActionCalls();
-	}
-	
-	private int getSelectedWeaponCodeFromShop() { //NOT FINISHED
-		//Helper for performBuyWeaponFromShop();
-		checkEndGameCondition();
-		int weaponCode = 0;
-		RadioButton selectedWeapon = (RadioButton)weaponsToggleGroup.getSelectedToggle();
-		//System.out.println(selectedWeapon.getText());
-		if(selectedWeapon==null) {
-			showAlert("No weapon selected", "please select a weapon from the weaponshop and try again");
-		}else {
-			if(selectedWeapon.equals(weapon1))
-				return 1;
-			if(selectedWeapon.equals(weapon2))
-				return 2;
-			if(selectedWeapon.equals(weapon3))
-				return 3;
-			if(selectedWeapon.equals(weapon4))
-				return 4;
-		}
-		return weaponCode;
 	}
 	
 	public void performPassTurn() { //NOT FINISHED
@@ -400,36 +377,73 @@ public class Controller4 implements Initializable {
 		r4.setToggleGroup(toggleGroup);
 		gridPane.add(r4, 5, 4);
 		
-		Image i1 = new Image(getClass().getResourceAsStream("Weapon1.gif"));
+		Image i1 = new Image(getClass().getResourceAsStream("W1.png"));
 		ImageView iv1 = new ImageView(i1);
 		iv1.setFitWidth(75);
 		iv1.setFitHeight(75);
 		gridPane.add(iv1, 4, 1);
 		
-		Image i2 = new Image(getClass().getResourceAsStream("Weapon2.gif"));
+		Image i2 = new Image(getClass().getResourceAsStream("W2.png"));
 		ImageView iv2 = new ImageView(i2);
 		iv2.setFitWidth(75);
 		iv2.setFitHeight(75);
 		gridPane.add(iv2, 4, 2);
 		
-		Image i3 = new Image(getClass().getResourceAsStream("Weapon3.gif"));
+		Image i3 = new Image(getClass().getResourceAsStream("W3.png"));
 		ImageView iv3 = new ImageView(i3);
 		iv3.setFitWidth(75);
 		iv3.setFitHeight(75);
 		gridPane.add(iv3, 4, 3);
 		
-		Image i4 = new Image(getClass().getResourceAsStream("Weapon4.gif"));
-		ImageView iv4 = new ImageView(i1);
+		Image i4 = new Image(getClass().getResourceAsStream("W4.png"));
+		ImageView iv4 = new ImageView(i4);
 		iv4.setFitWidth(75);
 		iv4.setFitHeight(75);
 		gridPane.add(iv4, 4, 4);
 		
 		
-//		WeaponRegistry wr1 = weapons.get(0);
-//		Label l11 = new Label(weapons.get(0).getName());
-//		gridPane.add(l11, 0, 1);
+		WeaponRegistry wr1 = weapons.get(1);
+		Label l11 = new Label(wr1.getName());
+		l11.setStyle( "-fx-font-family: 'Times New Roman';" +"-fx-font-weight: bold;" +"-fx-text-fill: white;");
+		gridPane.add(l11, 0, 1);
+		Label l12 = new Label("Piercing Cannon");
+		gridPane.add(l12, 1, 1);
+		Label l13 = new Label(wr1.getPrice()+"");
+		gridPane.add(l13, 2, 1);
+		Label l14 = new Label(wr1.getDamage()+"");
+		gridPane.add(l14, 3, 1);
 		
 		
+		WeaponRegistry wr2 = weapons.get(2);
+		Label l21 = new Label(wr2.getName());
+		gridPane.add(l21, 0, 2);
+		Label l22 = new Label("Sniper Cannon");
+		gridPane.add(l22, 1, 2);
+		Label l23 = new Label(wr2.getPrice()+"");
+		gridPane.add(l23, 2, 2);
+		Label l24 = new Label(wr2.getDamage()+"");
+		gridPane.add(l24, 3, 2);
+		
+		
+		WeaponRegistry wr3 = weapons.get(3);
+		Label l31 = new Label(wr3.getName());
+		gridPane.add(l31, 0, 3);
+		Label l32 = new Label("VolleySpread Cannon");
+		gridPane.add(l32, 1, 3);
+		Label l33 = new Label(wr3.getPrice()+"");
+		gridPane.add(l33, 2, 3);
+		Label l34 = new Label(wr3.getDamage()+"");
+		gridPane.add(l34, 3, 3);
+		
+		WeaponRegistry wr4 = weapons.get(4);
+		Label l41 = new Label(wr4.getName());
+		gridPane.add(l41, 0, 4);
+		Label l42 = new Label("Wall Trap");
+		gridPane.add(l42, 1, 4);
+		Label l43 = new Label(wr4.getPrice()+"");
+		gridPane.add(l43, 2, 4);
+		Label l44 = new Label(wr4.getDamage()+"");
+		gridPane.add(l44, 3, 4);
 		
 		
 		
@@ -443,15 +457,29 @@ public class Controller4 implements Initializable {
         Label label = new Label();
         label.setText(".");
         Button closeButton = new Button("BUY WEAPON");
-        closeButton.setOnAction(e -> window.close());
+        closeButton.setOnAction(new EventHandler<ActionEvent>(){
 
+			@Override
+			public void handle(ActionEvent arg0) {
+				if(toggleGroup.getSelectedToggle() == null)
+					showAlert("No weapon Selected", "Please select a weapon from the shop");
+				else
+					window.close();
+			}
+        	
+        });
+
+        
         VBox layout = new VBox();
+        
         layout.getChildren().addAll(label,gridPane,closeButton);
         layout.setAlignment(Pos.TOP_CENTER);
 
-        
-        
-        Scene scene = new Scene(layout,600,400);
+        Image bgImg = new Image(getClass().getResourceAsStream("weaponShop1.jpg"));
+		BackgroundImage backgroundImage = new BackgroundImage(bgImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+		layout.setBackground(new Background(backgroundImage));
+		
+        Scene scene = new Scene(layout,700,450);
         window.setScene(scene);
         window.showAndWait();
         
