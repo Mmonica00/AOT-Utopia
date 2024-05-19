@@ -6,6 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.gui.Controller5">
@@ -13,6 +14,30 @@
       <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true">
          <image>
             <Image url="@gameB1.jpg" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="581.0" layoutX="500.0" layoutY="130.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="581.0" layoutX="660.0" layoutY="130.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="581.0" layoutX="825.0" layoutY="130.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="581.0" layoutX="1017.0" layoutY="130.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+      <ImageView fitHeight="51.0" fitWidth="46.0" layoutX="491.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@F1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="51.0" fitWidth="46.0" layoutX="650.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@F2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="51.0" fitWidth="46.0" layoutX="814.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@F3.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="51.0" fitWidth="46.0" layoutX="1009.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@F4.png" />
          </image>
       </ImageView>
       <Label fx:id="scoreNumLabel" layoutX="751.0" layoutY="24.0" text="sd s" textFill="WHITE">
@@ -40,12 +65,11 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Button>
-      <Button fx:id="AIButton" layoutX="1106.0" layoutY="25.0" mnemonicParsing="false" text="AI?">
+      <Button fx:id="AIButton" layoutX="1106.0" layoutY="25.0" mnemonicParsing="false" onAction="#useAIHelper" text="AI Helper">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Button>
-      <Button layoutX="1192.0" layoutY="49.0" mnemonicParsing="false" onAction="#switchToScene6" text="Button" />
       <VBox fx:id="allLanesBox" layoutX="106.0" layoutY="105.0" maxHeight="600.0" prefHeight="600.0" prefWidth="1138.0" />
       <Button fx:id="buyLane1" layoutX="6.0" layoutY="114.0" mnemonicParsing="false" onAction="#performBuyWeaponFromShopLane1" prefHeight="100.0" prefWidth="100.0" text="Buy Weapon">
          <font>

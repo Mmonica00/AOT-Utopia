@@ -1,16 +1,15 @@
 package game.gui;
 
-import java.awt.DisplayMode;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.ResourceBundle;
 
 import game.engine.Battle;
 import game.engine.BattlePhase;
-import game.engine.base.Wall;
 import game.engine.dataloader.DataLoader;
 import game.engine.exceptions.InsufficientResourcesException;
 import game.engine.exceptions.InvalidLaneException;
@@ -32,7 +31,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -46,13 +44,14 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Controller4 implements Initializable {
 
-	private String playerName;
+	public static boolean lane1Lost=false;
+	public static boolean lane2Lost=false;
+	public static boolean lane3Lost=false;
 	
 	//Battle Attributes
 	private Battle battle;
@@ -67,7 +66,8 @@ public class Controller4 implements Initializable {
 	private ArrayList<Titan> approachingTitans; // will be treated as a queue (FIFO)
 	private PriorityQueue<Lane> lanes;
 	private ArrayList<Lane> originalLanes;
-	private HashMap<Integer, WeaponRegistry> weapons ;
+	private HashMap<Integer, WeaponRegistry> weapons;
+	private Lane chosenLaneFromAI; 
 	
 	
 	//SceneBuilder Attributes
@@ -112,6 +112,7 @@ public class Controller4 implements Initializable {
 			battle = new Battle(1, 0, 40, 3, 250);
 		} catch (IOException e) {
 			System.out.println(e.getCause());
+			System.out.println("BATTLE INITIALIZATION ERROR");
 		}
 		
 		try {
@@ -170,7 +171,7 @@ public class Controller4 implements Initializable {
 
 	//*****************************************************************************************
 	
-	public void performBuyWeaponFromShopLane1() { //NOT FINISHED
+	public void performBuyWeaponFromShopLane1() { //FINISHED
 		//called when weapon and lane are selected 
 		
 		int boughtWeaponCode = displayWeaponShop();
@@ -179,7 +180,7 @@ public class Controller4 implements Initializable {
 		
 		endOfActionCalls();
 	}
-	public void performBuyWeaponFromShopLane2() { //NOT FINISHED
+	public void performBuyWeaponFromShopLane2() { //FINISHED
 		//called when weapon and lane are selected 
 		
 		int boughtWeaponCode = displayWeaponShop();
@@ -188,7 +189,7 @@ public class Controller4 implements Initializable {
 		
 		endOfActionCalls();
 	}
-	public void performBuyWeaponFromShopLane3() { //NOT FINISHED
+	public void performBuyWeaponFromShopLane3() { //FINISHED
 		//called when weapon and lane are selected 
 		
 		int boughtWeaponCode = displayWeaponShop();
@@ -198,28 +199,44 @@ public class Controller4 implements Initializable {
 		endOfActionCalls();
 	}
 	
-	public void performPassTurn() { //NOT FINISHED
+	public void performPassTurn() { //FINISHED
 		//called when pass turn button is clicked
 		checkEndGameCondition();
-		
-		battle.passTurn();
+		if(!battle.isGameOver())
+			battle.passTurn();
 		
 		endOfActionCalls();
 	}
 	
-	public void useAIHelper() { //NOT FINISHED
+	public void useAIHelper() { //FINISHED
 		//called when AI Help button is selected  
+		//gets the most Dangerous lane ID (ex. 1,2,3)
+		//gets a suitable weapon ID (ex. 1,2,3,4)
 		
-		
-		//get the most Dangerous lane ID (ex. 1,2,3)
-		
-		//get a suitable weapon ID (ex. 1,2,3,4)
-		
-		//Purchase the weapon into the lane
-		
-		//call performPurschaseWeapon(int weaponCode, Lane lane);
-		
-		endOfActionCalls();
+		if(!battle.isGameOver()) {
+			int chosenWeaponCode = findBestWeaponCode(battle.getLanes(), battle.getResourcesGathered(), battle.getWeaponFactory().getWeaponShop());
+			
+			if(chosenWeaponCode==-1) {
+				showAlert("AI Message", "Sorry but the AI Helper cannot a find a good Lane to Suggest");
+			}else {
+				//Purchase the weapon into the lane
+				//call performPurschaseWeapon(int weaponCode, Lane lane);
+				try {
+					battle.purchaseWeapon(chosenWeaponCode, chosenLaneFromAI);
+				} catch (InsufficientResourcesException e) {
+					showAlert("AI Message", "Resources are Low!! AI can't help ");
+					System.out.println("AI RESOURCES"); 
+				} catch (InvalidLaneException e) {
+					e.printStackTrace();
+					System.out.println("AI LANES"); //shouldn't happen ever as it gets lanes from PQ
+				} catch (Error e) {
+					e.printStackTrace();
+					System.out.println("AI Error");
+				}
+				
+				endOfActionCalls();
+			}
+		}
 	}
 	
 	private void endOfActionCalls() {
@@ -245,18 +262,27 @@ public class Controller4 implements Initializable {
 		Lane lane2 = getLaneFromID(1, battle.getLanes());
 		Lane lane3 = getLaneFromID(2, battle.getLanes());
 
-		if(!firstLaneController.lane.isLaneLost())
+		if(!firstLaneController.lane.isLaneLost()) {
 			firstLaneController = new LaneControllerEasy(lane1);
-		if(!secondLaneController.lane.isLaneLost())
+		} else {
+//			lane1Lost = true;
+		}
+		if(!secondLaneController.lane.isLaneLost()) {
 			secondLaneController = new LaneControllerEasy(lane2);
-		if(!thirdLaneController.lane.isLaneLost())
+		}else {
+//			lane2Lost = true;
+		}
+		if(!thirdLaneController.lane.isLaneLost()) {
 			thirdLaneController = new LaneControllerEasy(lane3);
+		}else {
+//			lane3Lost = true;
+		}
 		
 		Rectangle rect = new Rectangle();
 		rect.setWidth(1000);
 		rect.setHeight(150);
 		rect.setTranslateX(100);
-		rect.setTranslateY(-30);
+		//rect.setTranslateY(-30);
 		rect.setOpacity(0.65);
 		
 		
@@ -265,10 +291,12 @@ public class Controller4 implements Initializable {
         AnchorPane partition2 = new AnchorPane();
         AnchorPane partition3 = new AnchorPane();
 
-        // Set max height for each partition (adjust these values as needed)
-        partition1.setMaxHeight(450); // max height of 200 pixels
-        partition2.setMaxHeight(450); // max height of 150 pixels
-        partition3.setMaxHeight(450); // max height of 100 pixels
+        partition1.setMaxHeight(450); 
+        //partition1.setStyle("-fx-border-color: black; -fx-border-width: 2px;");
+        partition2.setMaxHeight(450); 
+        //partition2.setStyle("-fx-border-color: black; -fx-border-width: 2px;");
+        partition3.setMaxHeight(450); 
+        //partition3.setStyle("-fx-border-color: black; -fx-border-width: 2px;");
         
         if(firstLaneController.lane.isLaneLost())
         	partition1.getChildren().add(rect);
@@ -339,7 +367,7 @@ public class Controller4 implements Initializable {
 		c.setScore(battle.getScore());
 		
 		
-		stage = (Stage)((Node)anchorPane).getScene().getWindow();
+		stage = (Stage)((Node)passTurnButton).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
@@ -504,6 +532,10 @@ public class Controller4 implements Initializable {
         Label label = new Label();
         label.setText(".");
         Button closeButton = new Button("BUY WEAPON");
+        closeButton.setStyle("-fx-font-family: 'Arial'; -fx-font-weight: bold; -fx-font-size: 11pt;"+"-fx-background-color: #74bad4;"+ "-fx-border-color: black; -fx-border-width: 2px;");
+        closeButton.setPrefWidth(200);
+        closeButton.setPrefHeight(70);
+        closeButton.setTranslateY(-10);
         closeButton.setOnAction(new EventHandler<ActionEvent>(){
 
 			@Override
@@ -526,8 +558,9 @@ public class Controller4 implements Initializable {
 		BackgroundImage backgroundImage = new BackgroundImage(bgImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		layout.setBackground(new Background(backgroundImage));
 		
-        Scene scene = new Scene(layout,900,450);
+        Scene scene = new Scene(layout,950,450);
         window.setScene(scene);
+        window.setResizable(false);
         window.showAndWait();
         
         RadioButton selectedWeapon = (RadioButton)toggleGroup.getSelectedToggle();
@@ -548,7 +581,7 @@ public class Controller4 implements Initializable {
         
     }
 	
-	public static int display(String title, String message) {
+	public static void display(String title, String message) {
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
@@ -567,29 +600,103 @@ public class Controller4 implements Initializable {
         Scene scene = new Scene(layout);
         window.setScene(scene);
         window.showAndWait();
-        return 1;
+        
     }
 
 	//--------------------------------------------------------------------------------
-	// Supplementary methods
+	// AI Methods
 	
+
+
+    public int findBestWeaponCode(PriorityQueue<Lane> lanes, int resourcesGathered, HashMap<Integer, WeaponRegistry> weapons) {
+        int bestWeaponCode = -1;
+        double maxUtility = Double.NEGATIVE_INFINITY;
+
+        for (Lane lane : lanes) {
+            double laneUtility = calculateLaneUtility(lane);
+
+            for (Map.Entry<Integer, WeaponRegistry> entry : weapons.entrySet()) {
+                WeaponRegistry weapon = entry.getValue();
+                if (weapon.getPrice() <= resourcesGathered) {
+                    double weaponUtility = calculateWeaponUtility(weapon, lane); 
+                    double totalUtility = laneUtility * weaponUtility;
+
+                    if (totalUtility > maxUtility) {
+                        maxUtility = totalUtility;
+                        bestWeaponCode = weapon.getCode();
+                        chosenLaneFromAI = lane;
+                    }
+                }
+            }
+        }
+
+        return bestWeaponCode;
+    }
+
+    private double calculateLaneUtility(Lane lane) {
+        // Calculate the utility of the lane based on danger level, wall health
+        double laneUtility = 0;
+
+        laneUtility -= lane.getDangerLevel();
+        laneUtility -= (100 - lane.getLaneWall().getCurrentHealth()) * 0.1;
+
+        return laneUtility;
+    }
+
+    private double calculateWeaponUtility(WeaponRegistry weapon, Lane lane) {
+        // Calculate the utility of the weapon based on factors like weapon type, titan characteristics, etc.
+        double weaponUtility = 0;
+        
+        weaponUtility += weapon.getDamage() * 0.1;
+        
+        switch (weapon.getCode()) {
+            case 1:
+                if (lane.getTitans().size() >= 5) {
+                    weaponUtility += 1;
+                }
+                break;
+            case 2:
+                if (!lane.getTitans().isEmpty()) {
+                    weaponUtility += 1;
+                }
+                break;
+            case 3:
+                weaponUtility += calculateRangeUtility(weapon, lane);
+                break;
+            case 4:
+            	if (lane.getTitans().peek()!=null) {
+            		if(lane.getTitans().peek().getDistance()==0)
+            			weaponUtility += 0.5;
+                }
+                break;
+
+        }
+
+        return weaponUtility;
+    }
+
+    private double calculateRangeUtility(WeaponRegistry weapon, Lane lane) {
+        // Calculate the utility based on the weapon's range and the position of titans in the lane
+        double rangeUtility = 0;
+        int titansInRange = 0;
+        for (Titan titan : lane.getTitans()) {
+            if (titan.getDistance() >= weapon.getMinRange() && titan.getDistance() < weapon.getMaxRange()) {
+                titansInRange++;
+            }
+        }
+        
+        rangeUtility += titansInRange * 0.5;
+
+        return rangeUtility;
+    }
+
 	
-	private void test() {
-		System.out.println("Tester method Shouldn't be called");
-		weapons.get(2).buildWeapon();
-		
-		
-	}
 
 	//--------------------------------------------------------------------------------
 	//Getters and Setters (Just in case)
 	
 	public Battle getBattle() {
 		return battle;
-	}
-
-	public void setPlayerName(String playerName) {
-		this.playerName = playerName;
 	}
 
 	public int getScore() {

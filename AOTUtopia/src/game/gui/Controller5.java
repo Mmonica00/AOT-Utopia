@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.ResourceBundle;
 
@@ -68,6 +69,7 @@ public class Controller5 implements Initializable {
 	private PriorityQueue<Lane> lanes;
 	private ArrayList<Lane> originalLanes;
 	private HashMap<Integer, WeaponRegistry> weapons ;
+	private Lane chosenLaneFromAI;
 	
 	
 	//SceneBuilder Attributes
@@ -226,25 +228,41 @@ public class Controller5 implements Initializable {
 	public void performPassTurn() { //FINISHED
 		//called when pass turn button is clicked
 		checkEndGameCondition();
-		
-		battle.passTurn();
+		if(!battle.isGameOver())
+			battle.passTurn();
 		
 		endOfActionCalls();
 	}
 	
 	public void useAIHelper() { //FINISHED
 		//called when AI Help button is selected  
-		
-		
-		//get the most Dangerous lane ID (ex. 1,2,3)
-		
-		//get a suitable weapon ID (ex. 1,2,3,4)
-		
-		//Purchase the weapon into the lane
-		
-		//call performPurschaseWeapon(int weaponCode, Lane lane);
-		
-		endOfActionCalls();
+				//gets the most Dangerous lane ID (ex. 1,2,3)
+				//gets a suitable weapon ID (ex. 1,2,3,4)
+				
+				if(!battle.isGameOver()) {
+					int chosenWeaponCode = findBestWeaponCode(battle.getLanes(), battle.getResourcesGathered(), battle.getWeaponFactory().getWeaponShop());
+					
+					if(chosenWeaponCode==-1) {
+						showAlert("AI Message", "Sorry but the AI Helper cannot a find a good Lane to Suggest");
+					}else {
+						//Purchase the weapon into the lane
+						//call performPurschaseWeapon(int weaponCode, Lane lane);
+						try {
+							battle.purchaseWeapon(chosenWeaponCode, chosenLaneFromAI);
+						} catch (InsufficientResourcesException e) {
+							showAlert("AI Message", "Resources are Low!! AI can't help ");
+							System.out.println("AI RESOURCES"); 
+						} catch (InvalidLaneException e) {
+							e.printStackTrace();
+							System.out.println("AI LANES"); //shouldn't happen ever as it gets lanes from PQ
+						} catch (Error e) {
+							e.printStackTrace();
+							System.out.println("AI Error");
+						}
+						
+						endOfActionCalls();
+					}
+				}
 	}
 	
 	private void endOfActionCalls() {
@@ -411,35 +429,45 @@ public class Controller5 implements Initializable {
         gridPane.setAlignment(Pos.TOP_CENTER);
         
 		Label l1 = new Label("NAME");
+		l1.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 20pt;");
 		gridPane.add(l1, 0, 0);
 		Label l2 = new Label("TYPE");
+		l2.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 20pt;");
 		gridPane.add(l2, 1, 0);
 		Label l3 = new Label("PRICE");
+		l3.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 20pt;");
 		gridPane.add(l3, 2, 0);
-		Label l4 = new Label("DAMAGE POINTS");
+		Label l4 = new Label("DAMAGE");
+		l4.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 20pt;");
 		gridPane.add(l4, 3, 0);
 		Label l5 = new Label("ICON");
+		l5.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 20pt;");
 		gridPane.add(l5, 4, 0);
-		Label l6 = new Label("SELECT A WEAPON:");
+		Label l6 = new Label("SELECTION:");
+		l6.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 20pt;");
 		gridPane.add(l6, 5, 0);
 		
 		RadioButton r1 = new RadioButton();
 		r1.setText("Weapon 1");
+		r1.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 11pt;");
 		r1.setToggleGroup(toggleGroup);
 		gridPane.add(r1, 5, 1);
 		
 		RadioButton r2 = new RadioButton();
 		r2.setText("Weapon 2");
+		r2.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 11pt;");
 		r2.setToggleGroup(toggleGroup);
 		gridPane.add(r2, 5, 2);
 		
 		RadioButton r3 = new RadioButton();
 		r3.setText("Weapon 3");
+		r3.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 11pt;");
 		r3.setToggleGroup(toggleGroup);
 		gridPane.add(r3, 5, 3);
 		
 		RadioButton r4 = new RadioButton();
 		r4.setText("Weapon 4");
+		r4.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 11pt;");
 		r4.setToggleGroup(toggleGroup);
 		gridPane.add(r4, 5, 4);
 		
@@ -470,45 +498,60 @@ public class Controller5 implements Initializable {
 		
 		WeaponRegistry wr1 = weapons.get(1);
 		Label l11 = new Label(wr1.getName());
-		l11.setStyle( "-fx-font-family: 'Times New Roman';" +"-fx-font-weight: bold;" +"-fx-text-fill: white;");
+		l11.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 11pt;");
 		gridPane.add(l11, 0, 1);
 		Label l12 = new Label("Piercing Cannon");
+		l12.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 11pt;");
 		gridPane.add(l12, 1, 1);
 		Label l13 = new Label(wr1.getPrice()+"");
+		l13.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 11pt;");
 		gridPane.add(l13, 2, 1);
 		Label l14 = new Label(wr1.getDamage()+"");
+		l14.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 11pt;");
 		gridPane.add(l14, 3, 1);
 		
 		
 		WeaponRegistry wr2 = weapons.get(2);
 		Label l21 = new Label(wr2.getName());
+		l21.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 11pt;");
 		gridPane.add(l21, 0, 2);
 		Label l22 = new Label("Sniper Cannon");
+		l22.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 11pt;");
 		gridPane.add(l22, 1, 2);
 		Label l23 = new Label(wr2.getPrice()+"");
+		l23.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 11pt;");
 		gridPane.add(l23, 2, 2);
 		Label l24 = new Label(wr2.getDamage()+"");
+		l24.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 11pt;");
 		gridPane.add(l24, 3, 2);
 		
 		
 		WeaponRegistry wr3 = weapons.get(3);
 		Label l31 = new Label(wr3.getName());
+		l31.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 11pt;");
 		gridPane.add(l31, 0, 3);
 		Label l32 = new Label("VolleySpread Cannon");
+		l32.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 8pt;");
 		gridPane.add(l32, 1, 3);
 		Label l33 = new Label(wr3.getPrice()+"");
+		l33.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 11pt;");
 		gridPane.add(l33, 2, 3);
 		Label l34 = new Label(wr3.getDamage()+"");
+		l34.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 11pt;");
 		gridPane.add(l34, 3, 3);
 		
 		WeaponRegistry wr4 = weapons.get(4);
 		Label l41 = new Label(wr4.getName());
+		l41.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 11pt;");
 		gridPane.add(l41, 0, 4);
 		Label l42 = new Label("Wall Trap");
+		l42.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 11pt;");
 		gridPane.add(l42, 1, 4);
 		Label l43 = new Label(wr4.getPrice()+"");
+		l43.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 11pt;");
 		gridPane.add(l43, 2, 4);
 		Label l44 = new Label(wr4.getDamage()+"");
+		l44.setStyle("-fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 11pt;");
 		gridPane.add(l44, 3, 4);
 		
 		
@@ -517,12 +560,16 @@ public class Controller5 implements Initializable {
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Weapon Shop");
+        window.setTitle("WEAPON SHOP");
         window.setMinWidth(250);
 
         Label label = new Label();
         label.setText(".");
         Button closeButton = new Button("BUY WEAPON");
+        closeButton.setStyle("-fx-font-family: 'Arial'; -fx-font-weight: bold; -fx-font-size: 11pt;"+"-fx-background-color: #74bad4;"+ "-fx-border-color: black; -fx-border-width: 2px;");
+        closeButton.setPrefWidth(200);
+        closeButton.setPrefHeight(70);
+        closeButton.setTranslateY(-10);
         closeButton.setOnAction(new EventHandler<ActionEvent>(){
 
 			@Override
@@ -545,8 +592,9 @@ public class Controller5 implements Initializable {
 		BackgroundImage backgroundImage = new BackgroundImage(bgImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		layout.setBackground(new Background(backgroundImage));
 		
-        Scene scene = new Scene(layout,700,450);
+        Scene scene = new Scene(layout,950,450);
         window.setScene(scene);
+        window.setResizable(false);
         window.showAndWait();
         
         RadioButton selectedWeapon = (RadioButton)toggleGroup.getSelectedToggle();
@@ -590,16 +638,93 @@ public class Controller5 implements Initializable {
     }
 
 	//--------------------------------------------------------------------------------
-	// Supplementary methods
+// AI Methods
 	
-	
-	private void test() {
-		System.out.println("Tester method Shouldn't be called");
-		weapons.get(2).buildWeapon();
-		
-		
-	}
 
+
+    public int findBestWeaponCode(PriorityQueue<Lane> lanes, int resourcesGathered, HashMap<Integer, WeaponRegistry> weapons) {
+        int bestWeaponCode = -1;
+        double maxUtility = Double.NEGATIVE_INFINITY;
+
+        for (Lane lane : lanes) {
+            double laneUtility = calculateLaneUtility(lane);
+
+            for (Map.Entry<Integer, WeaponRegistry> entry : weapons.entrySet()) {
+                WeaponRegistry weapon = entry.getValue();
+                if (weapon.getPrice() <= resourcesGathered) {
+                    double weaponUtility = calculateWeaponUtility(weapon, lane); 
+                    double totalUtility = laneUtility * weaponUtility;
+
+                    if (totalUtility > maxUtility) {
+                        maxUtility = totalUtility;
+                        bestWeaponCode = weapon.getCode();
+                        chosenLaneFromAI = lane;
+                    }
+                }
+            }
+        }
+
+        return bestWeaponCode;
+    }
+
+    private double calculateLaneUtility(Lane lane) {
+        // Calculate the utility of the lane based on danger level, wall health
+        double laneUtility = 0;
+
+        laneUtility -= lane.getDangerLevel();
+        laneUtility -= (100 - lane.getLaneWall().getCurrentHealth()) * 0.1;
+
+        return laneUtility;
+    }
+
+    private double calculateWeaponUtility(WeaponRegistry weapon, Lane lane) {
+        // Calculate the utility of the weapon based on factors like weapon type, titan characteristics, etc.
+        double weaponUtility = 0;
+        
+        weaponUtility += weapon.getDamage() * 0.1;
+        
+        switch (weapon.getCode()) {
+            case 1:
+                if (lane.getTitans().size() >= 5) {
+                    weaponUtility += 1;
+                }
+                break;
+            case 2:
+                if (!lane.getTitans().isEmpty()) {
+                    weaponUtility += 1;
+                }
+                break;
+            case 3:
+                weaponUtility += calculateRangeUtility(weapon, lane);
+                break;
+            case 4:
+            	if (lane.getTitans().peek()!=null) {
+            		if(lane.getTitans().peek().getDistance()==0)
+            			weaponUtility += 0.5;
+                }
+                break;
+
+        }
+
+        return weaponUtility;
+    }
+
+    private double calculateRangeUtility(WeaponRegistry weapon, Lane lane) {
+        // Calculate the utility based on the weapon's range and the position of titans in the lane
+        double rangeUtility = 0;
+        int titansInRange = 0;
+        for (Titan titan : lane.getTitans()) {
+            if (titan.getDistance() >= weapon.getMinRange() && titan.getDistance() < weapon.getMaxRange()) {
+                titansInRange++;
+            }
+        }
+        
+        rangeUtility += titansInRange * 0.5;
+
+        return rangeUtility;
+    }
+
+	
 	//--------------------------------------------------------------------------------
 	//Getters and Setters (Just in case)
 	

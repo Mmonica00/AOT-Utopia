@@ -57,20 +57,7 @@ public class LaneControllerHard {
 		
 	}
 
-	public void refreshLane(Lane newLane) {
-		this.lane = newLane;
-		
-		if(lane==null || lane.isLaneLost()) {
-			//lanePane.getChildren().add(lostLane);
-			
-			
-			
-		} else {
-			WallViewHard.updateWall(lane.getLaneWall());
-			weaponLane = new WeaponLaneViewHard(lane.getWeapons());
-			updateTitansViews();		
-		}
-	}
+
 
 	private void updateTitansViews() {
 		
