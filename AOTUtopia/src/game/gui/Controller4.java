@@ -210,6 +210,7 @@ public class Controller4 implements Initializable {
 	
 	public void useAIHelper() { //FINISHED
 		//called when AI Help button is selected  
+		//ALL Helper methods can be find at the end of the class
 		//gets the most Dangerous lane ID (ex. 1,2,3)
 		//gets a suitable weapon ID (ex. 1,2,3,4)
 		
@@ -217,14 +218,18 @@ public class Controller4 implements Initializable {
 			int chosenWeaponCode = findBestWeaponCode(battle.getLanes(), battle.getResourcesGathered(), battle.getWeaponFactory().getWeaponShop());
 			
 			if(chosenWeaponCode==-1) {
-				showAlert("AI Message", "Sorry but the AI Helper cannot a find a good Lane to Suggest");
+				showAlert("AI Message", "AI Helper cannot suggest a good Lane so it passed the turn");
+				battle.passTurn();
+				updateTurnUI();
 			}else {
 				//Purchase the weapon into the lane
-				//call performPurschaseWeapon(int weaponCode, Lane lane);
+				
 				try {
 					battle.purchaseWeapon(chosenWeaponCode, chosenLaneFromAI);
 				} catch (InsufficientResourcesException e) {
-					showAlert("AI Message", "Resources are Low!! AI can't help ");
+					showAlert("AI Message", "Resources are Low!! AI can't help so it passed the turn");
+					battle.passTurn();
+					updateTurnUI();
 					System.out.println("AI RESOURCES"); 
 				} catch (InvalidLaneException e) {
 					e.printStackTrace();
@@ -604,7 +609,7 @@ public class Controller4 implements Initializable {
     }
 
 	//--------------------------------------------------------------------------------
-	// AI Methods
+	// AI Helper Methods
 	
 
 

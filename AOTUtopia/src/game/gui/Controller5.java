@@ -236,33 +236,38 @@ public class Controller5 implements Initializable {
 	
 	public void useAIHelper() { //FINISHED
 		//called when AI Help button is selected  
-				//gets the most Dangerous lane ID (ex. 1,2,3)
-				//gets a suitable weapon ID (ex. 1,2,3,4)
+		//ALL Helper methods can be find at the end of the class
+		//gets the most Dangerous lane ID (ex. 1,2,3)
+		//gets a suitable weapon ID (ex. 1,2,3,4)
 				
-				if(!battle.isGameOver()) {
-					int chosenWeaponCode = findBestWeaponCode(battle.getLanes(), battle.getResourcesGathered(), battle.getWeaponFactory().getWeaponShop());
-					
-					if(chosenWeaponCode==-1) {
-						showAlert("AI Message", "Sorry but the AI Helper cannot a find a good Lane to Suggest");
-					}else {
-						//Purchase the weapon into the lane
-						//call performPurschaseWeapon(int weaponCode, Lane lane);
-						try {
-							battle.purchaseWeapon(chosenWeaponCode, chosenLaneFromAI);
-						} catch (InsufficientResourcesException e) {
-							showAlert("AI Message", "Resources are Low!! AI can't help ");
-							System.out.println("AI RESOURCES"); 
-						} catch (InvalidLaneException e) {
-							e.printStackTrace();
-							System.out.println("AI LANES"); //shouldn't happen ever as it gets lanes from PQ
-						} catch (Error e) {
-							e.printStackTrace();
-							System.out.println("AI Error");
-						}
-						
-						endOfActionCalls();
+		if(!battle.isGameOver()) {
+			int chosenWeaponCode = findBestWeaponCode(battle.getLanes(), battle.getResourcesGathered(), battle.getWeaponFactory().getWeaponShop());
+				
+			if(chosenWeaponCode==-1) {
+				showAlert("AI Message", "AI Helper cannot suggest a good Lane so it passed the turn");
+				battle.passTurn();
+				updateTurnUI();
+			}else {
+				//Purchase the weapon into the lane
+				
+				try {
+					battle.purchaseWeapon(chosenWeaponCode, chosenLaneFromAI);
+				} catch (InsufficientResourcesException e) {
+					showAlert("AI Message", "Resources are Low!! AI can't help so it passed the turn");
+					battle.passTurn();
+					updateTurnUI();
+					System.out.println("AI RESOURCES"); 
+					} catch (InvalidLaneException e) {
+						e.printStackTrace();
+						System.out.println("AI LANES"); //shouldn't happen ever as it gets lanes from PQ
+					} catch (Error e) {
+						e.printStackTrace();
+						System.out.println("AI Error");
 					}
+					
+					endOfActionCalls();
 				}
+		}
 	}
 	
 	private void endOfActionCalls() {
