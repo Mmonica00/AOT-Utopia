@@ -36,4 +36,4 @@ After the titans breach Wall Maria, they make their way to Wall Rose, threatenin
 
 ## Contact
 
-For questions or feedback, please contact [your-email@example.com](mailto:your-email@example.com).
+For questions or feedback, please contact [roger.elias669@gmail.com](mailto:roger.elias669@gmail.com).
