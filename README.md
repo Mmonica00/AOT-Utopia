@@ -34,6 +34,4 @@ After the titans breach Wall Maria, they make their way to Wall Rose, threatenin
 - **Mouse/Touch**: Click or tap to select and place weapons on the battlefield.
 
 
-## Contact
 
-For questions or feedback, please contact [roger.elias669@gmail.com](mailto:roger.elias669@gmail.com).
